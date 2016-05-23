@@ -1,5 +1,7 @@
 package me.vliupro.smb.po;
 
+import me.vliupro.smb.utils.Md5;
+
 /**
  * Created by vliupro on 16-5-22.
  */
@@ -16,7 +18,7 @@ public class User {
 
     public User(String nickName, String password, String email) {
         this.nickName = nickName;
-        this.password = password;
+        this.password = User.encryption(password);
         this.email = email;
     }
 
@@ -50,5 +52,9 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public static String encryption(String password) {
+        return Md5.encryption(password);
     }
 }
