@@ -9,9 +9,24 @@ import java.util.List;
  */
 public interface CommentDao {
 
+    /**
+     * 添加评论
+     * @param comment
+     * @return
+     */
     boolean addComment(Comment comment);
 
+    /**
+     * 删除评论
+     * @param commentId
+     * @return
+     */
     boolean deleteComment(int commentId);
 
-    List<Comment> getCommentsByWeiboId();
+    /**
+     * 获得微博下所有评论
+     * @param weiboId
+     * @return
+     */
+    List<Comment> getCommentsByWeiboId(int weiboId);
 }

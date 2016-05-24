@@ -3,6 +3,7 @@ package me.vliupro.smb.dao;
 import me.vliupro.smb.po.Weibo;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,23 +13,43 @@ import java.util.Map;
 public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
 
     public boolean addWeibo(Weibo weibo) {
-        return false;
+        String sql = "insert into db_weibo (w_content, user_id, w_ctime, isOriginal, remark) " +
+                "values(?,?,?,?,?)";
+        int count = this.db.update(sql, weibo.getwContent(), weibo.getUserId(),
+                weibo.getwCtime(), weibo.isOriginal(), weibo.getRemark());
+        return count > 0;
     }
 
     public boolean deleteWeibo(int weiboId) {
-        return false;
+        String sql = "delete from db_weibo where id=?";
+        int count = this.db.update(sql, weiboId);
+        return count > 0;
     }
 
     public Weibo getWeiboById(int weiboId) {
-        return null;
+        String sql = "select * from db_weibo where id=?";
+        Weibo weibo = (Weibo) this.generate(this.db.query(sql, weiboId));
+        return weibo;
     }
 
     public List<Weibo> getWeibosLimited(int begin, int total) {
-        return null;
+        String sql = "select * from db_weibo limit ?,?";
+        List<Weibo> weibos = new ArrayList<Weibo>();
+        List<Map<String, Object>> weiboMaps = this.db.queryList(sql, begin, total);
+        for (Map<String, Object> weiboMap : weiboMaps) {
+            weibos.add((Weibo) this.generate(weiboMap));
+        }
+        return weibos;
     }
 
     public List<Weibo> getWeibosByUserId(int userId) {
-        return null;
+        List<Weibo> weibos = new ArrayList<Weibo>();
+        String sql = "select * from db_weibo where user_id=?";
+        List<Map<String, Object>> weiboMaps = this.db.queryList(sql, userId);
+        for (Map<String, Object> weiboMap : weiboMaps) {
+            weibos.add((Weibo) this.generate(weiboMap));
+        }
+        return weibos;
     }
 
     public List<Weibo> getWeibosByListUserIds(List<Integer> userIds) {

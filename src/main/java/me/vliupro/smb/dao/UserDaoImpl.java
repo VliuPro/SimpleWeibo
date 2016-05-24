@@ -10,19 +10,27 @@ import java.util.Map;
 public class UserDaoImpl extends BaseImpl implements UserDao {
 
     public boolean addUser(User user) {
-        return false;
+        String sql = "insert db_user (nickname, password, email) values(?,?,?)";
+        int count = this.db.update(sql, user.getNickName(), user.getPassword(), user.getEmail());
+        return count > 0;
     }
 
     public boolean isExistNickname(String nickname) {
-        return false;
+        String sql = "select nickname from db_user where nickname=?";
+        Map<String, Object> map = this.db.query(sql, nickname);
+        return map.get("nickname") != null;
     }
 
     public boolean isExistEmail(String email) {
-        return false;
+        String sql = "select email from db_user where email=?";
+        Map<String, Object> map = this.db.query(sql, email);
+        return map.get("email") != null;
     }
 
     public String getPasswdByEmail(String email) {
-        return null;
+        String sql = "select password from db_user where email=?";
+        String passwd = this.db.query(sql, email).get("password").toString();
+        return passwd;
     }
 
     @Override

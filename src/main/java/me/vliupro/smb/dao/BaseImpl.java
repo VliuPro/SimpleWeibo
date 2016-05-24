@@ -13,6 +13,11 @@ public class BaseImpl {
         db = new DBUtil();
     }
 
+    /**
+     * 由map生成对象
+     * @param map
+     * @return
+     */
     protected Object generate(Map<String, Object> map){
         return null;
     }

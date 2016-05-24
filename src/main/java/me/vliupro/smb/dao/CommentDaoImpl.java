@@ -3,6 +3,7 @@ package me.vliupro.smb.dao;
 import me.vliupro.smb.po.Comment;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,15 +13,26 @@ import java.util.Map;
 public class CommentDaoImpl extends BaseImpl implements CommentDao {
 
     public boolean addComment(Comment comment) {
-        return false;
+        String sql = "insert into db_comment (c_content, user_id, weibo_id, c_ctime) values(?,?,?,?)";
+        int count = this.db.update(sql, comment.getcContent(), comment.getUserId(),
+                comment.getWeiboId(), comment.getcCtime());
+        return count > 0;
     }
 
     public boolean deleteComment(int commentId) {
-        return false;
+        String sql = "delete from db_comment where id=?";
+        int count = this.db.update(sql, commentId);
+        return count > 0;
     }
 
-    public List<Comment> getCommentsByWeiboId() {
-        return null;
+    public List<Comment> getCommentsByWeiboId(int weiboId) {
+        List<Comment> comments = new ArrayList<Comment>();
+        String sql = "select * from db_comment where weibo_id=?";
+        List<Map<String, Object>> commentMaps = this.db.queryList(sql, weiboId);
+        for (Map<String, Object> commentMap : commentMaps) {
+            comments.add((Comment) this.generate(commentMap));
+        }
+        return comments;
     }
 
     @Override

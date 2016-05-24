@@ -9,14 +9,40 @@ import java.util.List;
  */
 public interface FollowDao {
 
+    /**
+     * 添加关注
+     * @param follow
+     * @return
+     */
     boolean addFollow(Follow follow);
 
-    boolean deleteFollow(int followed);
+    /**
+     * 取消关注
+     * @param followId
+     * @return
+     */
+    boolean deleteFollow(int followId);
 
+    /**
+     * 删除关注（By follower and followed）
+     * @param followerId
+     * @param followedId
+     * @return
+     */
     boolean deleteFollowByUser(int followerId, int followedId);
 
+    /**
+     * 获得follower关注的所有ID
+     * @param followerId
+     * @return
+     */
     List<Integer> getFollowsByFollower(int followerId);
 
+    /**
+     * 获取所有关注followed的用户ID
+     * @param followedId
+     * @return
+     */
     List<Integer> getFollowsByFollowed(int followedId);
 
 }
