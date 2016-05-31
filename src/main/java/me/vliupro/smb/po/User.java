@@ -2,6 +2,9 @@ package me.vliupro.smb.po;
 
 import me.vliupro.smb.utils.Md5;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by vliupro on 16-5-22.
  */
@@ -56,5 +59,23 @@ public class User {
 
     public static String encryption(String password) {
         return Md5.encryption(password);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", nickName='" + nickName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> userMap = new HashMap<String, Object>();
+        userMap.put("id", this.getUserId());
+        userMap.put("nickname", this.getNickName());
+        userMap.put("email", this.getEmail());
+        return userMap;
     }
 }

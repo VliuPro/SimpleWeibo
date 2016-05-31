@@ -13,7 +13,7 @@ import java.util.Map;
 public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
 
     public boolean addWeibo(Weibo weibo) {
-        String sql = "insert into db_weibo (w_content, user_id, w_ctime, isOriginal, remark) " +
+        String sql = "insert into db_weibo (w_content, user_id, w_ctime, is_original, remark) " +
                 "values(?,?,?,?,?)";
         int count = this.db.update(sql, weibo.getwContent(), weibo.getUserId(),
                 weibo.getwCtime(), weibo.isOriginal(), weibo.getRemark());
@@ -63,7 +63,7 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
         weibo.setUserId(Integer.parseInt(map.get("user_id").toString()));
         weibo.setwContent(map.get("w_content").toString());
         weibo.setwCtime((new java.util.Date(((Timestamp) map.get("w_ctime")).getTime())));
-        weibo.setOriginal(Integer.parseInt(map.get("isOriginal").toString()) == 1);
+        weibo.setOriginal("1".equals(map.get("is_original").toString()));
         weibo.setRemark(map.get("remark").toString());
         return weibo;
     }

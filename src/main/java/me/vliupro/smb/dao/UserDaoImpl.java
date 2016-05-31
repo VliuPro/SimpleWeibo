@@ -18,13 +18,21 @@ public class UserDaoImpl extends BaseImpl implements UserDao {
     public boolean isExistNickname(String nickname) {
         String sql = "select nickname from db_user where nickname=?";
         Map<String, Object> map = this.db.query(sql, nickname);
-        return map.get("nickname") != null;
+        if (map == null) {
+            return false;
+        } else {
+            return map.containsKey("nickname");
+        }
     }
 
     public boolean isExistEmail(String email) {
         String sql = "select email from db_user where email=?";
         Map<String, Object> map = this.db.query(sql, email);
-        return map.get("email") != null;
+        if (map == null) {
+            return false;
+        } else {
+            return map.containsKey("email");
+        }
     }
 
     public String getPasswdByEmail(String email) {
@@ -33,13 +41,20 @@ public class UserDaoImpl extends BaseImpl implements UserDao {
         return passwd;
     }
 
+    public User getUserByEmail(String email) {
+        String sql = "select * from db_user where email=?";
+        Map<String, Object> userMap = this.db.query(sql, email);
+        return (User) this.generate(userMap);
+    }
+
     @Override
     protected Object generate(Map<String, Object> map) {
         User user = new User();
         user.setUserId(Integer.parseInt(map.get("id").toString()));
         user.setNickName(map.get("nickname").toString());
-        user.setEmail(map.get("password").toString());
-        user.setNickName(map.get("email").toString());
+        user.setPassword(map.get("password").toString());
+        user.setEmail(map.get("email").toString());
         return user;
     }
+
 }

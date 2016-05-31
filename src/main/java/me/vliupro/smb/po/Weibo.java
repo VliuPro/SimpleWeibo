@@ -73,4 +73,16 @@ public class Weibo {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    @Override
+    public String toString() {
+        return "Weibo{" +
+                "weiboId=" + weiboId +
+                ", wContent='" + wContent + '\'' +
+                ", userId=" + userId +
+                ", wCtime=" + wCtime +
+                ", isOriginal=" + isOriginal +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }
