@@ -4,6 +4,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import me.vliupro.smb.dao.UserDao;
 import me.vliupro.smb.dao.UserDaoImpl;
 import me.vliupro.smb.po.User;
+import me.vliupro.smb.service.UserService;
+import me.vliupro.smb.service.UserServiceImpl;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.components.ActionError;
 
@@ -14,7 +16,11 @@ import java.util.Map;
  */
 public class UserAction extends ActionSupport {
 
-    private UserDao ud = new UserDaoImpl();
+    private UserService us;
+
+    public UserAction() {
+        us = new UserServiceImpl();
+    }
 
     private String username;
     private String password;
@@ -32,9 +38,9 @@ public class UserAction extends ActionSupport {
         }
 
         if (email != null) {
-            if (User.encryption(password).equals(ud.getPasswdByEmail(email))) {
+            if (User.encryption(password).equals(us.getPasswdByEmail(email))) {
                 //取出user信息存入session
-                ServletActionContext.getRequest().getSession().setAttribute("user", ud.getUserByEmail(email).toMap());
+                ServletActionContext.getRequest().getSession().setAttribute("user", us.getUserByEmail(email).toMap());
                 if(isRemember) {
                     ServletActionContext.getRequest().getSession().setMaxInactiveInterval( 60 * 60 * 24 * 7 );//一个星期
                 } else {
@@ -55,7 +61,7 @@ public class UserAction extends ActionSupport {
      * @return
      */
     public String register(){
-        if (ud.isExistNickname(username) || ud.isExistEmail(email)) {
+        if (us.checkNickName(username) || us.checkEmail(email)) {
             addActionError("username or email is exist!");
             return ERROR;
         } else {
@@ -63,7 +69,7 @@ public class UserAction extends ActionSupport {
             user.setEmail(email);
             user.setNickName(username);
             user.setPassword(User.encryption(password));
-            if (ud.addUser(user)) {
+            if (us.addUser(user)) {
                 return SUCCESS;
             } else {
                 return ERROR;
