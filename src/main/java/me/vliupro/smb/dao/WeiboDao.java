@@ -51,4 +51,10 @@ public interface WeiboDao {
      * @return
      */
     List<Weibo> getWeibosByListUserIds(List<Integer> userIds);
+
+    /**
+     * 查找weibo的数量
+     * @return
+     */
+    int getTotalNum();
 }

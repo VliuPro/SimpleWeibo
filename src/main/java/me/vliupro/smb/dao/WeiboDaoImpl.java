@@ -57,6 +57,12 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
     }
 
     @Override
+    public int getTotalNum() {
+        String sql = "select count(*) from db_weibo";
+        return Integer.parseInt(db.query(sql).get("num").toString());
+    }
+
+    @Override
     protected Object generate(Map<String, Object> map) {
         Weibo weibo = new Weibo();
         weibo.setWeiboId(Integer.parseInt(map.get("id").toString()));
