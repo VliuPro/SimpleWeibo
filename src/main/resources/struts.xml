@@ -7,11 +7,58 @@
 <struts>
 
     <constant name="struts.devMode" value="true" />
+    <!--<constant name="struts.action.extension" value=","/>-->
 
-    <package name="sm" namespace="/" extends="struts-default">
+    <package name="struts-baseEx" namespace="/" extends="struts-default">
 
-        <action name="index">
-            <result>/index.jsp</result>
+        <interceptors>
+            <interceptor name="auth" class="me.vliupro.smb.interceptor.AuthInterceptor"></interceptor>
+            <interceptor-stack name="auth-stack">
+                <interceptor-ref name="auth"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="auth-stack"></default-interceptor-ref>
+        
+        <global-results>
+            <result name="noLogin" type="redirect">/index.jsp</result>
+        </global-results>
+
+    </package>
+
+
+    <package name="sm" namespace="/" extends="struts-baseEx">
+
+        <!--Index跳转-->
+        <action name="index" class="me.vliupro.smb.action.IndexAction" method="execute">
+            <result name="success">/index.jsp</result>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+        </action>
+
+        <!--发表微博-->
+        <action name="publish" class="me.vliupro.smb.action.WeiboAction" method="publish">
+            <result name="success">/listWeibo.jsp</result>
+            <result name="error" type="redirect">/index.jsp</result>
+        </action>
+
+        <!--登录-->
+        <action name="login" class="me.vliupro.smb.action.UserAction" method="login">
+            <result name="success" type="redirect">/main/index.jsp</result>
+            <result name="error">/index.jsp</result>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+        </action>
+
+        <!--注册-->
+        <action name="register" class="me.vliupro.smb.action.UserAction" method="register">
+            <result name="success" type="redirect">/index.jsp</result>
+            <result name="error">/index.jsp</result>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+        </action>
+
+        <!--登出-->
+        <action name="logout" class="me.vliupro.smb.action.UserAction" method="logout">
+            <result name="success" type="redirect">/index.jsp</result>
         </action>
 
     </package>
