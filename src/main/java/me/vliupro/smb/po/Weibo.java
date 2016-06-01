@@ -13,17 +13,28 @@ public class Weibo {
     private Date wCtime; //发表微博时间
     private boolean isOriginal; //是否原创
     private String remark = ""; //转发评论
+    private int forwardId = -1; //转发者ID
+    private Date wFtime; //转发时间
 
     public Weibo() {
 
     }
 
-    public Weibo(String wContent, int userId, boolean isOriginal, String remark) {
+    public Weibo(String wContent, int userId, boolean isOriginal) {
+        this.wContent = wContent;
+        this.userId = userId;
+        this.wCtime = new Date();
+        this.isOriginal = isOriginal;
+    }
+
+    public Weibo(String wContent, int userId, boolean isOriginal, String remark, int forwardId) {
         this.wContent = wContent;
         this.userId = userId;
         this.wCtime = new Date();
         this.isOriginal = isOriginal;
         this.remark = remark;
+        this.forwardId = forwardId;
+        this.wFtime = new Date();
     }
 
     public int getWeiboId() {
@@ -74,6 +85,22 @@ public class Weibo {
         this.remark = remark;
     }
 
+    public int getForwardId() {
+        return forwardId;
+    }
+
+    public void setForwardId(int forwardId) {
+        this.forwardId = forwardId;
+    }
+
+    public Date getwFtime() {
+        return wFtime;
+    }
+
+    public void setwFtime(Date wFtime) {
+        this.wFtime = wFtime;
+    }
+
     @Override
     public String toString() {
         return "Weibo{" +
@@ -83,6 +110,7 @@ public class Weibo {
                 ", wCtime=" + wCtime +
                 ", isOriginal=" + isOriginal +
                 ", remark='" + remark + '\'' +
+                ", forwardId=" + forwardId +
                 '}';
     }
 }

@@ -13,10 +13,19 @@ import java.util.Map;
 public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
 
     public boolean addWeibo(Weibo weibo) {
-        String sql = "insert into db_weibo (w_content, user_id, w_ctime, is_original, remark) " +
-                "values(?,?,?,?,?)";
+        String sql = "insert into db_weibo (w_content, user_id, w_ctime, is_original) " +
+                "values(?,?,?,?)";
         int count = this.db.update(sql, weibo.getwContent(), weibo.getUserId(),
-                weibo.getwCtime(), weibo.isOriginal(), weibo.getRemark());
+                weibo.getwCtime(), weibo.isOriginal());
+        return count > 0;
+    }
+
+    @Override
+    public boolean addForwardWeibo(Weibo weibo) {
+        String sql = "insert into db_weibo (w_content, user_id, w_ctime, is_original, remark, forward_id，w_ftime) " +
+                "values(?,?,?,?,?,?)";
+        int count = this.db.update(sql, weibo.getwContent(), weibo.getUserId(),
+                weibo.getwCtime(), weibo.isOriginal(), weibo.getRemark(), weibo.getForwardId(), weibo.getwFtime());
         return count > 0;
     }
 
@@ -77,6 +86,12 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
         weibo.setwCtime((new java.util.Date(((Timestamp) map.get("w_ctime")).getTime())));
         weibo.setOriginal((Boolean) map.get("is_original"));
         weibo.setRemark(map.get("remark").toString());
+        weibo.setForwardId(Integer.parseInt(map.get("forward_id").toString()));
+        if (weibo.isOriginal()) {
+            weibo.setwFtime(null);
+        } else {
+            weibo.setwFtime((new java.util.Date(((Timestamp) map.get("w_ftime")).getTime())));
+        }
         return weibo;
     }
 }

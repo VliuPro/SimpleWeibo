@@ -27,6 +27,10 @@ public class WeiboAction extends ActionSupport {
 
     public String content;
 
+    /**
+     * 发布微博
+     * @return
+     */
     public String publish() {
         HttpSession session = ServletActionContext.getRequest().getSession();
         Map<String, Object> userMap = (Map<String, Object>) session.getAttribute("user");
@@ -38,10 +42,8 @@ public class WeiboAction extends ActionSupport {
             weibo.setwCtime(new java.util.Date());
             weibo.setOriginal(true);
             weibo.setRemark("");
+            weibo.setForwardId(-1);
             if (ws.publish(weibo)) {
-                ServletActionContext.getRequest().setAttribute("pub_weibo", weibo);
-                List<Weibo> weibos = ws.getWeibosByUserId(Integer.parseInt(userMap.get("id").toString()));
-                ServletActionContext.getRequest().setAttribute("weibos", weibos);
                 return SUCCESS;
             } else {
                 return ERROR;
@@ -49,5 +51,13 @@ public class WeiboAction extends ActionSupport {
         } else {
             return ERROR;
         }
+    }
+
+    /**
+     * 转发微博
+     * @return
+     */
+    public String forward() {
+        return SUCCESS;
     }
 }

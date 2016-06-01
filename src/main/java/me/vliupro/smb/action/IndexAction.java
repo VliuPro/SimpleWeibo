@@ -41,6 +41,9 @@ public class IndexAction extends ActionSupport {
         List<Weibo> weibos = page.getItems();
         for (Weibo weibo : weibos) {
             usersMap.put(weibo.getUserId(), us.getUserById(weibo.getUserId()));
+            if (weibo.getForwardId() != -1) {
+                usersMap.put(weibo.getForwardId(), us.getUserById(weibo.getForwardId()));
+            }
         }
         ServletActionContext.getRequest().setAttribute("page", page);
         ServletActionContext.getRequest().setAttribute("idMap", usersMap);

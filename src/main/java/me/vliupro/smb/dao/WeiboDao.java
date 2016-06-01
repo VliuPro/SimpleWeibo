@@ -10,11 +10,18 @@ import java.util.List;
 public interface WeiboDao {
 
     /**
-     * 添加微博
+     * 添加微博(原创)
      * @param weibo
      * @return
      */
     boolean addWeibo(Weibo weibo);
+
+    /**
+     * 添加微博(转发)
+     * @param weibo
+     * @return
+     */
+    boolean addForwardWeibo(Weibo weibo);
 
     /**
      * 删除微博
