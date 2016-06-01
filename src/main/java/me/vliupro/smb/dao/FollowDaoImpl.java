@@ -50,6 +50,30 @@ public class FollowDaoImpl extends BaseImpl implements FollowDao {
     }
 
     @Override
+    public int getFollowerNum(int followerId) {
+        String sql = "select count(*) as num from db_follow where follower_id=?";
+        Map<String, Object> map = db.query(sql, followerId);
+        String num = map.get("num").toString();
+        if (num != null) {
+            return Integer.parseInt(num);
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
+    public int getFollowedNum(int followedId) {
+        String sql = "select count(*) as num from db_follow where followed_id=?";
+        Map<String, Object> map = db.query(sql, followedId);
+        String num = map.get("num").toString();
+        if (num != null) {
+            return Integer.parseInt(num);
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
     protected Object generate(Map<String, Object> map) {
         Follow follow = new Follow();
         follow.setFollowId(Integer.parseInt(map.get("id").toString()));
