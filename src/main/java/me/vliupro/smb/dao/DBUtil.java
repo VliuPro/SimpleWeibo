@@ -1,5 +1,8 @@
 package me.vliupro.smb.dao;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +14,8 @@ import java.util.Map;
  */
 public class DBUtil {
 
+    private static Logger logger = LogManager.getLogger(DBUtil.class);
+
     private String DATABASE = "simp_mb";
 
     /**
@@ -20,7 +25,7 @@ public class DBUtil {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error("JDBC驱动加载失败");
         }
     }
 
@@ -34,7 +39,7 @@ public class DBUtil {
         try {
             conn = DriverManager.getConnection(URL_BASE + DATABASE + URL_PARAM, USER, PASSWD);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("获取数据库连接失败");
         }
         return conn;
     }
@@ -53,7 +58,7 @@ public class DBUtil {
                 rs.close();
                 rs = null;
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error("关闭 ResultSet 失败");
             }
         }
         if (st != null) {
@@ -61,7 +66,7 @@ public class DBUtil {
                 st.close();
                 st = null;
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error("关闭 PreparedStatement 失败");
             }
         }
         if (conn != null) {
@@ -69,7 +74,7 @@ public class DBUtil {
                 conn.close();
                 conn = null;
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error("关闭 Connection 失败");
             }
         }
     }
@@ -104,7 +109,7 @@ public class DBUtil {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询多个对象失败，sql: " + sql);
         } finally {
             close(conn, ps, rs);
         }
@@ -138,7 +143,7 @@ public class DBUtil {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("查询单个对象失败，sql: " + sql);
         } finally {
             close(connection, ps, rs);
         }
@@ -161,7 +166,7 @@ public class DBUtil {
             setParameter(ps, obj);
             rows = ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("增加、修改、删除 - 失败，sql: " + sql);
         } finally {
             close(conn, ps, null);
         }
