@@ -124,14 +124,19 @@ div {
     border-right-width: 1px;
     border-right-style: solid;}
 
-
-
 .info_txt2{ font-size:14px;}
 
+.resend{ width:100%; padding-top:5px; background: #eee;}
+.discuss{font-size:15px;line-height:25px; width:100%; padding: 10px 0;}
+.re_userName{ float:left; width:100%; margin-bottom:5px;}
+.re_userName a{ font-size:16px;}
 
+/***
+-----------------分页效果
+*/
+/*分页的效果*/
+.change_pages{ margin-bottom:25px; float:right;}
 
-
-
-
-
-
+.change_pages span{ margin-right:20px; margin-left:20px;}
+.change_pages a{ color:#000;}
+.change_pages a:hover{ text-decoration:underline; color:blue;}

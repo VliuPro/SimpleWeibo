@@ -4,6 +4,11 @@
 	margin: 0;
 	padding: 0;
 }
+
+textarea {
+    resize: none;
+}
+
 body{
 height:100%; /*使内容高度和body一样*/
 min_width:1000px;
@@ -66,7 +71,7 @@ opacity:0.8;filter:alpha(opacity=57);/*设置表单背景色半透明*/
 .clearfix:after{ content:"."; display:block; height:0; clear:both; visibility:hidden;}/*保证每条微博内容不会溢出*/
 
 
-.user_info{ height:55px; width:580px; }
+.user_info{ height:65px; width:580px; }
 .userPic{ float:left;}
 .userPic img{ width:50px; height:50px; margin-top:20px;}
 .userName{float:left; padding-top:20px; margin-left:10px; color:#000;}
@@ -76,7 +81,7 @@ opacity:0.8;filter:alpha(opacity=57);/*设置表单背景色半透明*/
 
 .WB_text{ margin-top:30px; font-size:14px; padding-bottom:3px; line-height:23px; font-family:Arial;}
 
-.WB_media{ margin-top:10px; float:left;width:40%;}
+.WB_media{ margin-top:10px; width:40%;}
 .mediabox img{ max-width:250px;}
 
 .mediabox
@@ -113,7 +118,7 @@ opacity:0.8;filter:alpha(opacity=57);/*设置表单背景色半透明*/
 .handtxt{padding-left:5px; }
 
 /*评论区域的隐藏显示开始*/
-.handle_comt{ width:99.7%;  background-color:#F2F2F2; margin-bottom:10px; border:1px solid #FFF; height:100%; position:relative;}
+.handle_comt{ width:99.7%;  background-color:#F2F2F2; margin-bottom:10px; border:1px solid #FFF; position:relative;}
 .comt_list{ margin:20px 15px 15px 15px; }
 .WB_face{width:30px; height:30px; float:left; position:relative;}
 .WB_face img{width:30px; height:30px;}
@@ -190,8 +195,12 @@ margin-bottom:5px;
 .footer_link2{ text-align:center; padding-top:20px; font:12px 'Arial','Microsoft YaHei';}
 .footer_link2 span{ padding-right:25px; color:#666;}
 
+/*分页的效果*/
+.change_pages{ margin-bottom:25px; float:right;}
 
-
+.change_pages span{ margin-right:20px; margin-left:20px;}
+.change_pages a{ color:#000;}
+.change_pages a:hover{ text-decoration:underline; color:blue;}
 
 
 

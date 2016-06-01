@@ -19,11 +19,11 @@ height:186px;margin-left:180px;  }
 .login_cont{ padding:25px 45px;}
 .main_tab_line{ width:100%; height:60px; font-size:30px; font-family: 'Arial','Microsoft YaHei'; }
 
-.W_reg_info{ width:500px; float:left;}
+.W_reg_info{ width:450px; float:left;}
 
 /*左侧表单验证*/
 .W_reg_form{ float:left; width:500px; }
-.loginTable{ width:500px; line-height:40px;}
+.loginTable{ width:450px; line-height:40px;}
 .one{ width:100px; text-align:right; }
 .W_reg_form i{ padding-right:6px; color:red;}
 .W_input{ width:200px; height:25px;}
