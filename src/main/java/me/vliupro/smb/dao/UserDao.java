@@ -42,4 +42,18 @@ public interface UserDao {
      */
     User getUserByEmail(String email);
 
+    /**
+     * 根据Id获得用户
+     * @param userId
+     * @return
+     */
+    User getUserById(int userId);
+
+    /**
+     * 根据nickname获取用户
+     * @param nickname
+     * @return
+     */
+    User getUserByNickName(String nickname);
+
 }

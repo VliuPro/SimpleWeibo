@@ -47,6 +47,19 @@ public class UserDaoImpl extends BaseImpl implements UserDao {
         return (User) this.generate(userMap);
     }
 
+    public User getUserById(int userId) {
+        String sql = "select * from db_user where id=?";
+        Map<String, Object> userMap = this.db.query(sql, userId);
+        return (User) this.generate(userMap);
+    }
+
+    @Override
+    public User getUserByNickName(String nickname) {
+        String sql = "select * from db_user where nickname=?";
+        Map<String, Object> userMap = this.db.query(sql, nickname);
+        return (User) this.generate(userMap);
+    }
+
     @Override
     protected Object generate(Map<String, Object> map) {
         User user = new User();

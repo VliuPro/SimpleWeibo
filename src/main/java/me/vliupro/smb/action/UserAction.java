@@ -1,15 +1,10 @@
 package me.vliupro.smb.action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import me.vliupro.smb.dao.UserDao;
-import me.vliupro.smb.dao.UserDaoImpl;
 import me.vliupro.smb.po.User;
 import me.vliupro.smb.service.UserService;
 import me.vliupro.smb.service.UserServiceImpl;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.components.ActionError;
-
-import java.util.Map;
 
 /**
  * Created by vliupro on 16-5-24.
@@ -36,11 +31,11 @@ public class UserAction extends ActionSupport {
         if (this.getRemember() != null) {
             isRemember = this.remember.equals("on");
         }
-
-        if (email != null) {
-            if (User.encryption(password).equals(us.getPasswdByEmail(email))) {
+        if (username != null) {
+            if (User.encryption(password).equals(us.getUserByUserName(username).getPassword())) {
                 //取出user信息存入session
-                ServletActionContext.getRequest().getSession().setAttribute("user", us.getUserByEmail(email).toMap());
+                User user = us.getUserByUserName(username);
+                ServletActionContext.getRequest().getSession().setAttribute("user", user.toMap());
                 if(isRemember) {
                     ServletActionContext.getRequest().getSession().setMaxInactiveInterval( 60 * 60 * 24 * 7 );//一个星期
                 } else {

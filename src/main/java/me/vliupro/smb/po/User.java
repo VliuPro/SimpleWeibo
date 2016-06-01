@@ -78,4 +78,10 @@ public class User {
         userMap.put("email", this.getEmail());
         return userMap;
     }
+
+    public void mapToUser(Map<String, Object> map) {
+        this.setUserId(Integer.parseInt(map.get("id").toString()));
+        this.setNickName(map.get("nickname").toString());
+        this.setEmail(map.get("email").toString());
+    }
 }
