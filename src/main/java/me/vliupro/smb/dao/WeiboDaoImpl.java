@@ -33,7 +33,7 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
     }
 
     public List<Weibo> getWeibosLimited(int begin, int total) {
-        String sql = "select * from db_weibo limit ?,?";
+        String sql = "select * from db_weibo ORDER BY w_ctime DESC limit ?,?";
         List<Weibo> weibos = new ArrayList<Weibo>();
         List<Map<String, Object>> weiboMaps = this.db.queryList(sql, begin, total);
         for (Map<String, Object> weiboMap : weiboMaps) {
@@ -58,8 +58,14 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
 
     @Override
     public int getTotalNum() {
-        String sql = "select count(*) from db_weibo";
-        return Integer.parseInt(db.query(sql).get("num").toString());
+        String sql = "select count(*) as num from db_weibo";
+        Map<String, Object> map = db.query(sql);
+        String num = map.get("num").toString();
+        if (num != null) {
+            return Integer.parseInt(num);
+        } else {
+            return 0;
+        }
     }
 
     @Override
@@ -69,7 +75,7 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
         weibo.setUserId(Integer.parseInt(map.get("user_id").toString()));
         weibo.setwContent(map.get("w_content").toString());
         weibo.setwCtime((new java.util.Date(((Timestamp) map.get("w_ctime")).getTime())));
-        weibo.setOriginal("1".equals(map.get("is_original").toString()));
+        weibo.setOriginal((Boolean) map.get("is_original"));
         weibo.setRemark(map.get("remark").toString());
         return weibo;
     }
