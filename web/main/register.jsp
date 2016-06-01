@@ -56,9 +56,9 @@
                                         <input name="yan" type="text" class="input_yan" placeholder="4位验证码" />
                                     </td>
                                     <!--随机数验证码-->
-                                    <td>验证码
+                                    <td>
                                         <!--随机数验证码显示-->
-                                        <a href="" title="换一个"><img src="<s:url value="/images/exchange.png" />" class="yan_img" /></a>
+                                        <img src="<s:url value="/security/securityImage" />" id="Verify"  style="cursor:hand;" alt="看不清，换一张"/>
                                     </td>
                                     <td class="wrong"></td>
                                     <!--用于输出错误信息-->
@@ -119,6 +119,14 @@
             </div>
         </div>
     </div>
+    <script>
+        $(function () {
+            //点击图片更换验证码
+            $("#Verify").click(function(){
+                $(this).attr("src","/security/securityImage?timestamp="+new Date().getTime());
+            });
+        });
+    </script>
 </body>
 
 </html>

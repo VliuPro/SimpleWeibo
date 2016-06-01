@@ -14,8 +14,8 @@ function ifNull(objText){
 	//文本框为空的话返回并给出提示信息
 	if(!objText.value){
 		objText.focus();
-		document.getElementsById("check_use").innerHTML = "用户名不能为空";
-		return;			
+		document.getElementById("check_use").innerHTML = "用户名不能为空";
+		return;
 	}
 	//创建异步请求
 	createXMLHttpRequest();
