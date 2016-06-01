@@ -22,7 +22,7 @@
         <default-interceptor-ref name="auth-stack"></default-interceptor-ref>
         
         <global-results>
-            <result name="noLogin" type="redirect">/index.jsp</result>
+            <result name="noLogin" type="redirect">/toindex.jsp</result>
         </global-results>
 
     </package>
@@ -30,37 +30,51 @@
 
     <package name="sm" namespace="/" extends="struts-baseEx">
 
-        <!--Index跳转-->
-        <action name="index" class="me.vliupro.smb.action.IndexAction" method="execute">
+        <!--noLoginIndex-->
+        <action name="noLoginIndex" class="me.vliupro.smb.action.IndexAction" method="noLoginIndex">
             <result name="success">/index.jsp</result>
             <interceptor-ref name="defaultStack"></interceptor-ref>
         </action>
 
+        <action name="loginIndex" class="me.vliupro.smb.action.IndexAction" method="loginIndex">
+            <result name="success">/main/index.jsp</result>
+        </action>
+
         <!--发表微博-->
         <action name="publish" class="me.vliupro.smb.action.WeiboAction" method="publish">
-            <result name="success">/listWeibo.jsp</result>
-            <result name="error" type="redirect">/index.jsp</result>
+            <result name="success" type="redirectAction">loginIndex?begin=1&amp;total=10</result>
+            <result name="error" type="redirect">/toindex.jsp</result>
         </action>
 
         <!--登录-->
         <action name="login" class="me.vliupro.smb.action.UserAction" method="login">
-            <result name="success" type="redirect">/main/index.jsp</result>
-            <result name="error">/index.jsp</result>
+            <result name="success" type="redirectAction">loginIndex?begin=1&amp;total=10</result>
+            <result name="error">/toindex.jsp</result>
             <interceptor-ref name="defaultStack"></interceptor-ref>
         </action>
 
         <!--注册-->
         <action name="register" class="me.vliupro.smb.action.UserAction" method="register">
-            <result name="success" type="redirect">/index.jsp</result>
-            <result name="error">/index.jsp</result>
+            <result name="success" type="redirect">/toindex.jsp</result>
+            <result name="error">/toindex.jsp</result>
             <interceptor-ref name="defaultStack"></interceptor-ref>
         </action>
 
         <!--登出-->
         <action name="logout" class="me.vliupro.smb.action.UserAction" method="logout">
-            <result name="success" type="redirect">/index.jsp</result>
+            <result name="success" type="redirect">/toindex.jsp</result>
         </action>
 
+    </package>
+    
+    <package name="security" extends="struts-default" namespace="/security">
+        <action name="securityImage" class="me.vliupro.smb.action.SecurityAction">
+            <result name="success" type="stream">
+                <param name="contentType">image/jpeg</param>
+                <param name="inputName">imageStream</param>
+                <param name="bufferSize">2048</param>
+            </result>
+        </action>
     </package>
 
 </struts>
