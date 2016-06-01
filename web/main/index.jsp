@@ -15,6 +15,17 @@
     <link rel="stylesheet" type="text/css" href="<s:url value="/css/index.css" />" />
     <link rel="stylesheet" type="text/css" href="<s:url value="/css/myindex.css" />" />
     <script src="<s:url value="/js/myindex.js" />" type="text/javascript"></script>
+    <script src="<s:url value="/js/jquery-1.12.4.min.js" />" type="text/javascript"></script>
+
+    <style type="text/css">
+        .ab {
+            position: fixed;
+            float: right;
+            width: 270px;
+        ;
+            top: 70px;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,7 +35,12 @@
                 <!--顶部导航栏-->
                 <div class="top_inner clearfix">
                     <div class="top_logo">
-                        <a href="<s:url value="/main/index.jsp" />"><img src="<s:url value="/images/logo2.png" />" /><em><h2 class="logo_t">微博</h2></em></a>
+                        <a href="<s:url value="/main/index.jsp" />">
+                            <img src="<s:url value="/images/logo2.png" />" />
+                            <em>
+                                <h2 class="logo_t">微博</h2>
+                            </em>
+                        </a>
                     </div>
                     <!--顶部logo-->
                     <div class="search">
@@ -36,7 +52,7 @@
                         <ul class="nav_list">
                             <!--顶部右侧首页和个人-->
                             <li>
-                                <a href="<s:url value="/main/index.jsp" />" title="首页">
+                                <a href="/loginIndex?begin=1&total=10" title="首页">
                                     <img src="<s:url value="/images/home1.png" />" class="list_img" />
                                     <span class="nav_span1">首页</span>
                                 </a>
@@ -44,12 +60,12 @@
                             <li>
                                 <a href="<s:url value="/main/personal.jsp" />" title="" onMouseOver="On(0)" onMouseOut="Off(0)">
                                     <img src="<s:url value="/images/person1.png" />" class="list_img" id="list_img" name="img0" onmousemove="color()" />
-                                    <span>用户名</span>
+                                    <span><s:property value="#session.user.nickname" /></span>
                                 </a>
                             </li>
                             <li>|</li>
                             <li>
-                                <a href="" onclick="">退出</a>
+                                <a href="/logout" onclick="">退出</a>
                             </li>
                         </ul>
                     </div>
@@ -65,19 +81,21 @@
                         <!--信息发布框-->
                         <div class="content_publish">
                             <div class="content_publish_in clearfix">
-                                <div class="title">
-                                    <img src="<s:url value="/images/title_in.png" />" />
-                                </div>
-                                <div class="input">
-                                    <textarea class="W_input_in" title="微博输入框"></textarea>
-                                </div>
-                                <div class="func_pub">
-                                    <div class="kind">
+                                <form action="publish" method="post">
+                                    <div class="title">
+                                        <img src="<s:url value="/images/title_in.png" />" />
                                     </div>
-                                    <div class="func">
-                                        <input type="button" value="发布" class="ficon_search" onclick="" />
+                                    <div class="input">
+                                        <textarea class="W_input_in" name="content" title="微博输入框"></textarea>
                                     </div>
-                                </div>
+                                    <div class="func_pub">
+                                        <div class="kind">
+                                        </div>
+                                        <div class="func">
+                                            <input type="submit" value="发布" class="ficon_search" onclick="" />
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div class="content_feed">
@@ -114,7 +132,7 @@
                                         <ul>
                                             <li>
                                                 <a href="javascript:void(0);" title="转发">
-                                                    <span class="spa"><img src="<s:url value="/images/Share.png" />" /><span class="handtxt">转发</span><em>15</em></span>
+                                                    <span class="spa"><img src="<s:url value="/images/share.png" />" /><span class="handtxt">转发</span><em>15</em></span>
                                                 </a>
                                             </li>
                                             <li class="curr">
@@ -189,32 +207,42 @@
                                 <!--互动评论区结束-->
                             </div>
                             <!--单条微博结束-->
-                            <!--每一条微博的格式-->
+                            <!--每一条 “转发微博” 微博的格式-->
                             <div class="WB_frame_content">
                                 <div class="content_detail clearfix">
                                     <!--微博详情-->
-                                    <div class="user_info">
+                                    <div class="user_info clearfix">
                                         <!--用户信息-->
                                         <div class="userPic">
-                                            <a href="" target="_blank" title=""><img src="<s:url value="/images/WB_frame_content/userPic.jpg" />" title="" /></a>
+                                            <a href="" target="_blank" title=""><img src="../images/WB_frame_content/userPic.jpg" title="" /></a>
                                         </div>
                                         <div class="userName">
-                                            <a href="" target="_blank" title="" class="name">幽默段子坊</a>
+                                            <a href="" target="_blank" title="" class="name">宦晓渠</a>
                                             <p>2016.05.22</p>
                                         </div>
                                     </div>
-                                    <div class="WB_text">
-                                        <!--微博文字内容-->
-                                        当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌才是第三者,我错怪林心如了。。。。
-                                    </div>
-                                    <div class="WB_media">
-                                        <!--微博图片-->
-                                        <div class="mediabox">
-                                            <a target="_blank" href="<s:url value="/images/WB_frame_content/media-pic.jpg" />">
-                                                <img src="<s:url value="/images/WB_frame_content/media-pic.jpg" />" />
-                                            </a>
+                                    <!--转发的原创者微博内容-->
+                                    <div class="discuss">你说的真的假的啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</div>
+                                    <div class="resend">
+
+                                        <!--转发者的评论--当没有评论内容的时候，系统添加“转发微博1”-->
+                                        <div class="re_userName">
+                                            <a href="" target="_blank" title="" class="name"><span>@</span>幽默段子坊</a>
+                                        </div>
+                                        <div class="WB_text">
+                                            <!--微博文字内容-->
+                                            当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两典眼中只看到胡霍二人的恩爱，现在看看后两典 眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌才是第三者,我错怪林心如了。。。。
+                                        </div>
+                                        <div class="WB_media">
+                                            <!--微博图片-->
+                                            <div class="mediabox clearfix">
+                                                <a target="_blank" href="images/WB_frame_content/media-pic.jpg">
+                                                    <img src="../images/WB_frame_content/media-pic.jpg" />
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
+                                    <!--转发的原创者微博内容结束-->
                                 </div>
                                 <div class="WB_handle">
                                     <!---微博互动栏点赞评论等-->
@@ -222,17 +250,21 @@
                                         <ul>
                                             <li>
                                                 <a href="javascript:void(0);" title="转发">
-                                                    <span class="spa"><img src="<s:url value="/images/Share.png" />" /><span class="handtxt">转发</span><em>15</em></span>
+                                                    <span class="spa">
+                                                        <img src="../images/share.png" />
+                                                        <span class="handtxt">转发</span>
+                                                        <em>15</em>
+                                                    </span>
                                                 </a>
                                             </li>
                                             <li class="curr">
                                                 <a href="javascript:void(0);" title="评论" onclick="change2()">
-                                                    <span class="spa"><img src="<s:url value="/images/Dialog.png" />" /><span class="handtxt">评论</span><em>203</em></span>
+                                                    <span class="spa"><img src="../images/Dialog.png" /><span class="handtxt">评论</span><em>203</em></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="javascript:void(0);" title="赞">
-                                                    <span class="spa"><img src="<s:url value="/images/up.png" />" /><span class="handtxt">赞</span><em>15</em></span>
+                                                    <span class="spa"><img src="../images/up.png" /><span class="handtxt">赞</span><em>15</em></span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -260,7 +292,7 @@
                                                 <!--评论内容内框架-->
                                                 <div coment_id="" class="list_li clearfix">
                                                     <div class="WB_face">
-                                                        <img src="<s:url value="/images/WB_frame_content/userPic2.jpg" />" />
+                                                        <img src="../images/WB_frame_content/userPic2.jpg" />
                                                     </div>
                                                     <div class="list_con clearfix">
                                                         <span class="WB_username">hahahah </span>
@@ -277,7 +309,7 @@
                                                 <!--评论内容内框架-->
                                                 <div coment_id="" class="list_li clearfix">
                                                     <div class="WB_face">
-                                                        <img src="<s:url value="/images/WB_frame_content/userPic2.jpg" />" />
+                                                        <img src="../images/WB_frame_content/userPic2.jpg" />
                                                     </div>
                                                     <div class="list_con">
                                                         <span class="WB_username">hahahah </span>
@@ -298,6 +330,12 @@
                             </div>
                             <!--单条微博结束-->
                         </div>
+                        <div class="change_pages">
+                            <span class="disabled">上一页</span>
+
+                            <span><a href="#?begin=2">下一页</a></span>
+                        </div>
+                        <!-- 分页结束 -->
                     </div>
                     <!--myindex主体左边结束-->
                     <!--myindex主体右边全部内容-->
@@ -320,7 +358,7 @@
                                             <a href=""><strong>关注</strong><br />
                                                 <span class="info_txt2">114</span></a>
                                         </li>
-                                        <li class="info_txt1">
+                                         <li class="info_txt1">
                                             <a href=""><strong>粉丝</strong><br />
                                                 <span class="info_txt2">22</span></a>
                                         </li>
@@ -390,6 +428,16 @@
         </div>
     </div>
     <!---底部信息栏结束-->
+    <script type="text/javascript">
+        function scrollLis() {
+            var toTop = offs.top - $(window).scrollTop();
+            if (toTop == 0 || toTop < 0) {
+                if (!$('#a').hasClass('ab')) $('#a').addClass('ab');
+            } else {
+                $('#a').removeClass('ab');
+            }
+        }
+    </script>
 </body>
 
 </html>
