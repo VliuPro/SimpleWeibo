@@ -41,4 +41,13 @@ public interface UserService {
      * @return
      */
     User getUserByEmail(String email);
+
+    /**
+     * 根据ID获得用户
+     * @param userId
+     * @return
+     */
+    User getUserById(int userId);
+
+    User getUserByUserName(String username);
 }

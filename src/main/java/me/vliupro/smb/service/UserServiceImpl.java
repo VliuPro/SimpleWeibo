@@ -35,4 +35,14 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
         return ud.getUserByEmail(email);
     }
+
+    @Override
+    public User getUserById(int userId) {
+        return ud.getUserById(userId);
+    }
+
+    @Override
+    public User getUserByUserName(String username) {
+        return ud.getUserByNickName(username);
+    }
 }
