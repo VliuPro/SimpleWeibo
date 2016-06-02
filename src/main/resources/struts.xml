@@ -6,6 +6,8 @@
 
 <struts>
 
+
+
     <constant name="struts.devMode" value="false" />
     <constant name="struts.i18n.encoding" value="utf-8" />
     <!--<constant name="struts.action.extension" value=","/>-->
@@ -13,15 +15,15 @@
     <package name="struts-baseEx" namespace="/" extends="struts-default">
 
         <interceptors>
-            <interceptor name="auth" class="me.vliupro.smb.interceptor.AuthInterceptor"></interceptor>
+            <interceptor name="auth" class="me.vliupro.smb.interceptor.AuthInterceptor" />
             <interceptor-stack name="auth-stack">
-                <interceptor-ref name="auth"></interceptor-ref>
-                <interceptor-ref name="defaultStack"></interceptor-ref>
+                <interceptor-ref name="auth" />
+                <interceptor-ref name="defaultStack" />
             </interceptor-stack>
         </interceptors>
 
-        <default-interceptor-ref name="auth-stack"></default-interceptor-ref>
-        
+        <default-interceptor-ref name="auth-stack" />
+
         <global-results>
             <result name="noLogin" type="redirect">/toindex.jsp</result>
         </global-results>
@@ -34,7 +36,7 @@
         <!--noLoginIndex-->
         <action name="noLoginIndex" class="me.vliupro.smb.action.IndexAction" method="noLoginIndex">
             <result name="success">/index.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <interceptor-ref name="defaultStack" />
         </action>
 
         <action name="loginIndex" class="me.vliupro.smb.action.IndexAction" method="loginIndex">
@@ -51,14 +53,14 @@
         <action name="login" class="me.vliupro.smb.action.UserAction" method="login">
             <result name="success" type="redirectAction">loginIndex?begin=1&amp;total=10</result>
             <result name="error">/toindex.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <interceptor-ref name="defaultStack" />
         </action>
 
         <!--注册-->
         <action name="register" class="me.vliupro.smb.action.UserAction" method="register">
             <result name="success" type="redirect">/toindex.jsp</result>
             <result name="error">/main/register.jsp</result>
-            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <interceptor-ref name="defaultStack" />
         </action>
 
         <!--登出-->
@@ -67,7 +69,7 @@
         </action>
 
     </package>
-    
+
     <package name="security" extends="struts-default" namespace="/security">
         <action name="securityImage" class="me.vliupro.smb.action.SecurityAction">
             <result name="success" type="stream">
@@ -76,6 +78,29 @@
                 <param name="bufferSize">2048</param>
             </result>
         </action>
+    </package>
+
+    <!--json action-->
+    <package name="json" namespace="/check" extends="json-default">
+
+        <action name="email" class="me.vliupro.smb.action.JsonAction" method="checkEmail">
+            <result type="json" name="success">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+
+        <action name="user" class="me.vliupro.smb.action.JsonAction" method="checkUsername">
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+
+        <action name="security" class="me.vliupro.smb.action.JsonAction" method="checkSecurityCode">
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+
     </package>
 
 </struts>
