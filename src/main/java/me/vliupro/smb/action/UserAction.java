@@ -4,12 +4,16 @@ import com.opensymphony.xwork2.ActionSupport;
 import me.vliupro.smb.po.User;
 import me.vliupro.smb.service.UserService;
 import me.vliupro.smb.service.UserServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 /**
  * Created by vliupro on 16-5-24.
  */
 public class UserAction extends ActionSupport {
+
+    private Logger logger = LogManager.getLogger(UserAction.class);
 
     private UserService us;
 
@@ -21,6 +25,8 @@ public class UserAction extends ActionSupport {
     private String password;
     private String email;
     private String remember;
+
+    private String securityCode;
 
     /**
      * 登陆
@@ -56,6 +62,7 @@ public class UserAction extends ActionSupport {
      * @return
      */
     public String register(){
+        System.out.println("email: " + email + ", username: " + username + ", password: " + password);
         if (us.checkNickName(username) || us.checkEmail(email)) {
             addActionError("username or email is exist!");
             return ERROR;
@@ -67,6 +74,7 @@ public class UserAction extends ActionSupport {
             if (us.addUser(user)) {
                 return SUCCESS;
             } else {
+                logger.error("注册失败，email: " + email + ", username: " + username + ", password: " + password);
                 return ERROR;
             }
         }
@@ -111,5 +119,13 @@ public class UserAction extends ActionSupport {
 
     public void setRemember(String remember) {
         this.remember = remember;
+    }
+
+    public String getSecurityCode() {
+        return securityCode;
+    }
+
+    public void setSecurityCode(String securityCode) {
+        this.securityCode = securityCode;
     }
 }

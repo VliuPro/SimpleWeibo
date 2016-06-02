@@ -67,8 +67,8 @@ public class WeiboServiceImpl implements WeiboService {
         weiboPage.setHasNextPage(weiboPage.getCurrentPage() < weiboPage.getTotalPage());
         weiboPage.setHasPrePage(weiboPage.getCurrentPage() > 1);
         //如果当前页在1～end-1之间，
-        if (weiboPage.getCurrentPage() < weiboPage.getTotalPage() && weiboPage.getCurrentPage() > 1) {
-            weiboPage.setItems(weibos.subList((pageNum - 1) * total, (pageNum + 1) * total));
+        if (weiboPage.getCurrentPage() < weiboPage.getTotalPage() && weiboPage.getCurrentPage() >= 1) {
+            weiboPage.setItems(weibos.subList((pageNum - 1) * total, (pageNum) * total));
         } else {
             weiboPage.setItems(weibos.subList((pageNum - 1) * total, weiboPage.getTotalCount()));
         }

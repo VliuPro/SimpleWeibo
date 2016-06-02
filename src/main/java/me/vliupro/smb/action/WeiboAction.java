@@ -32,6 +32,9 @@ public class WeiboAction extends ActionSupport {
      * @return
      */
     public String publish() {
+        if (content == null || content.equals("")) {
+            return ERROR;
+        }
         HttpSession session = ServletActionContext.getRequest().getSession();
         Map<String, Object> userMap = (Map<String, Object>) session.getAttribute("user");
         //判断session中是否存在user对象，存在就允许发微博
