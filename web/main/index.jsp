@@ -89,6 +89,7 @@
                                         <textarea class="W_input_in" name="content" title="微博输入框"></textarea>
                                     </div>
                                     <div class="func_pub">
+                                        <s:fielderror key="pub_err" />
                                         <div class="kind">
                                         </div>
                                         <div class="func">
@@ -112,7 +113,7 @@
                                                 </div>
                                                 <div class="userName">
                                                     <a href="" target="_blank" title="" class="name"><s:property value="#request.idMap[#weibo.userId].nickName" /></a>
-                                                    <p><s:date name="#weibo.wCtime" format="yyyy-MM-dd hh:mm:ss" /></p>
+                                                    <p><s:date name="#weibo.wCtime" format="yyyy-MM-dd HH:mm:ss" /></p>
                                                 </div>
                                             </div>
                                             <div class="WB_text">
@@ -222,7 +223,7 @@
                                                 </div>
                                                 <div class="userName">
                                                     <a href="" target="_blank" title="" class="name"><s:property value="#request.idMap[#weibo.forwardId].nickName" /></a>
-                                                    <p><s:date name="#weibo.wCtime" format="yyyy-MM-dd hh:mm:ss" /></p>
+                                                    <p><s:date name="#weibo.wCtime" format="yyyy-MM-dd HH:mm:ss" /></p>
                                                 </div>
                                             </div>
                                             <!--转发的原创者微博内容-->
