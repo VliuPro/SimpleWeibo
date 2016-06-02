@@ -32,12 +32,12 @@
                 <div class="W_reg_info" id="pl_account_regmobile">
                     <!--主体左侧-->
                     <div class="W_reg_form">
-                        <form class="loginForm" id="loginForm" action="">
+                        <form class="loginForm" id="loginForm" action="<s:url value="/register" />" method="post">
                             <table class="loginTable">
                                 <tr>
                                     <td class="one"><i>*</i>用户名：</td>
                                     <td colspan="2" class="line_2">
-                                        <input name="login_username" type="text" class="W_input" onblur="ifNull(this)" placeholder="用户名/4-16字符">
+                                        <input name="username" type="text" class="W_input" onblur="ifNull(this)" placeholder="用户名/4-16字符">
                                     </td>
                                     <td class="wrong"><span id="check_use"></span></td>
                                     <!--用于输出错误信息-->
@@ -45,7 +45,7 @@
                                 <tr>
                                     <td class="one"><i>*</i>设置密码：</td>
                                     <td colspan="2" class="line_2">
-                                        <input name="passwd" type="password" class="W_input" placeholder="设置密码">
+                                        <input name="password" type="password" class="W_input" placeholder="设置密码">
                                     </td>
                                     <td class="wrong"></td>
                                     <!--用于输出错误信息-->
@@ -53,7 +53,7 @@
                                 <tr>
                                     <td class="one"><i>*</i>验证码：</td>
                                     <td class="yan">
-                                        <input name="yan" type="text" class="input_yan" placeholder="4位验证码" />
+                                        <input name="securityCode" type="text" class="input_yan" placeholder="4位验证码" />
                                     </td>
                                     <!--随机数验证码-->
                                     <td>
@@ -66,7 +66,7 @@
                                 <tr>
                                     <td class="one"><i>*</i>邮箱：</td>
                                     <td colspan="2" class="line_2">
-                                        <input name="emai" type="text" class="W_input" placeholder="用于找回密码/必填">
+                                        <input name="email" type="text" class="W_input" placeholder="用于找回密码/必填">
                                     </td>
                                     <td></td>
                                 </tr>
@@ -74,7 +74,7 @@
                                     <td></td>
                                     <!--占位-->
                                     <td colspan="2">
-                                        <input name="sub" type="submit" class="W_input" id="submit" value="立即注册" />
+                                        <input type="submit" class="W_input" id="submit" value="立即注册" />
                                     </td>
                                 </tr>
                             </table>
@@ -91,7 +91,7 @@
                 <!--主体左侧结束-->
                 <!--主体右侧-->
                 <div class="W_reg_sidebar">
-                    <p class="p1_line">已有帐号，<a href="<s:url value="/index.jsp" />">直接登录»</a></p>
+                    <p class="p1_line">已有帐号，<a href="<s:url value="/toindex.jsp" />">直接登录»</a></p>
                     <div class="reg_help">
                         <p>微博注册帮助</p>
                         <ul class="help_list">

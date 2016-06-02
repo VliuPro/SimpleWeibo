@@ -6,7 +6,8 @@
 
 <struts>
 
-    <constant name="struts.devMode" value="true" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.i18n.encoding" value="utf-8" />
     <!--<constant name="struts.action.extension" value=","/>-->
 
     <package name="struts-baseEx" namespace="/" extends="struts-default">
@@ -43,7 +44,7 @@
         <!--发表微博-->
         <action name="publish" class="me.vliupro.smb.action.WeiboAction" method="publish">
             <result name="success" type="redirectAction">loginIndex?begin=1&amp;total=10</result>
-            <result name="error" type="redirect">/toindex.jsp</result>
+            <result name="error" type="redirect">/main/index.jsp</result>
         </action>
 
         <!--登录-->
@@ -56,7 +57,7 @@
         <!--注册-->
         <action name="register" class="me.vliupro.smb.action.UserAction" method="register">
             <result name="success" type="redirect">/toindex.jsp</result>
-            <result name="error">/toindex.jsp</result>
+            <result name="error">/main/register.jsp</result>
             <interceptor-ref name="defaultStack"></interceptor-ref>
         </action>
 
