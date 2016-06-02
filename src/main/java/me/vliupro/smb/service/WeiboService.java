@@ -45,4 +45,6 @@ public interface WeiboService {
      * @return
      */
     List<Weibo> getWeibosByUserId(int userId);
+
+    Page<Weibo> getWeibosByListUserIds(List<Integer> userIds, int pageNum, int total);
 }

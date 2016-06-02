@@ -61,10 +61,6 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
         return weibos;
     }
 
-    public List<Weibo> getWeibosByListUserIds(List<Integer> userIds) {
-        return null;
-    }
-
     @Override
     public int getTotalNum() {
         String sql = "select count(*) as num from db_weibo";

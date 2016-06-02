@@ -5,6 +5,8 @@ import me.vliupro.smb.dao.WeiboDaoImpl;
 import me.vliupro.smb.po.Weibo;
 import me.vliupro.smb.utils.Page;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,7 +33,7 @@ public class WeiboServiceImpl implements WeiboService {
 
     @Override
     public Page<Weibo> getWeibosByPage(int pageNum, int total) {
-        Page<Weibo> weiboPage = new Page<Weibo>();
+        Page<Weibo> weiboPage = new Page<>();
         weiboPage.setCurrentPage(pageNum);
         weiboPage.setEveryPage(total);
         weiboPage.setTotalCount(wd.getTotalNum());
@@ -46,5 +48,30 @@ public class WeiboServiceImpl implements WeiboService {
     @Override
     public List<Weibo> getWeibosByUserId(int userId) {
         return wd.getWeibosByUserId(userId);
+    }
+
+    @Override
+    public Page<Weibo> getWeibosByListUserIds(List<Integer> userIds, int pageNum, int total) {
+        Page<Weibo> weiboPage = new Page<>();
+        List<Weibo> weibos = new ArrayList<>();
+        weiboPage.setCurrentPage(pageNum);
+        weiboPage.setEveryPage(total);
+        for (int userId : userIds) {
+            weibos.addAll(this.getWeibosByUserId(userId));
+        }
+        //倒序排序
+        Collections.sort(weibos);
+        weiboPage.setTotalCount(weibos.size());
+        weiboPage.setTotalPage(weiboPage.getTotalCount() % total == 0 ?
+                weiboPage.getTotalCount() / total : weiboPage.getTotalCount() / total + 1);
+        weiboPage.setHasNextPage(weiboPage.getCurrentPage() < weiboPage.getTotalPage());
+        weiboPage.setHasPrePage(weiboPage.getCurrentPage() > 1);
+        //如果当前页在1～end-1之间，
+        if (weiboPage.getCurrentPage() < weiboPage.getTotalPage() && weiboPage.getCurrentPage() > 1) {
+            weiboPage.setItems(weibos.subList((pageNum - 1) * total, (pageNum + 1) * total));
+        } else {
+            weiboPage.setItems(weibos.subList((pageNum - 1) * total, weiboPage.getTotalCount()));
+        }
+        return weiboPage;
     }
 }

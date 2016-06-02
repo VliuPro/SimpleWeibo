@@ -1,11 +1,14 @@
 package me.vliupro.smb.po;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by vliupro on 16-5-22.
  */
-public class Weibo {
+public class Weibo implements Comparable<Weibo> {
 
     private int weiboId; //主键ID
     private String wContent; //微博主体内容
@@ -111,6 +114,39 @@ public class Weibo {
                 ", isOriginal=" + isOriginal +
                 ", remark='" + remark + '\'' +
                 ", forwardId=" + forwardId +
+                ", forwardTime" + wFtime +
                 '}';
+    }
+
+    //倒序排列
+    @Override
+    public int compareTo(Weibo weibo) {
+        if (this.isOriginal() && weibo.isOriginal()) {
+            return -((Long) (this.getwCtime().getTime() - weibo.getwCtime().getTime())).intValue();
+        } else if (!this.isOriginal() && weibo.isOriginal()) {
+            return -((Long) (this.getwFtime().getTime() - weibo.getwCtime().getTime())).intValue();
+        } else if (this.isOriginal() && !weibo.isOriginal()) {
+            return -((Long) (this.getwCtime().getTime() - weibo.getwFtime().getTime())).intValue();
+        } else {
+            return -((Long) (this.getwFtime().getTime() - weibo.getwFtime().getTime())).intValue();
+        }
+    }
+
+    public static void main(String[] argv) throws InterruptedException {
+
+        Weibo w2 = new Weibo("w2", 2, true, "or", 1);
+        Thread.sleep(1000);
+        Weibo w1 = new Weibo("w1", 1, true);
+
+        List<Weibo> weibos = new ArrayList<Weibo>();
+        weibos.add(w2);
+        weibos.add(w1);
+
+        Collections.sort(weibos);
+        for (Weibo weibo : weibos) {
+            System.out.println("weibo : " + weibo);
+        }
+
+        System.out.println(weibos.subList(0, 10));
     }
 }

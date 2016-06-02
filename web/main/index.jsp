@@ -99,241 +99,266 @@
                             </div>
                         </div>
                         <div class="content_feed">
-                            <!--每一条微博的格式-->
-                            <div class="WB_frame_content">
-                                <div class="content_detail clearfix">
-                                    <!--微博详情-->
-                                    <div class="user_info">
-                                        <!--用户信息-->
-                                        <div class="userPic">
-                                            <a href="" target="_blank" title=""><img src="<s:url value="/images/WB_frame_content/userPic.jpg" />" title="" /></a>
-                                        </div>
-                                        <div class="userName">
-                                            <a href="" target="_blank" title="" class="name">幽默段子坊</a>
-                                            <p>2016.05.22</p>
-                                        </div>
-                                    </div>
-                                    <div class="WB_text">
-                                        <!--微博文字内容-->
-                                        当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌才是第三者,我错怪林心如了。。。。
-                                    </div>
-                                    <div class="WB_media">
-                                        <!--微博图片-->
-                                        <div class="mediabox">
-                                            <a target="_blank" href="<s:url value="/images/WB_frame_content/media-pic.jpg" />">
-                                                <img src="<s:url value="/images/WB_frame_content/media-pic.jpg" />" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="WB_handle">
-                                    <!---微博互动栏点赞评论等-->
-                                    <div class="WB_handle_in">
-                                        <ul>
-                                            <li>
-                                                <a href="javascript:void(0);" title="转发">
-                                                    <span class="spa"><img src="<s:url value="/images/share.png" />" /><span class="handtxt">转发</span><em>15</em></span>
-                                                </a>
-                                            </li>
-                                            <li class="curr">
-                                                <a href="javascript:void(0);" title="评论" onclick="change1()">
-                                                    <span class="spa"><img src="<s:url value="/images/Dialog.png" />" /><span class="handtxt">评论</span><em>203</em></span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);" title="赞">
-                                                    <span class="spa"><img src="<s:url value="/images/up.png" />" /><span class="handtxt">赞</span><em>15</em></span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!--点赞评论区域结束-->
-                                <!--互动评论区域display:none--->
-                                <div class="handle_comt clearfix" id="handle_comt_1" style="display:none">
-                                    <div class="comt_list">
-                                        <div class="comt_publish">
-                                            <!---发布信息框-->
-                                            <div class="WB_publish clearfix">
-                                                <div class="p_input">
-                                                    <textarea class="W_input" action-type="check" cols="" rows=""></textarea>
+                            <s:iterator value="%{#request.page.items}" id="weibo">
+                                <s:if test="%{#weibo.original}">
+                                    <!--每一条微博的格式-->
+                                    <div class="WB_frame_content">
+                                        <div class="content_detail clearfix">
+                                            <!--微博详情-->
+                                            <div class="user_info">
+                                                <!--用户信息-->
+                                                <div class="userPic">
+                                                    <a href="" target="_blank" title=""><img src="<s:url value="/images/WB_frame_content/userPic.jpg" />" title="" /></a>
                                                 </div>
-                                                <div class="p_opt">
-                                                    <input type="submit" class="p_opt_btn" value="评论" />
+                                                <div class="userName">
+                                                    <a href="" target="_blank" title="" class="name"><s:property value="#request.idMap[#weibo.userId].nickName" /></a>
+                                                    <p><s:date name="#weibo.wCtime" format="yyyy-MM-dd hh:mm:ss" /></p>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!--发布框结束-->
-                                        <div class="repeat_list">
-                                            <!--评论内容外框架-->
-                                            <div class="list_box">
-                                                <!--评论内容内框架-->
-                                                <div coment_id="" class="list_li clearfix">
-                                                    <div class="WB_face">
-                                                        <img src="<s:url value="/images/WB_frame_content/userPic2.jpg" />" />
-                                                    </div>
-                                                    <div class="list_con clearfix">
-                                                        <span class="WB_username">hahahah </span>
-                                                        <!--用户名-->
-                                                        <br />
-                                                        <p class="repeat_text">
-                                                            当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌
-                                                        </p>
-                                                        <!--评论的内容-->
-                                                    </div>
-                                                </div>
+                                            <div class="WB_text">
+                                                <!--微博文字内容-->
+                                                <s:property value="#weibo.wContent" />
                                             </div>
-                                            <div class="list_box">
-                                                <!--评论内容内框架-->
-                                                <div coment_id="" class="list_li clearfix">
-                                                    <div class="WB_face">
-                                                        <img src="<s:url value="/images/WB_frame_content/userPic2.jpg" />" />
-                                                    </div>
-                                                    <div class="list_con">
-                                                        <span class="WB_username">hahahah </span>
-                                                        <!--用户名-->
-                                                        <br />
-                                                        <p class="repeat_text">
-                                                            当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌原在看看后两张，原来胡歌
-                                                        </p>
-                                                        <!--评论的内容-->
-                                                    </div>
-                                                </div>
+                                            <%--<div class="WB_media">--%>
+                                                <%--<!--微博图片-->--%>
+                                                <%--<div class="mediabox">--%>
+                                                    <%--<a target="_blank" href="<s:url value="/images/WB_frame_content/media-pic.jpg" />">--%>
+                                                        <%--<img src="<s:url value="/images/WB_frame_content/media-pic.jpg" />" />--%>
+                                                    <%--</a>--%>
+                                                <%--</div>--%>
+                                            <%--</div>--%>
+                                        </div>
+                                        <div class="WB_handle">
+                                            <!---微博互动栏点赞评论等-->
+                                            <div class="WB_handle_in">
+                                                <ul>
+                                                    <li>
+                                                        <a href="javascript:void(0);" title="转发">
+                                                            <span class="spa"><img src="<s:url value="/images/share.png" />" /><span class="handtxt">转发</span><em>15</em></span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="curr">
+                                                        <a href="javascript:void(0);" title="评论" onclick="change1()">
+                                                            <span class="spa"><img src="<s:url value="/images/Dialog.png" />" /><span class="handtxt">评论</span><em>203</em></span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);" title="赞">
+                                                            <span class="spa"><img src="<s:url value="/images/up.png" />" /><span class="handtxt">赞</span><em>15</em></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
-                                        <!--用户评论内容区结束-->
-                                    </div>
-                                </div>
-                                <!--互动评论区结束-->
-                            </div>
-                            <!--单条微博结束-->
-                            <!--每一条 “转发微博” 微博的格式-->
-                            <div class="WB_frame_content">
-                                <div class="content_detail clearfix">
-                                    <!--微博详情-->
-                                    <div class="user_info clearfix">
-                                        <!--用户信息-->
-                                        <div class="userPic">
-                                            <a href="" target="_blank" title=""><img src="../images/WB_frame_content/userPic.jpg" title="" /></a>
+                                        <!--点赞评论区域结束-->
+                                        <!--互动评论区域display:none--->
+                                        <div class="handle_comt clearfix" id="handle_comt_1" style="display:none">
+                                            <div class="comt_list">
+                                                <div class="comt_publish">
+                                                    <!---发布信息框-->
+                                                    <div class="WB_publish clearfix">
+                                                        <div class="p_input">
+                                                            <textarea class="W_input" action-type="check" cols="" rows=""></textarea>
+                                                        </div>
+                                                        <div class="p_opt">
+                                                            <input type="submit" class="p_opt_btn" value="评论" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--发布框结束-->
+                                                <div class="repeat_list">
+                                                    <!--评论内容外框架-->
+                                                    <div class="list_box">
+                                                        <!--评论内容内框架-->
+                                                        <div coment_id="" class="list_li clearfix">
+                                                            <div class="WB_face">
+                                                                <img src="<s:url value="/images/WB_frame_content/userPic2.jpg" />" />
+                                                            </div>
+                                                            <div class="list_con clearfix">
+                                                                <span class="WB_username">hahahah </span>
+                                                                <!--用户名-->
+                                                                <br />
+                                                                <p class="repeat_text">
+                                                                    当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌
+                                                                </p>
+                                                                <!--评论的内容-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list_box">
+                                                        <!--评论内容内框架-->
+                                                        <div coment_id="" class="list_li clearfix">
+                                                            <div class="WB_face">
+                                                                <img src="<s:url value="/images/WB_frame_content/userPic2.jpg" />" />
+                                                            </div>
+                                                            <div class="list_con">
+                                                                <span class="WB_username">hahahah </span>
+                                                                <!--用户名-->
+                                                                <br />
+                                                                <p class="repeat_text">
+                                                                    当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌原在看看后两张，原来胡歌
+                                                                </p>
+                                                                <!--评论的内容-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--用户评论内容区结束-->
+                                            </div>
                                         </div>
-                                        <div class="userName">
-                                            <a href="" target="_blank" title="" class="name">宦晓渠</a>
-                                            <p>2016.05.22</p>
-                                        </div>
+                                        <!--互动评论区结束-->
                                     </div>
-                                    <!--转发的原创者微博内容-->
-                                    <div class="discuss">你说的真的假的啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</div>
-                                    <div class="resend">
+                                    <!--单条微博结束-->
+                                </s:if>
+                                <s:else>
+                                    <!--每一条 “转发微博” 微博的格式-->
+                                    <div class="WB_frame_content">
+                                        <div class="content_detail clearfix">
+                                            <!--微博详情-->
+                                            <div class="user_info clearfix">
+                                                <!--用户信息-->
+                                                <div class="userPic">
+                                                    <a href="" target="_blank" title=""><img src="../images/WB_frame_content/userPic.jpg" title="" /></a>
+                                                </div>
+                                                <div class="userName">
+                                                    <a href="" target="_blank" title="" class="name"><s:property value="#request.idMap[#weibo.forwardId].nickName" /></a>
+                                                    <p><s:date name="#weibo.wCtime" format="yyyy-MM-dd hh:mm:ss" /></p>
+                                                </div>
+                                            </div>
+                                            <!--转发的原创者微博内容-->
+                                            <div class="discuss"><s:property value="#weibo.remark" /></div>
+                                            <div class="resend">
 
-                                        <!--转发者的评论--当没有评论内容的时候，系统添加“转发微博1”-->
-                                        <div class="re_userName">
-                                            <a href="" target="_blank" title="" class="name"><span>@</span>幽默段子坊</a>
+                                                <!--转发者的评论--当没有评论内容的时候，系统添加“转发微博1”-->
+                                                <div class="re_userName">
+                                                    <a href="" target="_blank" title="" class="name"><span>@</span><s:property value="#request.idMap[#weibo.userId].nickName" /></a>
+                                                </div>
+                                                <div class="WB_text">
+                                                    <!--微博文字内容-->
+                                                    <s:property value="#weibo.wContent" />
+                                                </div>
+                                                <%--<div class="WB_media">--%>
+                                                    <%--<!--微博图片-->--%>
+                                                    <%--<div class="mediabox clearfix">--%>
+                                                        <%--<a target="_blank" href="images/WB_frame_content/media-pic.jpg">--%>
+                                                            <%--<img src="../images/WB_frame_content/media-pic.jpg" />--%>
+                                                        <%--</a>--%>
+                                                    <%--</div>--%>
+                                                <%--</div>--%>
+                                            </div>
+                                            <!--转发的原创者微博内容结束-->
                                         </div>
-                                        <div class="WB_text">
-                                            <!--微博文字内容-->
-                                            当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两典眼中只看到胡霍二人的恩爱，现在看看后两典 眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌才是第三者,我错怪林心如了。。。。
-                                        </div>
-                                        <div class="WB_media">
-                                            <!--微博图片-->
-                                            <div class="mediabox clearfix">
-                                                <a target="_blank" href="images/WB_frame_content/media-pic.jpg">
-                                                    <img src="../images/WB_frame_content/media-pic.jpg" />
-                                                </a>
+                                        <div class="WB_handle">
+                                            <!---微博互动栏点赞评论等-->
+                                            <div class="WB_handle_in">
+                                                <ul>
+                                                    <li>
+                                                        <a href="javascript:void(0);" title="转发">
+                                                            <span class="spa">
+                                                                <img src="../images/share.png" />
+                                                                <span class="handtxt">转发</span>
+                                                                <em>15</em>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="curr">
+                                                        <a href="javascript:void(0);" title="评论" onclick="change2()">
+                                                            <span class="spa"><img src="../images/Dialog.png" /><span class="handtxt">评论</span><em>203</em></span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);" title="赞">
+                                                            <span class="spa"><img src="../images/up.png" /><span class="handtxt">赞</span><em>15</em></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
+                                        <!--点赞评论区域结束-->
+                                        <!--互动评论区域display:none--->
+                                        <div class="handle_comt clearfix" id="handle_comt_2" style="display:none">
+                                            <div class="comt_list">
+                                                <div class="comt_publish">
+                                                    <!---发布信息框-->
+                                                    <div class="WB_publish clearfix">
+                                                        <div class="p_input">
+                                                            <textarea class="W_input" action-type="check" cols="" rows=""></textarea>
+                                                        </div>
+                                                        <div class="p_opt">
+                                                            <input type="submit" class="p_opt_btn" value="评论" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--发布框结束-->
+                                                <div class="repeat_list">
+                                                    <!--评论内容外框架-->
+                                                    <div class="list_box">
+                                                        <!--评论内容内框架-->
+                                                        <div coment_id="" class="list_li clearfix">
+                                                            <div class="WB_face">
+                                                                <img src="../images/WB_frame_content/userPic2.jpg" />
+                                                            </div>
+                                                            <div class="list_con clearfix">
+                                                                <span class="WB_username">hahahah </span>
+                                                                <!--用户名-->
+                                                                <br />
+                                                                <p class="repeat_text">
+                                                                    当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌
+                                                                </p>
+                                                                <!--评论的内容-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="list_box">
+                                                        <!--评论内容内框架-->
+                                                        <div coment_id="" class="list_li clearfix">
+                                                            <div class="WB_face">
+                                                                <img src="../images/WB_frame_content/userPic2.jpg" />
+                                                            </div>
+                                                            <div class="list_con">
+                                                                <span class="WB_username">hahahah </span>
+                                                                <!--用户名-->
+                                                                <br />
+                                                                <p class="repeat_text">
+                                                                    当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌原在看看后两张，原来胡歌
+                                                                </p>
+                                                                <!--评论的内容-->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--用户评论内容区结束-->
+                                            </div>
+                                        </div>
+                                        <!--互动评论区结束-->
                                     </div>
-                                    <!--转发的原创者微博内容结束-->
-                                </div>
-                                <div class="WB_handle">
-                                    <!---微博互动栏点赞评论等-->
-                                    <div class="WB_handle_in">
-                                        <ul>
-                                            <li>
-                                                <a href="javascript:void(0);" title="转发">
-                                                    <span class="spa">
-                                                        <img src="../images/share.png" />
-                                                        <span class="handtxt">转发</span>
-                                                        <em>15</em>
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li class="curr">
-                                                <a href="javascript:void(0);" title="评论" onclick="change2()">
-                                                    <span class="spa"><img src="../images/Dialog.png" /><span class="handtxt">评论</span><em>203</em></span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);" title="赞">
-                                                    <span class="spa"><img src="../images/up.png" /><span class="handtxt">赞</span><em>15</em></span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!--点赞评论区域结束-->
-                                <!--互动评论区域display:none--->
-                                <div class="handle_comt clearfix" id="handle_comt_2" style="display:none">
-                                    <div class="comt_list">
-                                        <div class="comt_publish">
-                                            <!---发布信息框-->
-                                            <div class="WB_publish clearfix">
-                                                <div class="p_input">
-                                                    <textarea class="W_input" action-type="check" cols="" rows=""></textarea>
-                                                </div>
-                                                <div class="p_opt">
-                                                    <input type="submit" class="p_opt_btn" value="评论" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--发布框结束-->
-                                        <div class="repeat_list">
-                                            <!--评论内容外框架-->
-                                            <div class="list_box">
-                                                <!--评论内容内框架-->
-                                                <div coment_id="" class="list_li clearfix">
-                                                    <div class="WB_face">
-                                                        <img src="../images/WB_frame_content/userPic2.jpg" />
-                                                    </div>
-                                                    <div class="list_con clearfix">
-                                                        <span class="WB_username">hahahah </span>
-                                                        <!--用户名-->
-                                                        <br />
-                                                        <p class="repeat_text">
-                                                            当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌
-                                                        </p>
-                                                        <!--评论的内容-->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="list_box">
-                                                <!--评论内容内框架-->
-                                                <div coment_id="" class="list_li clearfix">
-                                                    <div class="WB_face">
-                                                        <img src="../images/WB_frame_content/userPic2.jpg" />
-                                                    </div>
-                                                    <div class="list_con">
-                                                        <span class="WB_username">hahahah </span>
-                                                        <!--用户名-->
-                                                        <br />
-                                                        <p class="repeat_text">
-                                                            当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌原在看看后两张，原来胡歌
-                                                        </p>
-                                                        <!--评论的内容-->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--用户评论内容区结束-->
-                                    </div>
-                                </div>
-                                <!--互动评论区结束-->
-                            </div>
-                            <!--单条微博结束-->
+                                    <!--单条微博结束-->
+                                </s:else>
+                            </s:iterator>
                         </div>
                         <div class="change_pages">
-                            <span class="disabled">上一页</span>
-
-                            <span><a href="#?begin=2">下一页</a></span>
+                            <%--上一页--%>
+                            <s:if test="%{#request.page.hasPrePage}">
+                            <span class="enabled">
+                                <a href="<s:url value="/loginIndex?begin=%{#request.page.currentPage-1}&total=10" />">上一页</a>
+                            </span>
+                            </s:if>
+                            <s:else>
+                            <span>
+                                <a>上一页</a>
+                            </span>
+                            </s:else>
+                            <%--下一页--%>
+                            <s:if test="%{#request.page.hasNextPage}" >
+                            <span class="enabled">
+                                <a href="<s:url value="/loginIndex?begin=%{#request.page.currentPage+1}&total=10" />">下一页</a>
+                            </span>
+                            </s:if>
+                            <s:else>
+                            <span>
+                                <a>下一页</a>
+                            </span>
+                            </s:else>
                         </div>
                         <!-- 分页结束 -->
                     </div>
@@ -350,21 +375,21 @@
                             </div>
                             <div class="WB_innerwrap">
                                 <div class="log_userName">
-                                    <a href="" title=""><strong>我是愤青Vliu</strong></a>
+                                    <a href="" title=""><strong><s:property value="#session.user.nickname" /></strong></a>
                                 </div>
                                 <div class="info_detail">
                                     <ul>
                                         <li class="info_txt1">
                                             <a href=""><strong>关注</strong><br />
-                                                <span class="info_txt2">114</span></a>
+                                                <span class="info_txt2"><s:property value="#request.infoMap['numFollowing']" /></span></a>
                                         </li>
                                          <li class="info_txt1">
                                             <a href=""><strong>粉丝</strong><br />
-                                                <span class="info_txt2">22</span></a>
+                                                <span class="info_txt2"><s:property value="#request.infoMap['numFollow']" /></span></a>
                                         </li>
                                         <li>
                                             <a href=""><strong>微博</strong><br />
-                                                <span class="info_txt2">185</span></a>
+                                                <span class="info_txt2"><s:property value="#request.infoMap['numWeibo']" /></span></a>
                                         </li>
                                     </ul>
                                 </div>

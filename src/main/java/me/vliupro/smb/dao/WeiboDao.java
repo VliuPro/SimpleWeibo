@@ -53,13 +53,6 @@ public interface WeiboDao {
     List<Weibo> getWeibosByUserId(int userId);
 
     /**
-     * 根据多个用户ID查找所有微博
-     * @param userIds
-     * @return
-     */
-    List<Weibo> getWeibosByListUserIds(List<Integer> userIds);
-
-    /**
      * 查找weibo的数量
      * @return
      */
