@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Created by vliupro on 16-6-2.
  */
-public class JsonAction extends ActionSupport {
+public class CheckAction extends ActionSupport {
 
     private Map<String, Object> jsonMap;
 
@@ -21,7 +21,7 @@ public class JsonAction extends ActionSupport {
     private String username;
     private String securityCode;
 
-    public JsonAction() {
+    public CheckAction() {
         us = new UserServiceImpl();
         jsonMap = new HashMap<>();
     }

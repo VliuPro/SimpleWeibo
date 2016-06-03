@@ -83,19 +83,19 @@
     <!--json action-->
     <package name="json" namespace="/check" extends="json-default">
 
-        <action name="email" class="me.vliupro.smb.action.JsonAction" method="checkEmail">
+        <action name="email" class="me.vliupro.smb.action.CheckAction" method="checkEmail">
             <result type="json" name="success">
                 <param name="root">jsonMap</param>
             </result>
         </action>
 
-        <action name="user" class="me.vliupro.smb.action.JsonAction" method="checkUsername">
+        <action name="user" class="me.vliupro.smb.action.CheckAction" method="checkUsername">
             <result name="success" type="json">
                 <param name="root">jsonMap</param>
             </result>
         </action>
 
-        <action name="security" class="me.vliupro.smb.action.JsonAction" method="checkSecurityCode">
+        <action name="security" class="me.vliupro.smb.action.CheckAction" method="checkSecurityCode">
             <result name="success" type="json">
                 <param name="root">jsonMap</param>
             </result>
