@@ -53,8 +53,8 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
 
     public List<Weibo> getWeibosByUserId(int userId) {
         List<Weibo> weibos = new ArrayList<Weibo>();
-        String sql = "select * from db_weibo where user_id=?";
-        List<Map<String, Object>> weiboMaps = this.db.queryList(sql, userId);
+        String sql = "select * from db_weibo where user_id=? or forward_id=?";
+        List<Map<String, Object>> weiboMaps = this.db.queryList(sql, userId, userId);
         for (Map<String, Object> weiboMap : weiboMaps) {
             weibos.add((Weibo) this.generate(weiboMap));
         }

@@ -1,17 +1,12 @@
 package me.vliupro.smb.action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import me.vliupro.smb.dao.WeiboDao;
-import me.vliupro.smb.dao.WeiboDaoImpl;
 import me.vliupro.smb.po.Weibo;
 import me.vliupro.smb.service.WeiboService;
 import me.vliupro.smb.service.WeiboServiceImpl;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,7 +39,6 @@ public class WeiboAction extends ActionSupport {
             weibo.setUserId(Integer.parseInt(userMap.get("id").toString()));
             weibo.setwCtime(new java.util.Date());
             weibo.setOriginal(true);
-            weibo.setRemark("");
             weibo.setForwardId(-1);
             if (ws.publish(weibo)) {
                 return SUCCESS;

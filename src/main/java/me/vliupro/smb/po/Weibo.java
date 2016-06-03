@@ -20,7 +20,8 @@ public class Weibo implements Comparable<Weibo> {
     private Date wFtime; //转发时间
 
     public Weibo() {
-
+        remark = "转发微博";
+        wFtime = new Date();
     }
 
     public Weibo(String wContent, int userId, boolean isOriginal) {
