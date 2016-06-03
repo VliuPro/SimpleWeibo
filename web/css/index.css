@@ -202,5 +202,9 @@ margin-bottom:5px;
 .change_pages a{ color:#000;}
 .change_pages a:hover{ text-decoration:underline; color:blue;}
 
+.resend{ width:100%; padding-top:5px; background: #eee;}
+.discuss{font-size:15px;line-height:25px; width:100%; padding: 10px 0;}
+.re_userName{ float:left; width:100%; margin-bottom:5px;}
+.re_userName a{ font-size:16px;}
 
 
