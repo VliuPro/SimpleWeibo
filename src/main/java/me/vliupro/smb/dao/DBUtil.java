@@ -109,7 +109,7 @@ public class DBUtil {
             }
 
         } catch (SQLException e) {
-            logger.error("查询多个对象失败，sql: " + sql);
+            logger.error("查询多个对象失败，exception: " + e.getMessage());
         } finally {
             close(conn, ps, rs);
         }
@@ -143,7 +143,7 @@ public class DBUtil {
                 }
             }
         } catch (SQLException e) {
-            logger.error("查询单个对象失败，sql: " + sql);
+            logger.error("查询单个对象失败，exception: " + e.getMessage());
         } finally {
             close(connection, ps, rs);
         }
@@ -166,7 +166,7 @@ public class DBUtil {
             setParameter(ps, obj);
             rows = ps.executeUpdate();
         } catch (SQLException e) {
-            logger.error("增加、修改、删除 - 失败，sql: " + sql);
+            logger.error("增加、修改、删除 - 失败，exception: " + e.getMessage());
         } finally {
             close(conn, ps, null);
         }
