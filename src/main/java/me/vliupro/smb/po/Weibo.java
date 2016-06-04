@@ -18,6 +18,7 @@ public class Weibo implements Comparable<Weibo> {
     private String remark = ""; //转发评论
     private int forwardId = -1; //转发者ID
     private Date wFtime; //转发时间
+    private int originId = -1; //原微博ID
 
     public Weibo() {
         remark = "转发微博";
@@ -31,7 +32,7 @@ public class Weibo implements Comparable<Weibo> {
         this.isOriginal = isOriginal;
     }
 
-    public Weibo(String wContent, int userId, boolean isOriginal, String remark, int forwardId) {
+    public Weibo(String wContent, int userId, boolean isOriginal, String remark, int forwardId, int originId) {
         this.wContent = wContent;
         this.userId = userId;
         this.wCtime = new Date();
@@ -39,6 +40,7 @@ public class Weibo implements Comparable<Weibo> {
         this.remark = remark;
         this.forwardId = forwardId;
         this.wFtime = new Date();
+        this.originId = originId;
     }
 
     public int getWeiboId() {
@@ -105,6 +107,14 @@ public class Weibo implements Comparable<Weibo> {
         this.wFtime = wFtime;
     }
 
+    public int getOriginId() {
+        return originId;
+    }
+
+    public void setOriginId(int originId) {
+        this.originId = originId;
+    }
+
     @Override
     public String toString() {
         return "Weibo{" +
@@ -135,7 +145,7 @@ public class Weibo implements Comparable<Weibo> {
 
     public static void main(String[] argv) throws InterruptedException {
 
-        Weibo w2 = new Weibo("w2", 2, true, "or", 1);
+        Weibo w2 = new Weibo("w2", 2, true, "or", 1, -1);
         Thread.sleep(1000);
         Weibo w1 = new Weibo("w1", 1, true);
 
