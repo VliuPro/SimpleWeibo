@@ -284,10 +284,10 @@
                                         <!---微博互动栏点赞评论等-->
                                         <div class="WB_handle_in">
                                             <ul>
-                                                <li>
+                                                <li class="forward">
                                                     <a href="javascript:void(0);" title="转发">
                                                             <span class="spa">
-                                                                <img src="../images/share.png"/>
+                                                                <img src="<s:url value="/images/share.png"/>"/>
                                                                 <span class="handtxt">转发</span>
                                                                 <em>15</em>
                                                             </span>
@@ -295,8 +295,11 @@
                                                 </li>
                                                 <li class="curr">
                                                     <a href="javascript:void(0);" title="评论" onclick="change2()">
-                                                        <span class="spa"><img src="../images/Dialog.png"/><span
-                                                                class="handtxt">评论</span><em>203</em></span>
+                                                        <span class="spa">
+                                                            <img src="<s:url value="/images/Dialog.png"/>"/>
+                                                            <span class="handtxt">评论</span>
+                                                            <em>203</em>
+                                                        </span>
                                                     </a>
                                                 </li>
                                                 <li class="thumb">

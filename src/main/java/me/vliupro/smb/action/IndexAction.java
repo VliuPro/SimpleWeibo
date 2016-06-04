@@ -32,6 +32,10 @@ public class IndexAction extends ActionSupport {
         ts = new ThumbServiceImpl();
     }
 
+    /**
+     * 转发到index
+     * @return
+     */
     public String noLoginIndex() {
         if (begin == null || total == null) {
             begin = "1";
@@ -40,6 +44,7 @@ public class IndexAction extends ActionSupport {
         Map<Integer, Object> usersMap = new HashMap<Integer, Object>();
         Page<Weibo> page = ws.getWeibosByPage(Integer.parseInt(begin), Integer.parseInt(total));
         List<Weibo> weibos = page.getItems();
+        List<Integer> weiboIds = new ArrayList<>();
         Map<Integer, Integer> numThumbMap = new HashMap<>();
         for (Weibo weibo : weibos) {
             usersMap.put(weibo.getUserId(), us.getUserById(weibo.getUserId()));
@@ -48,13 +53,20 @@ public class IndexAction extends ActionSupport {
             }
             //微博的赞的数量
             numThumbMap.put(weibo.getWeiboId(), ts.thumbNumOfWeibo(weibo.getWeiboId()));
+            weiboIds.add(weibo.getWeiboId());
         }
+        Map<String, Integer> numForward = ws.getNumOfForwardWeibo(weiboIds);
         ServletActionContext.getRequest().setAttribute("page", page);
         ServletActionContext.getRequest().setAttribute("idMap", usersMap);
         ServletActionContext.getRequest().setAttribute("numThumbMap", numThumbMap);
+        ServletActionContext.getRequest().setAttribute("numForwardMap", numForward);
         return SUCCESS;
     }
 
+    /**
+     * 转发到loginIndex
+     * @return
+     */
     public String loginIndex() {
         if (begin == null || total == null) {
             begin = "1";
@@ -65,6 +77,7 @@ public class IndexAction extends ActionSupport {
         user.mapToUser((Map<String, Object>) ServletActionContext.getRequest().getSession().getAttribute("user"));
         //取出myindex所需要的内容
         List<Integer> users = new ArrayList<>();
+        List<Integer> weiboIds = new ArrayList<>();
         users.add(user.getUserId());
         //由userId获取自己所关注人的ID+上自己的ID放入UserIdList，
         List<Integer> follows = fs.getFollowsByFollowerId(user.getUserId());
@@ -86,18 +99,23 @@ public class IndexAction extends ActionSupport {
             thumbMap.put(weibo.getWeiboId(), ts.isThumbed(user.getUserId(), weibo.getWeiboId()));
             //微博的赞的数量
             numThumbMap.put(weibo.getWeiboId(), ts.thumbNumOfWeibo(weibo.getWeiboId()));
+            //微博转发数量
+            weiboIds.add(weibo.getWeiboId());
         }
         //取出自己的关注的人数、关注自己的人数、已发的微博数、是否能赞
         Map<String, Integer> infoMap = new HashMap<>();
         infoMap.put("numFollowing", fs.getFollowerTotal(user.getUserId()));
         infoMap.put("numFollow", fs.getFollowedTotal(user.getUserId()));
         infoMap.put("numWeibo", ws.getWeibosByUserId(user.getUserId()).size());
+        //放入转发数量
+        Map<String, Integer> numForward = ws.getNumOfForwardWeibo(weiboIds);
         //Page放入request, 各个map放入request
         ServletActionContext.getRequest().setAttribute("page", page);
         ServletActionContext.getRequest().setAttribute("idMap", usersMap);
         ServletActionContext.getRequest().setAttribute("infoMap", infoMap);
         ServletActionContext.getRequest().setAttribute("thumbMap", thumbMap);
         ServletActionContext.getRequest().setAttribute("numThumbMap", numThumbMap);
+        ServletActionContext.getRequest().setAttribute("numForwardMap", numForward);
         return SUCCESS;
     }
 

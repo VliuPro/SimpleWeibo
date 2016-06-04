@@ -47,7 +47,8 @@
                             </div>
                             <div class="loginbox_line">
                                 <div class="remember">
-                                    <input type="checkbox" name="remember" checked="checked"/>
+                                    <label for="remember"></label>
+                                    <input id="remember" type="checkbox" name="remember" checked="checked"/>
                                     <span class="txt1">记住我</span>
                                 </div>
                                 <div class="right_forget">
@@ -86,8 +87,10 @@
                                 <div class="user_info">
                                     <!--用户信息-->
                                     <div class="userPic">
-                                        <a href="" target="_blank" title=""><img
-                                                src="<s:url value="/images/WB_frame_content/userPic.jpg" />" title=""/></a>
+                                        <a href="" target="_blank" title="">
+                                            <img src="<s:url
+                                             value="/images/WB_frame_content/userPic.jpg" />" title=""/>
+                                        </a>
                                     </div>
                                     <div class="userName">
                                         <a href="" target="_blank" title="" class="name"><s:property
@@ -106,14 +109,20 @@
                                     <ul>
                                         <li>
                                             <a href="javascript:void(0);" title="转发">
-                                                <span class="spa"><img src="<s:url value="/images/share.png" />"/><span
-                                                        class="handtxt">转发</span><em>15</em></span>
+                                                <span class="spa">
+                                                    <img src="<s:url value="/images/share.png" />"/>
+                                                    <span class="handtxt">转发</span>
+                                                    <em><s:property value="%{#request.numForwardMap[#weibo.weiboId]}" /></em>
+                                                </span>
                                             </a>
                                         </li>
                                         <li class="curr">
                                             <a href="javascript:void(0);" title="评论" onclick="change2()">
-                                                <span class="spa"><img src="<s:url value="/images/Dialog.png" />"/><span
-                                                        class="handtxt">评论</span><em>203</em></span>
+                                                <span class="spa">
+                                                    <img src="<s:url value="/images/Dialog.png" />"/>
+                                                    <span class="handtxt">评论</span>
+                                                    <em>203</em>
+                                                </span>
                                             </a>
                                         </li>
                                         <li>
@@ -149,7 +158,7 @@
                                         <!--评论内容外框架-->
                                         <div class="list_box">
                                             <!--评论内容内框架-->
-                                            <div coment_id="" class="list_li clearfix">
+                                            <div class="list_li clearfix">
                                                 <div class="WB_face">
                                                     <img src="<s:url value="/images/WB_frame_content/userPic2.jpg" />"/>
                                                 </div>
@@ -166,7 +175,7 @@
                                         </div>
                                         <div class="list_box">
                                             <!--评论内容内框架-->
-                                            <div coment_id="" class="list_li clearfix">
+                                            <div class="list_li clearfix">
                                                 <div class="WB_face">
                                                     <img src="<s:url value="/images/WB_frame_content/userPic2.jpg" />"/>
                                                 </div>
@@ -198,7 +207,8 @@
                                     <!--用户信息-->
                                     <div class="userPic">
                                         <a href="" target="_blank" title="">
-                                            <img src="../images/WB_frame_content/userPic.jpg" title=""/>
+                                            <img src="<s:url
+                                            value="/images/WB_frame_content/userPic.jpg"/>" title=""/>
                                         </a>
                                     </div>
                                     <div class="userName">
@@ -217,7 +227,8 @@
                                     <!--转发的原创者微博内容-->
                                     <div class="re_userName">
                                         <a href="" target="_blank" title="" class="name">
-                                            <span>@</span><s:property value="#request.idMap[#weibo.userId].nickName"/>
+                                            <span>@</span>
+                                            <s:property value="#request.idMap[#weibo.userId].nickName"/>
                                         </a>
                                     </div>
                                     <div class="WB_text">
@@ -241,13 +252,20 @@
                                     <ul>
                                         <li>
                                             <a href="javascript:void(0);" title="转发">
-                                                <span class="spa"><img src="../images/share.png"/><span class="handtxt">转发</span><em>15</em></span>
+                                                <span class="spa">
+                                                    <img src="<s:url value="/images/share.png"/>"/>
+                                                    <span class="handtxt">转发</span>
+                                                    <em><s:property value="%{#request.numForwardMap[#weibo.weiboId]}" /></em>
+                                                </span>
                                             </a>
                                         </li>
                                         <li class="curr">
                                             <a href="javascript:void(0);" title="评论" onclick="change2()">
-                                                <span class="spa"><img src="../images/Dialog.png"/><span
-                                                        class="handtxt">评论</span><em>203</em></span>
+                                                <span class="spa">
+                                                    <img src="<s:url value="/images/Dialog.png" />"/>
+                                                    <span class="handtxt">评论</span>
+                                                    <em>203</em>
+                                                </span>
                                             </a>
                                         </li>
                                         <li>
@@ -283,9 +301,10 @@
                                         <!--评论内容外框架-->
                                         <div class="list_box">
                                             <!--评论内容内框架-->
-                                            <div coment_id="" class="list_li clearfix">
+                                            <div class="list_li clearfix">
                                                 <div class="WB_face">
-                                                    <img src="../images/WB_frame_content/userPic2.jpg"/>
+                                                    <img src="<s:url
+                                                    value="/images/WB_frame_content/userPic2.jpg"/>"/>
                                                 </div>
                                                 <div class="list_con clearfix">
                                                     <span class="WB_username">hahahah </span>
@@ -300,9 +319,10 @@
                                         </div>
                                         <div class="list_box">
                                             <!--评论内容内框架-->
-                                            <div coment_id="" class="list_li clearfix">
+                                            <div class="list_li clearfix">
                                                 <div class="WB_face">
-                                                    <img src="../images/WB_frame_content/userPic2.jpg"/>
+                                                    <img src="<s:url
+                                                    value="/images/WB_frame_content/userPic2.jpg"/>"/>
                                                 </div>
                                                 <div class="list_con">
                                                     <span class="WB_username">hahahah </span>
