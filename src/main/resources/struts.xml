@@ -34,7 +34,7 @@
     <package name="sm" namespace="/" extends="struts-baseEx">
 
         <!--noLoginIndex-->
-        <action name="noLoginIndex" class="me.vliupro.smb.action.IndexAction" method="noLoginIndex">
+        <action name="index" class="me.vliupro.smb.action.IndexAction" method="noLoginIndex">
             <result name="success">/index.jsp</result>
             <interceptor-ref name="defaultStack" />
         </action>
@@ -83,24 +83,58 @@
     <!--json action-->
     <package name="json" namespace="/check" extends="json-default">
 
+        <!--check email-->
         <action name="email" class="me.vliupro.smb.action.CheckAction" method="checkEmail">
             <result type="json" name="success">
                 <param name="root">jsonMap</param>
             </result>
         </action>
 
+        <!--check username-->
         <action name="user" class="me.vliupro.smb.action.CheckAction" method="checkUsername">
             <result name="success" type="json">
                 <param name="root">jsonMap</param>
             </result>
         </action>
 
+        <!--check securityCode-->
         <action name="security" class="me.vliupro.smb.action.CheckAction" method="checkSecurityCode">
             <result name="success" type="json">
                 <param name="root">jsonMap</param>
             </result>
         </action>
 
+        <!--点赞-->
+        <action name="thumbing" class="me.vliupro.smb.action.ThumbAction" method="thumbing">
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+
+        <!--取消点赞-->
+        <action name="unThumb" class="me.vliupro.smb.action.ThumbAction" method="unThumb">
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+    </package>
+
+    <!--json action-->
+    <package name="thumbJson" namespace="/thumb" extends="json-default">
+
+        <!--点赞-->
+        <action name="thumbing" class="me.vliupro.smb.action.ThumbAction" method="thumbing">
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+
+        <!--取消点赞-->
+        <action name="unThumb" class="me.vliupro.smb.action.ThumbAction" method="unThumb">
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
     </package>
 
 </struts>

@@ -36,6 +36,18 @@ public class CommentDaoImpl extends BaseImpl implements CommentDao {
     }
 
     @Override
+    public int getNumOfWeibo(int weiboId) {
+        String sql = "select count(*) as num from db_comment where weibo_id=?";
+        Map<String, Object> map = db.query(sql, weiboId);
+        String num = map.get("num").toString();
+        if (num != null) {
+            return Integer.parseInt(num);
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
     protected Object generate(Map<String, Object> map) {
         Comment comment = new Comment();
         comment.setCommentId(Integer.parseInt(map.get("id").toString()));

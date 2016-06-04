@@ -37,7 +37,7 @@ public class AuthFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             if (session.getAttribute("user") == null) {
-                response.sendRedirect(request.getContextPath() + "/noLoginIndex?begin=1&total=10");
+                response.sendRedirect(request.getContextPath() + "/index?begin=1&total=10");
             } else {
                 response.sendRedirect(request.getContextPath() + "/loginIndex?begin=1&total=10");
             }

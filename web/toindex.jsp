@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <%response.sendRedirect("noLoginIndex?begin=1&total=10");%>
+    <%response.sendRedirect("index?begin=1&total=10");%>
 </body>
 
 </html>

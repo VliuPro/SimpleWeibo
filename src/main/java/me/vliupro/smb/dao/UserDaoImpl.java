@@ -37,27 +37,43 @@ public class UserDaoImpl extends BaseImpl implements UserDao {
 
     public String getPasswdByEmail(String email) {
         String sql = "select password from db_user where email=?";
-        String passwd = this.db.query(sql, email).get("password").toString();
-        return passwd;
+        Map<String, Object> map = this.db.query(sql, email);
+        if (map != null) {
+            return map.get("password").toString();
+        } else {
+            return null;
+        }
     }
 
     public User getUserByEmail(String email) {
         String sql = "select * from db_user where email=?";
         Map<String, Object> userMap = this.db.query(sql, email);
-        return (User) this.generate(userMap);
+        if (userMap != null) {
+            return (User) this.generate(userMap);
+        } else {
+            return null;
+        }
     }
 
     public User getUserById(int userId) {
         String sql = "select * from db_user where id=?";
         Map<String, Object> userMap = this.db.query(sql, userId);
-        return (User) this.generate(userMap);
+        if (userMap != null) {
+            return (User) this.generate(userMap);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public User getUserByNickName(String nickname) {
         String sql = "select * from db_user where nickname=?";
         Map<String, Object> userMap = this.db.query(sql, nickname);
-        return (User) this.generate(userMap);
+        if (userMap != null) {
+            return (User) this.generate(userMap);
+        } else {
+            return null;
+        }
     }
 
     @Override

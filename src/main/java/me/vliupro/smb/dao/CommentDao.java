@@ -29,4 +29,11 @@ public interface CommentDao {
      * @return
      */
     List<Comment> getCommentsByWeiboId(int weiboId);
+
+    /**
+     * 获得微博下评论数量
+     * @param weiboId
+     * @return
+     */
+    int getNumOfWeibo(int weiboId);
 }
