@@ -5,9 +5,7 @@ import me.vliupro.smb.dao.WeiboDaoImpl;
 import me.vliupro.smb.po.Weibo;
 import me.vliupro.smb.utils.Page;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by vliupro on 16-5-31.
@@ -18,7 +16,11 @@ public class WeiboServiceImpl implements WeiboService {
 
     @Override
     public boolean publish(Weibo weibo) {
-        return wd.addWeibo(weibo);
+        if (weibo.isOriginal()) {
+            return wd.addWeibo(weibo);
+        } else {
+            return wd.addForwardWeibo(weibo);
+        }
     }
 
     @Override
@@ -73,5 +75,14 @@ public class WeiboServiceImpl implements WeiboService {
             weiboPage.setItems(weibos.subList((pageNum - 1) * total, weiboPage.getTotalCount()));
         }
         return weiboPage;
+    }
+
+    @Override
+    public Map<String, Integer> getNumOfForwardWeibo(List<Integer> weiboIds) {
+        Map<String, Integer> numMap = new HashMap<>();
+        for (int weiboId : weiboIds) {
+            numMap.put(String.valueOf(weiboId), wd.getForwardWeiboNum(weiboId));
+        }
+        return numMap;
     }
 }

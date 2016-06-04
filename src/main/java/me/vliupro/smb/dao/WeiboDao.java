@@ -57,4 +57,10 @@ public interface WeiboDao {
      * @return
      */
     int getTotalNum();
+
+    /**
+     * 查找转发微博weiboId数
+     * @return
+     */
+    int getForwardWeiboNum(int weiboId);
 }

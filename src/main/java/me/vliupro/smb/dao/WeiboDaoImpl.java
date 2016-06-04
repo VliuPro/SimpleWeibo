@@ -22,10 +22,11 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
 
     @Override
     public boolean addForwardWeibo(Weibo weibo) {
-        String sql = "insert into db_weibo (w_content, user_id, w_ctime, is_original, remark, forward_id，w_ftime) " +
-                "values(?,?,?,?,?,?)";
+        String sql = "insert into db_weibo (w_content, user_id, w_ctime, is_original, remark, forward_id，w_ftime, origin_id) " +
+                "values(?,?,?,?,?,?,?)";
         int count = this.db.update(sql, weibo.getwContent(), weibo.getUserId(),
-                weibo.getwCtime(), weibo.isOriginal(), weibo.getRemark(), weibo.getForwardId(), weibo.getwFtime());
+                weibo.getwCtime(), weibo.isOriginal(), weibo.getRemark(),
+                weibo.getForwardId(), weibo.getwFtime(), weibo.getOriginId());
         return count > 0;
     }
 
@@ -37,8 +38,12 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
 
     public Weibo getWeiboById(int weiboId) {
         String sql = "select * from db_weibo where id=?";
-        Weibo weibo = (Weibo) this.generate(this.db.query(sql, weiboId));
-        return weibo;
+        Map<String, Object> weiboMap = this.db.query(sql, weiboId);
+        if (weiboMap != null) {
+            return (Weibo) this.generate(weiboMap);
+        } else {
+            return null;
+        }
     }
 
     public List<Weibo> getWeibosLimited(int begin, int total) {
@@ -74,6 +79,18 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
     }
 
     @Override
+    public int getForwardWeiboNum(int weiboId) {
+        String sql = "select count(*) as num from db_weibo where origin_id=?";
+        Map<String, Object> map = db.query(sql, weiboId);
+        String num = map.get("num").toString();
+        if (num != null) {
+            return Integer.parseInt(num);
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
     protected Object generate(Map<String, Object> map) {
         Weibo weibo = new Weibo();
         weibo.setWeiboId(Integer.parseInt(map.get("id").toString()));
@@ -88,6 +105,7 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
         } else {
             weibo.setwFtime((new java.util.Date(((Timestamp) map.get("w_ftime")).getTime())));
         }
+        weibo.setOriginId(Integer.parseInt(map.get("origin_id").toString()));
         return weibo;
     }
 }

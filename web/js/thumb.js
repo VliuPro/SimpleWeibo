@@ -22,5 +22,5 @@ $('.WB_handle_in ul li.thumb a.thumbing').bind('click', function () {
                 thumb.children('.spa').children('em').html(data['thumb_num']);
             }
         }
-    })
+    });
 });

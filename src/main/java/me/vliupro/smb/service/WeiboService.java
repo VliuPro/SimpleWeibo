@@ -4,6 +4,7 @@ import me.vliupro.smb.po.Weibo;
 import me.vliupro.smb.utils.Page;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by vliupro on 16-5-31.
@@ -40,11 +41,25 @@ public interface WeiboService {
     Page<Weibo> getWeibosByPage(int pageNum, int total);
 
     /**
-     *
+     * 根据用户ID获取微博List
      * @param userId
      * @return
      */
     List<Weibo> getWeibosByUserId(int userId);
 
+    /**
+     * 根据用户ID<List>获取微博，分页
+     * @param userIds
+     * @param pageNum
+     * @param total
+     * @return
+     */
     Page<Weibo> getWeibosByListUserIds(List<Integer> userIds, int pageNum, int total);
+
+    /**
+     * 获取weiboId微博的转发数量
+     * @param weiboId
+     * @return
+     */
+    Map<String, Integer> getNumOfForwardWeibo(List<Integer> weiboIds);
 }
