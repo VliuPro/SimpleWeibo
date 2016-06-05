@@ -49,6 +49,12 @@
             <result name="error" type="redirect">/main/index.jsp</result>
         </action>
 
+        <!--转发微博-->
+        <action name="forward" class="me.vliupro.smb.action.WeiboAction" method="forward">
+            <result name="success" type="redirectAction">loginIndex?begin=1&amp;total=10</result>
+            <result name="error" type="redirect">/main/index.jsp</result>
+        </action>
+
         <!--登录-->
         <action name="login" class="me.vliupro.smb.action.UserAction" method="login">
             <result name="success" type="redirectAction">loginIndex?begin=1&amp;total=10</result>

@@ -13,13 +13,24 @@ $('.WB_handle_in ul li.thumb a.thumbing').bind('click', function () {
         data: {'weiboId': wId},
         success: function (data) {
             // console.log(thumb);
-            // console.log(data);
-            if (data['status'] === 1) {
-                thumb.attr('class', 'thumbed');
-                thumb.removeAttr('href');
-                thumb.unbind('click');
-                thumb.children('.spa').children('span').html('已赞');
-                thumb.children('.spa').children('em').html(data['thumb_num']);
+            console.log(data);
+            if (data['login_in'] === true && data['url_err'] === false) {
+                // console.log("data['login_in'] === true: " + (data['login_in'] === true));
+                if (data['status'] === 1) {
+                    thumb.attr('class', 'thumbed');
+                    thumb.removeAttr('href');
+                    thumb.unbind('click');
+                    thumb.children('.spa').children('span').html('已赞');
+                    thumb.children('.spa').children('em').html(data['thumb_num']);
+                } else {
+                    alert("禁止刷赞思密达！");
+                }
+            } else {
+                if (data['login_in'] === true && data['url_err'] === true) {
+                    alert("地址错误");
+                } else if (data['login_in'] === false) {
+                    alert("未登录不能点赞哦～");
+                }
             }
         }
     });

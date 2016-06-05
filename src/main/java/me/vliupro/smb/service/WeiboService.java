@@ -57,8 +57,15 @@ public interface WeiboService {
     Page<Weibo> getWeibosByListUserIds(List<Integer> userIds, int pageNum, int total);
 
     /**
+     * 查看userId发表微博数
+     * @param userId
+     * @return
+     */
+    int getNumIfUserWeibo(int userId);
+
+    /**
      * 获取weiboId微博的转发数量
-     * @param weiboId
+     * @param weiboIds
      * @return
      */
     Map<String, Integer> getNumOfForwardWeibo(List<Integer> weiboIds);

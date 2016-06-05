@@ -207,4 +207,69 @@ margin-bottom:5px;
 .re_userName{ float:left; width:100%; margin-bottom:5px;}
 .re_userName a{ font-size:16px;}
 
+.overlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.8);
+}
+.box-forward{
+    display: none;
+    margin: 10px auto;
+    /* margin: auto; */
+    position: absolute;
+    /* position: fixed; */
+    top: 200px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    height: 30%;
+    background: #fff;
+    z-index: 10;
+}
+
+.box-forward .forward-header {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    height: 10%;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+.box-forward .forward-header h3 {
+    float: left;
+}
+
+.box-forward .forward-header .box-close {
+    color: #000000;
+    float: right;
+}
+
+.box-forward .forward-content {
+    height: 55%;
+}
+
+.box-forward .forward-content textarea{
+    display: block;
+    margin: 10px auto;
+    width: 80%;
+    height: 80%;
+    resize: none;
+}
+
+.box-forward .forward-footer {
+    height: 18%;
+    line-height: 18%;
+}
+
+.box-forward .forward-footer button {
+    float: right;
+    margin: 0 20px;
+    width: 50px;
+    background-color: #b4daf0;
+}
 

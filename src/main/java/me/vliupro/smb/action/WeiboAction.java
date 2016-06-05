@@ -42,7 +42,6 @@ public class WeiboAction extends ActionSupport implements SessionAware {
             weibo.setUserId(Integer.parseInt(userMap.get("id").toString()));
             weibo.setwCtime(new Date());
             weibo.setOriginal(true);
-            weibo.setForwardId(-1);
             weibo.setOriginId(-1);
             weibo.setRemark("");
             weibo.setwFtime(null);
@@ -72,7 +71,7 @@ public class WeiboAction extends ActionSupport implements SessionAware {
             //获取待转发的原微博，修改微博forwardId，是否原创，转发时间， 转发
             Weibo weibo = ws.getWeiboById(Integer.parseInt(weiboId));
             weibo.setOriginal(false);
-            weibo.setForwardId(Integer.parseInt(user.get("id").toString()));
+            weibo.setUserId(Integer.parseInt(user.get("id").toString()));
             weibo.setRemark(remark);
             weibo.setOriginId(weibo.getWeiboId());
             weibo.setwFtime(new Date());

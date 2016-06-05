@@ -134,11 +134,14 @@
                                         <!---微博互动栏点赞评论等-->
                                         <div class="WB_handle_in">
                                             <ul>
-                                                <li>
-                                                    <a href="javascript:void(0);" title="转发">
-                                                        <span class="spa"><img
-                                                                src="<s:url value="/images/share.png" />"/><span
-                                                                class="handtxt">转发</span><em>15</em></span>
+                                                <li class="forward">
+                                                    <a class="forward_a" href="javascript:void(0);" title="转发">
+                                                        <span class="spa">
+                                                            <img src="<s:url value="/images/share.png" />"/>
+                                                            <span class="handtxt">转发</span>
+                                                            <em><s:property
+                                                                    value="%{#request.numForwardMap[#weibo.weiboId]}"/></em>
+                                                        </span>
                                                     </a>
                                                 </li>
                                                 <li class="curr">
@@ -151,7 +154,8 @@
                                                 <li class="thumb">
                                                     <s:if test="%{#request.thumbMap[#weibo.weiboId]}">
                                                         <%--已被赞--%>
-                                                        <a class="thumbed" title="已赞" data-wid="<s:property value="#weibo.weiboId" />">
+                                                        <a class="thumbed" title="已赞"
+                                                           data-wid="<s:property value="#weibo.weiboId" />">
                                                                 <span class="spa"><img
                                                                         src="<s:url value="/images/up.png" />"/>
                                                                     <span class="handtxt">已赞</span>
@@ -161,7 +165,8 @@
                                                         </a>
                                                     </s:if>
                                                     <s:else>
-                                                        <a class="thumbing" href="javascript:void(0);" title="赞"  data-wid="<s:property value="#weibo.weiboId" />">
+                                                        <a class="thumbing" href="javascript:void(0);" title="赞"
+                                                           data-wid="<s:property value="#weibo.weiboId" />">
                                                                 <span class="spa"><img
                                                                         src="<s:url value="/images/up.png" />"/>
                                                                     <span class="handtxt">赞</span>
@@ -248,7 +253,7 @@
                                             </div>
                                             <div class="userName">
                                                 <a href="" target="_blank" title="" class="name">
-                                                    <s:property value="#request.idMap[#weibo.forwardId].nickName"/>
+                                                    <s:property value="#request.idMap[#weibo.userId].nickName"/>
                                                 </a>
                                                 <p>
                                                     <s:date name="#weibo.wCtime" format="yyyy-MM-dd HH:mm:ss"/>
@@ -262,7 +267,7 @@
                                             <div class="re_userName">
                                                 <a href="" target="_blank" title="" class="name">
                                                     <span>@</span>
-                                                    <s:property value="#request.idMap[#weibo.userId].nickName"/>
+                                                    <s:property value="#request.originUserMap[#weibo.weiboId]"/>
                                                 </a>
                                             </div>
                                             <div class="WB_text">
@@ -285,12 +290,13 @@
                                         <div class="WB_handle_in">
                                             <ul>
                                                 <li class="forward">
-                                                    <a href="javascript:void(0);" title="转发">
-                                                            <span class="spa">
-                                                                <img src="<s:url value="/images/share.png"/>"/>
-                                                                <span class="handtxt">转发</span>
-                                                                <em>15</em>
-                                                            </span>
+                                                    <a class="forward_a" href="javascript:void(0);" title="转发">
+                                                        <span class="spa">
+                                                            <img src="<s:url value="/images/share.png" />"/>
+                                                            <span class="handtxt">转发</span>
+                                                            <em><s:property
+                                                                    value="%{#request.numForwardMap[#weibo.weiboId]}"/></em>
+                                                        </span>
                                                     </a>
                                                 </li>
                                                 <li class="curr">
@@ -305,17 +311,19 @@
                                                 <li class="thumb">
                                                     <s:if test="%{#request.thumbMap[#weibo.weiboId]}">
                                                         <%--已被赞--%>
-                                                        <a class="thumbed" title="已赞" data-wid="<s:property value="#weibo.weiboId" />">
-                                                                <span class="spa"><img
-                                                                        src="<s:url value="/images/up.png" />"/>
-                                                                    <span class="handtxt">已赞</span>
-                                                                    <em><s:property
-                                                                            value="%{#request.numThumbMap[#weibo.weiboId]}"/></em>
-                                                                </span>
+                                                        <a class="thumbed" title="已赞"
+                                                           data-wid="<s:property value="#weibo.weiboId" />">
+                                                            <span class="spa"><img
+                                                                    src="<s:url value="/images/up.png" />"/>
+                                                                <span class="handtxt">已赞</span>
+                                                                <em><s:property
+                                                                        value="%{#request.numThumbMap[#weibo.weiboId]}"/></em>
+                                                            </span>
                                                         </a>
                                                     </s:if>
                                                     <s:else>
-                                                        <a class="thumbing" href="javascript:void(0);" title="赞" data-wid="<s:property value="#weibo.weiboId" />">
+                                                        <a class="thumbing" href="javascript:void(0);" title="赞"
+                                                           data-wid="<s:property value="#weibo.weiboId" />">
                                                                 <span class="spa"><img
                                                                         src="<s:url value="/images/up.png" />"/>
                                                                     <span class="handtxt">赞</span>
@@ -511,6 +519,20 @@
                 src="<s:url value="/images/gongan.jpg" />"/>京公网安备11000002000019号</a>
     </div>
 </div>
+<div class="box-forward" style="position: fixed">
+    <div class="forward-header">
+        <h3>转发微博</h3>
+        <a href="javascript:void(0);" class="box-close">X</a>
+    </div>
+    <div class="forward-content">
+        <div class=""></div>
+        <textarea name="content"></textarea>
+    </div>
+    <div class="forward-footer">
+        <button type="button" id="forward-sub">转发</button>
+    </div>
+</div>
+<div class="overlay"></div>
 <!---底部信息栏结束-->
 <script src="<s:url value="/js/jquery-1.12.4.min.js" />" type="text/javascript"></script>
 <script src="<s:url value="/js/myindex.js" />" type="text/javascript"></script>
@@ -524,6 +546,38 @@
             $('#a').removeClass('ab');
         }
     }
+</script>
+<script>
+    var weiboId = null;
+    $('.forward_a').on('click', function () {
+//        console.log($(this).parent().siblings('li.thumb').find('a').data('wid'));
+        weiboId = $(this).parent().siblings('li.thumb').find('a').data('wid');
+        $('.overlay,.box-forward').fadeIn(200);
+    });
+
+    $('.overlay').on('click', function () {
+        $('.overlay,.box-forward').fadeOut(200, function () {
+            $(this).removeAttr('style');
+        });
+    });
+
+    $('.box-close').on('click', function () {
+        $('.overlay,.box-forward').fadeOut(200, function () {
+            $(this).removeAttr('style');
+        });
+    });
+
+    $('#forward-sub').on('click', function () {
+        var content = $('.forward-content textarea').val();
+        $.post("/forward",
+                {
+                    'weiboId': weiboId,
+                    'remark': content
+                },
+                function (data) {
+                    window.location.reload(true);
+                });
+    });
 </script>
 </body>
 

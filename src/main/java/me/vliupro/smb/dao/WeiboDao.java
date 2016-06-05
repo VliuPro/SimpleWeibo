@@ -59,6 +59,13 @@ public interface WeiboDao {
     int getTotalNum();
 
     /**
+     * 查看发表微博数
+     * @param userId
+     * @return
+     */
+    int getUserWeiboNum(int userId);
+
+    /**
      * 查找转发微博weiboId数
      * @return
      */

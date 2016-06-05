@@ -38,7 +38,8 @@ public class UserAction extends ActionSupport {
             isRemember = this.remember.equals("on");
         }
         if (username != null) {
-            if (User.encryption(password).equals(us.getUserByUserName(username).getPassword())) {
+            User userN = us.getUserByUserName(username);
+            if (userN != null && User.encryption(password).equals(userN.getPassword())) {
                 //取出user信息存入session
                 User user = us.getUserByUserName(username);
                 ServletActionContext.getRequest().getSession().setAttribute("user", user.toMap());
@@ -48,11 +49,7 @@ public class UserAction extends ActionSupport {
                     ServletActionContext.getRequest().getSession().setMaxInactiveInterval( 60 * 60 * 24 );
                 }
                 return SUCCESS;
-            } else {
-                addActionError("Password Error!");
             }
-        } else {
-            addActionError("email is null");
         }
         return ERROR;
     }
@@ -62,9 +59,7 @@ public class UserAction extends ActionSupport {
      * @return
      */
     public String register(){
-        System.out.println("email: " + email + ", username: " + username + ", password: " + password);
         if (us.checkNickName(username) || us.checkEmail(email)) {
-            addActionError("username or email is exist!");
             return ERROR;
         } else {
             User user = new User();

@@ -16,7 +16,6 @@ public class Weibo implements Comparable<Weibo> {
     private Date wCtime; //发表微博时间
     private boolean isOriginal; //是否原创
     private String remark = ""; //转发评论
-    private int forwardId = -1; //转发者ID
     private Date wFtime; //转发时间
     private int originId = -1; //原微博ID
 
@@ -32,13 +31,12 @@ public class Weibo implements Comparable<Weibo> {
         this.isOriginal = isOriginal;
     }
 
-    public Weibo(String wContent, int userId, boolean isOriginal, String remark, int forwardId, int originId) {
+    public Weibo(String wContent, int userId, boolean isOriginal, String remark, int originId) {
         this.wContent = wContent;
         this.userId = userId;
         this.wCtime = new Date();
         this.isOriginal = isOriginal;
         this.remark = remark;
-        this.forwardId = forwardId;
         this.wFtime = new Date();
         this.originId = originId;
     }
@@ -91,14 +89,6 @@ public class Weibo implements Comparable<Weibo> {
         this.remark = remark;
     }
 
-    public int getForwardId() {
-        return forwardId;
-    }
-
-    public void setForwardId(int forwardId) {
-        this.forwardId = forwardId;
-    }
-
     public Date getwFtime() {
         return wFtime;
     }
@@ -124,8 +114,8 @@ public class Weibo implements Comparable<Weibo> {
                 ", wCtime=" + wCtime +
                 ", isOriginal=" + isOriginal +
                 ", remark='" + remark + '\'' +
-                ", forwardId=" + forwardId +
-                ", forwardTime" + wFtime +
+                ", forwardTime=" + wFtime +
+                ", originId=" + originId +
                 '}';
     }
 
@@ -133,19 +123,19 @@ public class Weibo implements Comparable<Weibo> {
     @Override
     public int compareTo(Weibo weibo) {
         if (this.isOriginal() && weibo.isOriginal()) {
-            return -((Long) (this.getwCtime().getTime() - weibo.getwCtime().getTime())).intValue();
+            return this.getwCtime().before(weibo.getwCtime()) ? 1 : -1;
         } else if (!this.isOriginal() && weibo.isOriginal()) {
-            return -((Long) (this.getwFtime().getTime() - weibo.getwCtime().getTime())).intValue();
+            return this.getwFtime().before(weibo.getwCtime()) ? 1 : -1;
         } else if (this.isOriginal() && !weibo.isOriginal()) {
-            return -((Long) (this.getwCtime().getTime() - weibo.getwFtime().getTime())).intValue();
+            return this.getwCtime().before(weibo.getwFtime()) ? 1 : -1;
         } else {
-            return -((Long) (this.getwFtime().getTime() - weibo.getwFtime().getTime())).intValue();
+            return this.getwFtime().before(weibo.getwFtime()) ? 1 : -1;
         }
     }
 
     public static void main(String[] argv) throws InterruptedException {
 
-        Weibo w2 = new Weibo("w2", 2, true, "or", 1, -1);
+        Weibo w2 = new Weibo("w2", 2, true, "or",  -1);
         Thread.sleep(1000);
         Weibo w1 = new Weibo("w1", 1, true);
 
