@@ -134,6 +134,8 @@ opacity:0.8;filter:alpha(opacity=57);/*设置表单背景色半透明*/
 .list_box{  width:100%; margin-top:15px; border-top-width:1px; border-top-style:solid;  border-color:#D8D8D8;}
 .list_li{ margin-top:15px;}
 .list_con{ width:500px; line-height:15px; float:left; margin-left:15px; font-family: 'Arial','Microsoft YaHei';}
+/*评论时间*/
+.list_con time {font-size: 12px; float: left; height: 20px; line-height: 20px; margin: 5px 0 0 10px;}
 
 .WB_username{font:16px 'Arial','Microsoft YaHei'; color:#338CE6; float:left;position:relative; }
 

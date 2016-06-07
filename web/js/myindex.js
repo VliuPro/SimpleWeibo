@@ -60,12 +60,3 @@ function Offp(name) {
 }
 /*personal实现图片的切换*/
 
-
-/* 点击评论弹出评论框*/
-function change1() {
-    document.getElementById("handle_comt_1").style.display = "";
-}
-
-function change2() {
-    document.getElementById("handle_comt_2").style.display = "";
-}

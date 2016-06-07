@@ -15,15 +15,3 @@ $(document).ready(function() {
         });
     });
 });
-
-function move() {
-    document.getElementById("handle_comt").style.display = "";
-
-}
-
-
-
-/* 点击评论弹出评论框*/
-function change2() {
-    document.getElementById("handle_comt").style.display = "";
-}

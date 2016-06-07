@@ -113,7 +113,7 @@
                                             </div>
                                             <div class="userName">
                                                 <a href="" target="_blank" title="" class="name"><s:property
-                                                        value="#request.idMap[#weibo.userId].nickName"/></a>
+                                                        value="#request.idMap[#weibo.userId]"/></a>
                                                 <p><s:date name="#weibo.wCtime" format="yyyy-MM-dd HH:mm:ss"/></p>
                                             </div>
                                         </div>
@@ -121,14 +121,6 @@
                                             <!--微博文字内容-->
                                             <s:property value="#weibo.wContent"/>
                                         </div>
-                                            <%--<div class="WB_media">--%>
-                                            <%--<!--微博图片-->--%>
-                                            <%--<div class="mediabox">--%>
-                                            <%--<a target="_blank" href="<s:url value="/images/WB_frame_content/media-pic.jpg" />">--%>
-                                            <%--<img src="<s:url value="/images/WB_frame_content/media-pic.jpg" />" />--%>
-                                            <%--</a>--%>
-                                            <%--</div>--%>
-                                            <%--</div>--%>
                                     </div>
                                     <div class="WB_handle">
                                         <!---微博互动栏点赞评论等-->
@@ -136,19 +128,22 @@
                                             <ul>
                                                 <li class="forward">
                                                     <a class="forward_a" href="javascript:void(0);" title="转发">
-                                                        <span class="spa">
-                                                            <img src="<s:url value="/images/share.png" />"/>
-                                                            <span class="handtxt">转发</span>
-                                                            <em><s:property
-                                                                    value="%{#request.numForwardMap[#weibo.weiboId]}"/></em>
-                                                        </span>
+                                                            <span class="spa">
+                                                                <img src="<s:url value="/images/share.png" />"/>
+                                                                <span class="handtxt">转发</span>
+                                                                <em><s:property
+                                                                        value="%{#request.numForwardMap[#weibo.weiboId]}"/></em>
+                                                            </span>
                                                     </a>
                                                 </li>
                                                 <li class="curr">
-                                                    <a href="javascript:void(0);" title="评论" onclick="change1()">
-                                                        <span class="spa"><img
-                                                                src="<s:url value="/images/Dialog.png" />"/><span
-                                                                class="handtxt">评论</span><em>203</em></span>
+                                                    <a class="comment-a" href="javascript:void(0);" title="评论">
+                                                    <span class="spa">
+                                                        <img src="<s:url value="/images/Dialog.png" />"/>
+                                                        <span class="handtxt">评论</span>
+                                                        <em><s:property
+                                                                value="%{#request.commentNumMap[#weibo.weiboId]}"/></em>
+                                                    </span>
                                                     </a>
                                                 </li>
                                                 <li class="thumb">
@@ -156,23 +151,23 @@
                                                         <%--已被赞--%>
                                                         <a class="thumbed" title="已赞"
                                                            data-wid="<s:property value="#weibo.weiboId" />">
-                                                                <span class="spa"><img
-                                                                        src="<s:url value="/images/up.png" />"/>
-                                                                    <span class="handtxt">已赞</span>
-                                                                    <em><s:property
-                                                                            value="%{#request.numThumbMap[#weibo.weiboId]}"/></em>
-                                                                </span>
+                                                        <span class="spa"><img
+                                                                src="<s:url value="/images/up.png" />"/>
+                                                            <span class="handtxt">已赞</span>
+                                                            <em><s:property
+                                                                    value="%{#request.numThumbMap[#weibo.weiboId]}"/></em>
+                                                        </span>
                                                         </a>
                                                     </s:if>
                                                     <s:else>
                                                         <a class="thumbing" href="javascript:void(0);" title="赞"
                                                            data-wid="<s:property value="#weibo.weiboId" />">
-                                                                <span class="spa"><img
-                                                                        src="<s:url value="/images/up.png" />"/>
-                                                                    <span class="handtxt">赞</span>
-                                                                    <em><s:property
-                                                                            value="%{#request.numThumbMap[#weibo.weiboId]}"/></em>
-                                                                </span>
+                                                                    <span class="spa"><img
+                                                                            src="<s:url value="/images/up.png" />"/>
+                                                                        <span class="handtxt">赞</span>
+                                                                        <em><s:property
+                                                                                value="%{#request.numThumbMap[#weibo.weiboId]}"/></em>
+                                                                    </span>
                                                         </a>
                                                     </s:else>
                                                 </li>
@@ -185,60 +180,51 @@
                                         <div class="comt_list">
                                             <div class="comt_publish">
                                                 <!---发布信息框-->
-                                                <div class="WB_publish clearfix">
+                                                <div class="WB_publish clearfix"
+                                                     data-wid="<s:property value="#weibo.weiboId"/>">
                                                     <div class="p_input">
-                                                        <textarea class="W_input" action-type="check" cols=""
-                                                                  rows=""></textarea>
+                                                            <textarea class="W_input" action-type="check" cols=""
+                                                                      rows=""></textarea>
                                                     </div>
                                                     <div class="p_opt">
-                                                        <input type="submit" class="p_opt_btn" value="评论"/>
+                                                        <input type="button" class="p_opt_btn" value="评论"/>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!--发布框结束-->
                                             <div class="repeat_list">
-                                                <!--评论内容外框架-->
-                                                <div class="list_box">
-                                                    <!--评论内容内框架-->
-                                                    <div coment_id="" class="list_li clearfix">
-                                                        <div class="WB_face">
-                                                            <img src="<s:url value="/images/WB_frame_content/userPic2.jpg" />"/>
-                                                        </div>
-                                                        <div class="list_con clearfix">
-                                                            <span class="WB_username">hahahah </span>
-                                                            <!--用户名-->
-                                                            <br/>
-                                                            <p class="repeat_text">
-                                                                当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌
-                                                            </p>
-                                                            <!--评论的内容-->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="list_box">
-                                                    <!--评论内容内框架-->
-                                                    <div coment_id="" class="list_li clearfix">
-                                                        <div class="WB_face">
-                                                            <img src="<s:url value="/images/WB_frame_content/userPic2.jpg" />"/>
-                                                        </div>
-                                                        <div class="list_con">
-                                                            <span class="WB_username">hahahah </span>
-                                                            <!--用户名-->
-                                                            <br/>
-                                                            <p class="repeat_text">
-                                                                当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌原在看看后两张，原来胡歌
-                                                            </p>
-                                                            <!--评论的内容-->
+                                                <s:iterator value="%{#request.commentMap[#weibo.weiboId]}" id="comment">
+                                                    <!--评论内容外框架-->
+                                                    <div class="list_box">
+                                                        <!--评论内容内框架-->
+                                                        <div class="list_li clearfix">
+                                                            <div class="WB_face">
+                                                                <img src="<s:url value="/images/WB_frame_content/userPic2.jpg"/>"/>
+                                                            </div>
+                                                            <div class="list_con clearfix">
+                                                                <span class="WB_username">
+                                                                    <s:property value="%{#request.idMap[#comment.userId]}"/>
+                                                                </span>
+                                                                <!--用户名-->
+                                                                <time style="font-size: 12px;">
+                                                                    <s:date name="#comment.cCtime" format="yyyy-MM-dd HH:mm:ss"/>
+                                                                </time>
+                                                                <br/>
+                                                                <p class="repeat_text">
+                                                                    <s:property value="#comment.cContent"/>
+                                                                </p>
+                                                                <!--评论的内容-->
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </s:iterator>
+                                                <!--用户评论内容区结束-->
                                             </div>
-                                            <!--用户评论内容区结束-->
                                         </div>
+                                        <!--互动评论区结束-->
                                     </div>
-                                    <!--互动评论区结束-->
+                                    <!--单条微博结束-->
                                 </div>
-                                <!--单条微博结束-->
                             </s:if>
                             <s:else>
                                 <!--每一条 “转发微博” 微博的格式-->
@@ -253,7 +239,7 @@
                                             </div>
                                             <div class="userName">
                                                 <a href="" target="_blank" title="" class="name">
-                                                    <s:property value="#request.idMap[#weibo.userId].nickName"/>
+                                                    <s:property value="#request.idMap[#weibo.userId]"/>
                                                 </a>
                                                 <p>
                                                     <s:date name="#weibo.wCtime" format="yyyy-MM-dd HH:mm:ss"/>
@@ -300,11 +286,12 @@
                                                     </a>
                                                 </li>
                                                 <li class="curr">
-                                                    <a href="javascript:void(0);" title="评论" onclick="change2()">
+                                                    <a class="comment-a" href="javascript:void(0);" title="评论">
                                                         <span class="spa">
-                                                            <img src="<s:url value="/images/Dialog.png"/>"/>
+                                                            <img src="<s:url value="/images/Dialog.png" />"/>
                                                             <span class="handtxt">评论</span>
-                                                            <em>203</em>
+                                                            <em><s:property
+                                                                    value="%{#request.commentNumMap[#weibo.weiboId]}"/></em>
                                                         </span>
                                                     </a>
                                                 </li>
@@ -342,7 +329,8 @@
                                         <div class="comt_list">
                                             <div class="comt_publish">
                                                 <!---发布信息框-->
-                                                <div class="WB_publish clearfix">
+                                                <div class="WB_publish clearfix"
+                                                     data-wid="<s:property value="#weibo.weiboId"/>">
                                                     <div class="p_input">
                                                         <textarea class="W_input" action-type="check" cols=""
                                                                   rows=""></textarea>
@@ -354,41 +342,31 @@
                                             </div>
                                             <!--发布框结束-->
                                             <div class="repeat_list">
-                                                <!--评论内容外框架-->
-                                                <div class="list_box">
-                                                    <!--评论内容内框架-->
-                                                    <div coment_id="" class="list_li clearfix">
-                                                        <div class="WB_face">
-                                                            <img src="../images/WB_frame_content/userPic2.jpg"/>
-                                                        </div>
-                                                        <div class="list_con clearfix">
-                                                            <span class="WB_username">hahahah </span>
-                                                            <!--用户名-->
-                                                            <br/>
-                                                            <p class="repeat_text">
-                                                                当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌
-                                                            </p>
-                                                            <!--评论的内容-->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="list_box">
-                                                    <!--评论内容内框架-->
-                                                    <div coment_id="" class="list_li clearfix">
-                                                        <div class="WB_face">
-                                                            <img src="../images/WB_frame_content/userPic2.jpg"/>
-                                                        </div>
-                                                        <div class="list_con">
-                                                            <span class="WB_username">hahahah </span>
-                                                            <!--用户名-->
-                                                            <br/>
-                                                            <p class="repeat_text">
-                                                                当时我们看国剧盛典眼中只看到胡霍二人的恩爱，现在看看后两张，原来胡歌原在看看后两张，原来胡歌
-                                                            </p>
-                                                            <!--评论的内容-->
+                                                <s:iterator value="%{#request.commentMap[#weibo.weiboId]}" id="comment">
+                                                    <!--评论内容外框架-->
+                                                    <div class="list_box">
+                                                        <!--评论内容内框架-->
+                                                        <div class="list_li clearfix">
+                                                            <div class="WB_face">
+                                                                <img src="<s:url value="/images/WB_frame_content/userPic2.jpg"/>"/>
+                                                            </div>
+                                                            <div class="list_con clearfix">
+                                                                <span class="WB_username">
+                                                                    <s:property value="%{#request.idMap[#comment.userId]}"/>
+                                                                </span>
+                                                                <time>
+                                                                    <s:date name="#comment.cCtime" format="yyyy-MM-dd HH:mm:ss"/>
+                                                                </time>
+                                                                <!--用户名-->
+                                                                <br/>
+                                                                <p class="repeat_text">
+                                                                    <s:property value="#comment.cContent"/>
+                                                                </p>
+                                                                <!--评论的内容-->
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </s:iterator>
                                             </div>
                                             <!--用户评论内容区结束-->
                                         </div>
@@ -398,32 +376,32 @@
                                 <!--单条微博结束-->
                             </s:else>
                         </s:iterator>
-                    </div>
-                    <div class="change_pages">
-                        <%--上一页--%>
-                        <s:if test="%{#request.page.hasPrePage}">
+                        <div class="change_pages">
+                            <%--上一页--%>
+                            <s:if test="%{#request.page.hasPrePage}">
                             <span class="enabled">
                                 <a href="<s:url value="/loginIndex?begin=%{#request.page.currentPage-1}&total=10" />">上一页</a>
                             </span>
-                        </s:if>
-                        <s:else>
+                            </s:if>
+                            <s:else>
                             <span>
                                 <a>上一页</a>
                             </span>
-                        </s:else>
-                        <%--下一页--%>
-                        <s:if test="%{#request.page.hasNextPage}">
+                            </s:else>
+                            <%--下一页--%>
+                            <s:if test="%{#request.page.hasNextPage}">
                             <span class="enabled">
                                 <a href="<s:url value="/loginIndex?begin=%{#request.page.currentPage+1}&total=10" />">下一页</a>
                             </span>
-                        </s:if>
-                        <s:else>
+                            </s:if>
+                            <s:else>
                             <span>
                                 <a>下一页</a>
                             </span>
-                        </s:else>
+                            </s:else>
+                        </div>
+                        <!-- 分页结束 -->
                     </div>
-                    <!-- 分页结束 -->
                 </div>
                 <!--myindex主体左边结束-->
                 <!--myindex主体右边全部内容-->
@@ -535,8 +513,10 @@
 <div class="overlay"></div>
 <!---底部信息栏结束-->
 <script src="<s:url value="/js/jquery-1.12.4.min.js" />" type="text/javascript"></script>
-<script src="<s:url value="/js/myindex.js" />" type="text/javascript"></script>
+<script src="<s:url value="/js/myindex.js"/>" type="text/javascript"></script>
+<script src="<s:url value="/js/comment.js"/> "></script>
 <script src="<s:url value="/js/thumb.js" />"></script>
+<script src="<s:url value="/js/forward.js"/> "></script>
 <script type="text/javascript">
     function scrollLis() {
         var toTop = offs.top - $(window).scrollTop();
@@ -546,38 +526,6 @@
             $('#a').removeClass('ab');
         }
     }
-</script>
-<script>
-    var weiboId = null;
-    $('.forward_a').on('click', function () {
-//        console.log($(this).parent().siblings('li.thumb').find('a').data('wid'));
-        weiboId = $(this).parent().siblings('li.thumb').find('a').data('wid');
-        $('.overlay,.box-forward').fadeIn(200);
-    });
-
-    $('.overlay').on('click', function () {
-        $('.overlay,.box-forward').fadeOut(200, function () {
-            $(this).removeAttr('style');
-        });
-    });
-
-    $('.box-close').on('click', function () {
-        $('.overlay,.box-forward').fadeOut(200, function () {
-            $(this).removeAttr('style');
-        });
-    });
-
-    $('#forward-sub').on('click', function () {
-        var content = $('.forward-content textarea').val();
-        $.post("/forward",
-                {
-                    'weiboId': weiboId,
-                    'remark': content
-                },
-                function (data) {
-                    window.location.reload(true);
-                });
-    });
 </script>
 </body>
 

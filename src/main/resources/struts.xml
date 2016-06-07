@@ -126,7 +126,7 @@
     </package>
 
     <!--json action-->
-    <package name="thumbJson" namespace="/thumb" extends="json-default">
+    <package name="thumbJson" namespace="/api" extends="json-default">
 
         <!--点赞-->
         <action name="thumbing" class="me.vliupro.smb.action.ThumbAction" method="thumbing">
@@ -141,6 +141,14 @@
                 <param name="root">jsonMap</param>
             </result>
         </action>
+
+        <!--发表评论-->
+        <action name="comment" class="me.vliupro.smb.action.CommentAction" method="addComment">
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+
     </package>
 
 </struts>

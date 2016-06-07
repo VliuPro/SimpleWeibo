@@ -27,7 +27,7 @@ public class CommentDaoImpl extends BaseImpl implements CommentDao {
 
     public List<Comment> getCommentsByWeiboId(int weiboId) {
         List<Comment> comments = new ArrayList<Comment>();
-        String sql = "select * from db_comment where weibo_id=?";
+        String sql = "select * from db_comment where weibo_id=? order by c_ctime desc";
         List<Map<String, Object>> commentMaps = this.db.queryList(sql, weiboId);
         for (Map<String, Object> commentMap : commentMaps) {
             comments.add((Comment) this.generate(commentMap));
@@ -54,7 +54,7 @@ public class CommentDaoImpl extends BaseImpl implements CommentDao {
         comment.setcContent(map.get("c_content").toString());
         comment.setUserId(Integer.parseInt(map.get("user_id").toString()));
         comment.setWeiboId(Integer.parseInt(map.get("weibo_id").toString()));
-        comment.setcCtime(new java.util.Date(((Timestamp) map.get("w_ctime")).getTime()));
+        comment.setcCtime(new java.util.Date(((Timestamp) map.get("c_ctime")).getTime()));
         return comment;
     }
 }

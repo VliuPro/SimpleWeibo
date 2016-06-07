@@ -1,6 +1,7 @@
 package me.vliupro.smb.action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import me.vliupro.smb.po.Comment;
 import me.vliupro.smb.po.User;
 import me.vliupro.smb.po.Weibo;
 import me.vliupro.smb.service.*;
@@ -18,6 +19,7 @@ public class IndexAction extends ActionSupport {
     private UserService us = null;
     private FollowService fs = null;
     private ThumbService ts = null;
+    private CommentService cs = null;
 
     private String begin;
     private String total;
@@ -27,6 +29,7 @@ public class IndexAction extends ActionSupport {
         us = new UserServiceImpl();
         fs = new FollowServiceImpl();
         ts = new ThumbServiceImpl();
+        cs = new CommentServiceImpl();
     }
 
     /**
@@ -46,7 +49,7 @@ public class IndexAction extends ActionSupport {
             user.mapToUser(map);
         }
         //取出session中的user信息存入User对象
-        Map<Integer, Object> usersMap = new HashMap<Integer, Object>();
+        Map<Integer, String> usersMap = new HashMap<Integer, String>();
         Page<Weibo> page = ws.getWeibosByPage(Integer.parseInt(begin), Integer.parseInt(total));
         List<Weibo> weibos = page.getItems();
         List<Integer> weiboIds = new ArrayList<>();
@@ -55,8 +58,12 @@ public class IndexAction extends ActionSupport {
             thumbMap = new HashMap<>();
         }
         Map<Integer, Integer> numThumbMap = new HashMap<>();
+        //每个微博评论数量
+        Map<Integer, Integer> commentNumMap = new HashMap<>();
+        //每个微博下的评论
+        Map<Integer, Object> commentMap = new HashMap<>();
         for (Weibo weibo : weibos) {
-            usersMap.put(weibo.getUserId(), us.getUserById(weibo.getUserId()));
+            usersMap.put(weibo.getUserId(), us.getUserById(weibo.getUserId()).getNickName());
             if (!weibo.isOriginal()) {
                 Weibo originW = ws.getWeiboById(weibo.getOriginId());
                 User originU = us.getUserById(originW.getUserId());
@@ -69,6 +76,15 @@ public class IndexAction extends ActionSupport {
             //微博的赞的数量
             numThumbMap.put(weibo.getWeiboId(), ts.thumbNumOfWeibo(weibo.getWeiboId()));
             weiboIds.add(weibo.getWeiboId());
+            //每个微博评论数量
+            commentNumMap.put(weibo.getWeiboId(), cs.commentNumOfWeibo(weibo.getWeiboId()));
+            List<Comment> comments = new ArrayList<>();
+            comments = cs.getCommentsByWeibo(weibo.getWeiboId(), 0, 10).getItems();
+            //每个微博下的评论
+            commentMap.put(weibo.getWeiboId(), comments);
+            for (Comment comment : comments) {
+                usersMap.put(comment.getUserId(), us.getUserById(comment.getUserId()).getNickName());
+            }
         }
         Map<String, Integer> numForward = ws.getNumOfForwardWeibo(weiboIds);
         ServletActionContext.getRequest().setAttribute("page", page);
@@ -77,6 +93,8 @@ public class IndexAction extends ActionSupport {
         ServletActionContext.getRequest().setAttribute("numForwardMap", numForward);
         ServletActionContext.getRequest().setAttribute("thumbMap", thumbMap);
         ServletActionContext.getRequest().setAttribute("originUserMap", originUserMap);
+        ServletActionContext.getRequest().setAttribute("commentNumMap", commentNumMap);
+        ServletActionContext.getRequest().setAttribute("commentMap", commentMap);
         return SUCCESS;
     }
 
@@ -103,13 +121,18 @@ public class IndexAction extends ActionSupport {
         //以上的微博存入Page
         Page<Weibo> page = ws.getWeibosByListUserIds(new ArrayList<>(users), Integer.parseInt(begin), Integer.parseInt(total));
         //根据Page里面的items中每个weibo的userId获取username后，以userId为键，username为值，存入HashMap，放入request
-        Map<Integer, Object> usersMap = new HashMap<>();
+        Map<Integer, String> usersMap = new HashMap<>();
         Map<Integer, Boolean> thumbMap = new HashMap<>();
         Map<Integer, Integer> numThumbMap = new HashMap<>();
         Map<Integer, Object> originUserMap = new HashMap<>();
+        //每个微博评论数量
+        Map<Integer, Integer> commentNumMap = new HashMap<>();
+        //每个微博下的评论
+        Map<Integer, Object> commentMap = new HashMap<>();
+        //评论对应的用户名
         for (Weibo weibo : page.getItems()) {
             //userId对应username放入userMap
-            usersMap.put(weibo.getUserId(), us.getUserById(weibo.getUserId()));
+            usersMap.put(weibo.getUserId(), us.getUserById(weibo.getUserId()).getNickName());
             if (!weibo.isOriginal()) {
                 Weibo originW = ws.getWeiboById(weibo.getOriginId());
                 User originU = us.getUserById(originW.getUserId());
@@ -121,6 +144,15 @@ public class IndexAction extends ActionSupport {
             numThumbMap.put(weibo.getWeiboId(), ts.thumbNumOfWeibo(weibo.getWeiboId()));
             //微博转发数量
             weiboIds.add(weibo.getWeiboId());
+            //每个微博评论数量
+            commentNumMap.put(weibo.getWeiboId(), cs.commentNumOfWeibo(weibo.getWeiboId()));
+            List<Comment> comments = new ArrayList<>();
+            comments = cs.getCommentsByWeibo(weibo.getWeiboId(), 0, 10).getItems();
+            //每个微博下的评论
+            commentMap.put(weibo.getWeiboId(), comments);
+            for (Comment comment : comments) {
+                usersMap.put(comment.getUserId(), us.getUserById(comment.getUserId()).getNickName());
+            }
         }
         //取出自己的关注的人数、关注自己的人数、已发的微博数、是否能赞
         Map<String, Integer> infoMap = new HashMap<>();
@@ -137,6 +169,8 @@ public class IndexAction extends ActionSupport {
         ServletActionContext.getRequest().setAttribute("numThumbMap", numThumbMap);
         ServletActionContext.getRequest().setAttribute("numForwardMap", numForward);
         ServletActionContext.getRequest().setAttribute("originUserMap", originUserMap);
+        ServletActionContext.getRequest().setAttribute("commentNumMap", commentNumMap);
+        ServletActionContext.getRequest().setAttribute("commentMap", commentMap);
         return SUCCESS;
     }
 
