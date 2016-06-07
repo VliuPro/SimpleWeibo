@@ -47,12 +47,15 @@ public class ThumbAction extends ActionSupport implements SessionAware {
             }
         } else {
             jsonMap.put("status", 0);
-            if (weiboId == null) {
-                jsonMap.put("url_err", true);
+            if (this.session.get("user") != null) {
                 jsonMap.put("login_in", true);
             } else {
                 jsonMap.put("login_in", false);
-                jsonMap.put("url_err", false);
+                if (weiboId == null) {
+                    jsonMap.put("url_err", true);
+                } else {
+                    jsonMap.put("url_err", false);
+                }
             }
         }
         return SUCCESS;
@@ -64,8 +67,11 @@ public class ThumbAction extends ActionSupport implements SessionAware {
      * @return
      */
     public String unThumb() {
-        User user = (User) this.session.get("user");
-        if (user != null && weiboId != null) {
+        User user = new User();
+        if (this.session.get("user") != null && weiboId != null) {
+            user.mapToUser((Map<String, Object>) this.session.get("user"));
+            jsonMap.put("login_in", true);
+            jsonMap.put("url_err", false);
             if (ts.unThumb(user.getUserId(), Integer.parseInt(weiboId))) {
                 int num = ts.thumbNumOfWeibo(Integer.parseInt(weiboId));
                 jsonMap.put("status", 1);
@@ -75,6 +81,13 @@ public class ThumbAction extends ActionSupport implements SessionAware {
             }
         } else {
             jsonMap.put("status", 0);
+            if (weiboId == null) {
+                jsonMap.put("url_err", true);
+                jsonMap.put("login_in", true);
+            } else {
+                jsonMap.put("login_in", false);
+                jsonMap.put("url_err", false);
+            }
         }
         return SUCCESS;
     }

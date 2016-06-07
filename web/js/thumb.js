@@ -9,7 +9,7 @@ $('.WB_handle_in ul li.thumb a.thumbing').bind('click', function () {
     var wId = thumb.data('wid');
     // console.log('wid: ' + wId);
     $.ajax({
-        url: '/thumb/thumbing',
+        url: '/api/thumbing',
         data: {'weiboId': wId},
         success: function (data) {
             // console.log(thumb);
