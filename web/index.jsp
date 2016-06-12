@@ -222,7 +222,7 @@
                                             <s:property value="#request.idMap[#weibo.userId]"/>
                                         </a>
                                         <p>
-                                            <s:date name="#weibo.wCtime" format="yyyy-MM-dd HH:mm:ss"/>
+                                            <s:date name="#weibo.wFtime" format="yyyy-MM-dd HH:mm:ss"/>
                                         </p>
                                     </div>
                                 </div>

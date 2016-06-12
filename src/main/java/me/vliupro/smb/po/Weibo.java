@@ -132,22 +132,4 @@ public class Weibo implements Comparable<Weibo> {
             return this.getwFtime().before(weibo.getwFtime()) ? 1 : -1;
         }
     }
-
-    public static void main(String[] argv) throws InterruptedException {
-
-        Weibo w2 = new Weibo("w2", 2, true, "or",  -1);
-        Thread.sleep(1000);
-        Weibo w1 = new Weibo("w1", 1, true);
-
-        List<Weibo> weibos = new ArrayList<Weibo>();
-        weibos.add(w2);
-        weibos.add(w1);
-
-        Collections.sort(weibos);
-        for (Weibo weibo : weibos) {
-            System.out.println("weibo : " + weibo);
-        }
-
-        System.out.println(weibos.subList(0, 10));
-    }
 }

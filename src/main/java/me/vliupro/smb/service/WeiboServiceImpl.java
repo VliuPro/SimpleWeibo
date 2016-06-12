@@ -43,7 +43,9 @@ public class WeiboServiceImpl implements WeiboService {
                 weiboPage.getTotalCount() / total : weiboPage.getTotalCount() / total + 1);
         weiboPage.setHasNextPage(weiboPage.getCurrentPage() < weiboPage.getTotalPage());
         weiboPage.setHasPrePage(weiboPage.getCurrentPage() > 1);
-        weiboPage.setItems(wd.getWeibosLimited((pageNum - 1) * total, total));
+        List<Weibo> weibos = wd.getWeibosLimited((pageNum - 1) * total, total);
+        Collections.sort(weibos);
+        weiboPage.setItems(weibos);
         return weiboPage;
     }
 
@@ -90,5 +92,13 @@ public class WeiboServiceImpl implements WeiboService {
             numMap.put(String.valueOf(weiboId), wd.getForwardWeiboNum(weiboId));
         }
         return numMap;
+    }
+
+    public static void main(String[] args) {
+        WeiboServiceImpl ws = new WeiboServiceImpl();
+        Page<Weibo> weiboPage = ws.getWeibosByPage(1, 10);
+        for (Weibo weibo : weiboPage.getItems()) {
+            System.out.println(weibo);
+        }
     }
 }
