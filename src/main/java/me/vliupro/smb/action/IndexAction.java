@@ -49,7 +49,7 @@ public class IndexAction extends ActionSupport {
             user.mapToUser(map);
         }
         //取出session中的user信息存入User对象
-        Map<Integer, String> usersMap = new HashMap<Integer, String>();
+        Map<Integer, String> usersMap = new HashMap<>();
         Page<Weibo> page = ws.getWeibosByPage(Integer.parseInt(begin), Integer.parseInt(total));
         List<Weibo> weibos = page.getItems();
         List<Integer> weiboIds = new ArrayList<>();

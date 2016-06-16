@@ -50,4 +50,12 @@ public interface FollowService {
      * @return
      */
     int getFollowedTotal(int followedId);
+
+    /**
+     * 查询是否已关注
+     * @param followingId
+     * @param followedId
+     * @return
+     */
+    boolean checkFollow(int followingId, int followedId);
 }

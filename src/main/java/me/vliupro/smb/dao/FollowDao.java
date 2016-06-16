@@ -59,4 +59,6 @@ public interface FollowDao {
      */
     int getFollowedNum(int followedId);
 
+    boolean checkFollow(Follow follow);
+
 }

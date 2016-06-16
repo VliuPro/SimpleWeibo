@@ -24,7 +24,7 @@ public class FollowDaoImpl extends BaseImpl implements FollowDao {
     }
 
     public boolean deleteFollowByUser(int followerId, int followedId) {
-        String sql = "delete from db_follow where follower_id=?, followed_id";
+        String sql = "delete from db_follow where follower_id=? and followed_id=?";
         int count = this.db.update(sql, followerId, followedId);
         return count > 0;
     }
@@ -70,6 +70,18 @@ public class FollowDaoImpl extends BaseImpl implements FollowDao {
             return Integer.parseInt(num);
         } else {
             return 0;
+        }
+    }
+
+    @Override
+    public boolean checkFollow(Follow follow) {
+        String sql = "select count(*) as num from db_follow where follower_id=? and followed_id=?";
+        Map<String, Object> map = db.query(sql, follow.getFollowerId(), follow.getFollowedId());
+        String num = map.get("num").toString();
+        if (num != null) {
+            return Integer.parseInt(num) > 0;
+        } else {
+            return false;
         }
     }
 

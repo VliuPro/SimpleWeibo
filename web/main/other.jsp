@@ -2,8 +2,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: vliupro
-  Date: 16-5-30
-  Time: 下午2:36
+  Date: 16-6-16
+  Time: 下午4:44
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,55 +11,41 @@
 
 <head>
     <meta charset="utf-8">
-    <title>我的首页 微博-随时随地发现新鲜事</title>
-    <link rel="stylesheet" type="text/css" href="<s:url value="/css/index.css" />"/>
-    <link rel="stylesheet" type="text/css" href="<s:url value="/css/myindex.css" />"/>
-    <style type="text/css">
-        .ab {
-            position: fixed;
-            float: right;
-            width: 270px;;
-            top: 70px;
-        }
-    </style>
+    <title><s:property value="#request.p_user.nickName" /></title>
+    <link rel="stylesheet" type="text/css" href="<s:url value="/css/personal.css"/>" />
+    <link rel="stylesheet" type="text/css" href="<s:url value="/css/index.css"/>" />
+    <link rel="stylesheet" type="text/css" href="<s:url value="/css/myindex.css"/>" />
+
 </head>
 
-<body>
+<body id="personal">
 <div class="WB_myindex">
     <div class="WB_mymain">
         <div class="blog_top">
             <!--顶部导航栏-->
             <div class="top_inner clearfix">
                 <div class="top_logo">
-                    <a href="<s:url value="/main/index.jsp" />">
-                        <img src="<s:url value="/images/logo2.png" />"/>
-                        <em>
-                            <h2 class="logo_t">微博</h2>
-                        </em>
-                    </a>
+                    <a href="/loginIndex"><img src="../images/logo2.png" /><em><h2 class="logo_t">微博</h2></em></a>
                 </div>
                 <!--顶部logo-->
                 <div class="search">
-                    <input type="text" node-type="searchInput" class="search_input" placeholder="你想知道的这里都有……"/>
-                    <input type="button" value="搜索" title="搜索" id="ficon_search" class="ficon_search"
-                           onmouseover="color()" onmouseout="colorout()" onclick=""/>
+                    <input type="text" node-type="searchInput" class="search_input" placeholder="你想知道的这里都有……" />
+                    <input type="button" value="搜索" title="搜索" id="ficon_search" class="ficon_search" onmouseover="color()" onmouseout="colorout()" onclick="" />
                 </div>
                 <!--搜索框-->
                 <div class="top_nav">
                     <ul class="nav_list">
                         <!--顶部右侧首页和个人-->
                         <li>
-                            <a href="/loginIndex?begin=1&total=10" title="首页">
-                                <img src="<s:url value="/images/home1.png" />" class="list_img"/>
-                                <span class="nav_span1">首页</span>
+                            <a href="/loginIndex" title="首页" onMouseOver="Onp(0)" onMouseOut="Offp(0)">
+                                <img src="<s:url value="/images/home.png"/> " class="list_img" name="img0" onmousemove="color()" />
+                                <span>首页</span>
                             </a>
                         </li>
                         <li>
-                            <a href="<s:url value="/main/personal.jsp" />" title="" onMouseOver="On(0)"
-                               onMouseOut="Off(0)">
-                                <img src="<s:url value="/images/person1.png" />" class="list_img" id="list_img"
-                                     name="img0" onmousemove="color()"/>
-                                <span><s:property value="#session.user.nickname"/></span>
+                            <a href="personal.html" title="">
+                                <img src="<s:url value="/images/person.png"/>" class="list_img" id="list_img" />
+                                <span class="nav_span1"><s:property value="#request.p_user.nickName" /></span>
                             </a>
                         </li>
                         <li>|</li>
@@ -72,32 +58,97 @@
             </div>
         </div>
         <!--顶部导航栏到此结束-->
-        <div class="blog_main clearfix">
-            <!--中部主体内容-->
-            <div class="WB_mymain">
-                <div class="WB_frame_c clearfix">
-                    <!--my主体左边全部内容-->
-                    <!--信息发布框-->
-                    <div class="content_publish">
-                        <div class="content_publish_in clearfix">
-                            <form action="publish" method="post">
-                                <div class="title">
-                                    <img src="<s:url value="/images/title_in.png" />"/>
-                                </div>
-                                <div class="input">
-                                    <textarea class="W_input_in" name="content" title="微博输入框"></textarea>
-                                </div>
-                                <div class="func_pub">
-                                    <div class="kind">
-                                    </div>
-                                    <div class="func">
-                                        <input type="submit" value="发布" class="ficon_search" onclick=""/>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+        <!--中间主要内容-->
+        <div class="per_main">
+            <div class="per_main_head clearfix">
+                <!-- 个人主体内容的上半部分-->
+                <div class="per_userPic">
+                    <div>
+                        <a href=""> <img src="<s:url value="/images/WB_frame_content/userPic.jpg"/>" /> </a>
                     </div>
-                    <div class="content_feed">
+                    <div class="follow">
+                        <!--在其他人首页的关注按钮-->
+                        <p><s:property value="#request.p_user.nickName" /></p>
+                        <!--用户名，不加链接-->
+                        <br />
+                        <p>
+                            <s:if test="#request.infoMap.isFollowed">
+                                <input type="button" class="foll" id="foll" value="取消关注" data-isf="-1"
+                                       data-uid="<s:property value="#request.p_user.userId"/>" />
+                            </s:if>
+                            <s:else>
+                                <input type="button" class="foll" id="foll" value="添加关注" data-isf="1"
+                                       data-uid="<s:property value="#request.p_user.userId"/>" />
+                            </s:else>
+                        </p>
+                    </div>
+                </div>
+                <%--<div class="menu_box">--%>
+                    <%--<ul class="menu">--%>
+                        <%--<li><a href="#"> 主 页 </a></li>--%>
+                        <%--<li><a href="#"> 关注的人 </a></li>--%>
+                        <%--<li><a href="others-information.html">个人资料</a></li>--%>
+                    <%--</ul>--%>
+                <%--</div>--%>
+            </div>
+            <div class="per_main_content">
+                <!--个人主体部分的下半部分-->
+                <div class="per_left">
+                    <!--左边个人资料卡、导航栏（包括：我的资料，我的消息-->
+                    <div class="perinfo_detail clearfix">
+                        <ul>
+                            <li class="perinfo_txt1">
+                                <a href="#"><strong>关注</strong><br />
+                                    <span class="info_txt2">
+                                        <s:property value="#request.infoMap.numFollowing"/>
+                                    </span></a>
+                            </li>
+                            <li class="perinfo_txt1">
+                                <a href=""><strong>粉丝</strong><br />
+                                    <span class="info_txt2">
+                                        <s:property value="#request.infoMap.numFollow"/>
+                                    </span></a>
+                            </li>
+                            <li>
+                                <a href=""><strong>微博</strong><br />
+                                    <span class="info_txt2">
+                                        <s:property value="#request.infoMap.numWeibo"/>
+                                    </span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <%--<div class="infomation" id="information">--%>
+                        <%--<div class="hd">--%>
+                            <%--<h4><a href="others-information.html">个人档</a></h4>--%>
+                        <%--</div>--%>
+                        <%--<div class="bd">--%>
+                            <%--<ul>--%>
+                                <%--<li>--%>
+                                    <%--<div class="ll">性别：</div>--%>
+                                    <%--<!--类名为小写的L和R表示左和右-->--%>
+                                    <%--<div class="rr">男</div>--%>
+                                <%--</li>--%>
+                                <%--<li>--%>
+                                    <%--<div class="ll">年龄：</div>--%>
+                                    <%--<div class="rr">22</div>--%>
+                                <%--</li>--%>
+                                <%--<li>--%>
+                                    <%--<div class="ll">家乡：</div>--%>
+                                    <%--<div class="rr">江苏省 宿迁市</div>--%>
+                                <%--</li>--%>
+                                <%--<li class="li_bottom">--%>
+                                    <%--<div class="ll">公司：</div>--%>
+                                    <%--<div class="rr">常熟理工学院</div>--%>
+                                <%--</li>--%>
+                            <%--</ul>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                </div>
+                <!--左边个人资料卡、导航栏（包括：我的资料，我的消息 -----------结束-->
+                <div class="per_right clearfix">
+                    <!--右边个人发布的微博、消息显示-->
+                    <div class="per_right_inner">
+                        <!--每一条微博的格式-->
                         <s:iterator value="%{#request.page.items}" id="weibo">
                             <s:if test="%{#weibo.original}">
                                 <!--每一条微博的格式-->
@@ -376,101 +427,13 @@
                                 <!--单条微博结束-->
                             </s:else>
                         </s:iterator>
-                        <div class="change_pages">
-                            <%--上一页--%>
-                            <s:if test="%{#request.page.hasPrePage}">
-                            <span class="enabled">
-                                <a href="<s:url value="/loginIndex?begin=%{#request.page.currentPage-1}&total=10" />">上一页</a>
-                            </span>
-                            </s:if>
-                            <s:else>
-                            <span>
-                                <a>上一页</a>
-                            </span>
-                            </s:else>
-                            <%--下一页--%>
-                            <s:if test="%{#request.page.hasNextPage}">
-                            <span class="enabled">
-                                <a href="<s:url value="/loginIndex?begin=%{#request.page.currentPage+1}&total=10" />">下一页</a>
-                            </span>
-                            </s:if>
-                            <s:else>
-                            <span>
-                                <a>下一页</a>
-                            </span>
-                            </s:else>
-                        </div>
-                        <!-- 分页结束 -->
                     </div>
                 </div>
-                <!--myindex主体左边结束-->
-                <!--myindex主体右边全部内容-->
-                <div class="WB_frame_d clearfix">
-                    <div class="person_info">
-                        <div class="cover">
-                            <div class="head_pic">
-                                <a href="" title="">
-                                    <img src="<s:url value="/images/WB_frame_content/userPic.jpg" />"/>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="WB_innerwrap">
-                            <div class="log_userName">
-                                <a href="" title=""><strong><s:property value="#session.user.nickname"/></strong></a>
-                            </div>
-                            <div class="info_detail">
-                                <ul>
-                                    <li class="info_txt1">
-                                        <a href=""><strong>关注</strong><br/>
-                                            <span class="info_txt2"><s:property
-                                                    value="#request.infoMap['numFollowing']"/></span></a>
-                                    </li>
-                                    <li class="info_txt1">
-                                        <a href=""><strong>粉丝</strong><br/>
-                                            <span class="info_txt2"><s:property
-                                                    value="#request.infoMap['numFollow']"/></span></a>
-                                    </li>
-                                    <li>
-                                        <a href=""><strong>微博</strong><br/>
-                                            <span class="info_txt2"><s:property
-                                                    value="#request.infoMap['numWeibo']"/></span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--小资料卡-->
-                    <%--<div class="WB_frameb">--%>
-                        <%--<!--第 2 个右侧浮窗-->--%>
-                        <%--<div class="b_tuijian">--%>
-                            <%--<div class="tuijian_title">--%>
-                                <%--<h4>微博推荐</h4>--%>
-                            <%--</div>--%>
-                            <%--<div class="tuijian_cont clearfix">--%>
-                                <%--<div class="tuijian_inner">--%>
-                                    <%--<ul>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                    <%--</ul>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <!--第 2 个右侧浮窗结束-->
-                </div>
-                <!--右侧内容结束-->
             </div>
         </div>
-        <!--中部主体内容到此结束-->
+        <!--中间主要内容结束-->
     </div>
-    <!--内 结束-->
 </div>
-<!--外 结束-->
 <div id="backtop" style="display: block;">
     <a href="#top"></a>
 </div>
@@ -479,7 +442,7 @@
 <div class="footer">
     <div class="footer_link clearfix">
         <dl class="list">
-            <dt>合作&推荐</dt>
+            <dt>合作&推荐 </dt>
             <dd>联系邮箱：bragg_chen@163.com</dd>
             <dd><a href="http://www.baidu.com/" target="_blank">百度搜索</a></dd>
         </dl>
@@ -488,13 +451,12 @@
             <dd><a href="http://www.baidu.com/" target="_blank">意见反馈</a></dd>
             <dd><a href="http://www.baidu.com/" target="_blank">常见问题</a></dd>
         </dl>
-        <dd><a target="_blank" href="http://weibo.com/aj/static/jicp.html?_wv=6">京ICP证100780号</a></dd>
+        <dd><a target="_blank" href="http://weibo.com/aj/static/jicp.html?_wv=6">京ICP证100780号</a> </dd>
         <dd><a href="http://www.miibeian.gov.cn" target="__blank">京ICP备12002058号</a></dd>
     </div>
     <div class="footer_link2">
         <span>Copyright © 2009-2016 WEIBO 常熟理工学院软件132班J2EE</span>
-        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000019"><img
-                src="<s:url value="/images/gongan.jpg" />"/>京公网安备11000002000019号</a>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000019"><img src="../images/gongan.jpg" />京公网安备11000002000019号</a>
     </div>
 </div>
 <div class="box-forward" style="position: fixed">
@@ -512,21 +474,13 @@
 </div>
 <div class="overlay"></div>
 <!---底部信息栏结束-->
-<script src="<s:url value="/js/jquery-1.12.4.min.js" />" type="text/javascript"></script>
-<script src="<s:url value="/js/myindex.js"/>" type="text/javascript"></script>
+<script src="<s:url value="/js/myindex.js"/>"></script>
+<script src="<s:url value="/js/jquery-1.12.4.min.js"/>"></script>
 <script src="<s:url value="/js/comment.js"/> "></script>
 <script src="<s:url value="/js/thumb.js" />"></script>
 <script src="<s:url value="/js/forward.js"/> "></script>
-<script type="text/javascript">
-    function scrollLis() {
-        var toTop = offs.top - $(window).scrollTop();
-        if (toTop == 0 || toTop < 0) {
-            if (!$('#a').hasClass('ab')) $('#a').addClass('ab');
-        } else {
-            $('#a').removeClass('ab');
-        }
-    }
-</script>
+<script src="<s:url value="/js/follow.js"/>"></script>
+
 </body>
 
 </html>

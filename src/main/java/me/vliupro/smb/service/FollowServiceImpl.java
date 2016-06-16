@@ -42,4 +42,9 @@ public class FollowServiceImpl implements FollowService {
     public int getFollowedTotal(int followedId) {
         return fd.getFollowedNum(followedId);
     }
+
+    @Override
+    public boolean checkFollow(int followingId, int followedId) {
+        return fd.checkFollow(new Follow(followingId, followedId));
+    }
 }

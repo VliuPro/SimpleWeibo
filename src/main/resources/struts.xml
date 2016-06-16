@@ -74,6 +74,11 @@
             <result name="success" type="redirect">/toindex.jsp</result>
         </action>
 
+        <!--查看他人的主页-->
+        <action name="others" class="me.vliupro.smb.action.OthersAction" method="others">
+            <result name="success">/main/other.jsp</result>
+        </action>
+
     </package>
 
     <package name="security" extends="struts-default" namespace="/security">
@@ -123,6 +128,14 @@
                 <param name="root">jsonMap</param>
             </result>
         </action>
+
+        <!--查询是否已关注-->
+        <action name="isFollow" class="me.vliupro.smb.action.FollowAction" method="checkFollow">
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+
     </package>
 
     <!--json action-->
@@ -144,6 +157,17 @@
 
         <!--发表评论-->
         <action name="comment" class="me.vliupro.smb.action.CommentAction" method="addComment">
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+
+        <action name="follow" class="me.vliupro.smb.action.FollowAction" method="following">
+            <result name="success" type="json">
+                <param name="root">jsonMap</param>
+            </result>
+        </action>
+        <action name="unfollow" class="me.vliupro.smb.action.FollowAction" method="unfollow">
             <result name="success" type="json">
                 <param name="root">jsonMap</param>
             </result>
