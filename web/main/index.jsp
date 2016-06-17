@@ -7,6 +7,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<s:url action="api/thumbing" var="thumbing_url"/>
+<s:url action="api/comment" var="comment_url"/>
+<s:url action="forward" var="forward_url"/>
+<s:url action="loginIndex" var="loginIndex_url"/>
+<s:url action="index" var="index_url"/>
 <html>
 
 <head>
@@ -49,14 +54,13 @@
                     <ul class="nav_list">
                         <!--顶部右侧首页和个人-->
                         <li>
-                            <a href="/loginIndex?begin=1&total=10" title="首页">
+                            <a href="${loginIndex_url}?begin=1&total=10" title="首页">
                                 <img src="<s:url value="/images/home1.png" />" class="list_img"/>
                                 <span class="nav_span1">首页</span>
                             </a>
                         </li>
                         <li>
-                            <a href="<s:url value="/main/personal.jsp" />" title="" onMouseOver="On(0)"
-                               onMouseOut="Off(0)">
+                            <a href="<s:url value="/main/personal.jsp" />">
                                 <img src="<s:url value="/images/person1.png" />" class="list_img" id="list_img"
                                      name="img0" onmousemove="color()"/>
                                 <span><s:property value="#session.user.nickname"/></span>
@@ -199,7 +203,7 @@
                                                         <!--评论内容内框架-->
                                                         <div class="list_li clearfix">
                                                             <div class="WB_face">
-                                                                <img src="<s:url value="/images/WB_frame_content/userPic2.jpg"/>"/>
+                                                                <img src="<s:url value="/images/WB_frame_content/userPic.jpg"/>"/>
                                                             </div>
                                                             <div class="list_con clearfix">
                                                                 <span class="WB_username">
@@ -235,7 +239,7 @@
                                             <!--用户信息-->
                                             <div class="userPic">
                                                 <a href="" target="_blank" title=""><img
-                                                        src="../images/WB_frame_content/userPic.jpg" title=""/></a>
+                                                        src="<s:url value="/images/WB_frame_content/userPic.jpg"/>" title=""/></a>
                                             </div>
                                             <div class="userName">
                                                 <a href="" target="_blank" title="" class="name">
@@ -348,7 +352,7 @@
                                                         <!--评论内容内框架-->
                                                         <div class="list_li clearfix">
                                                             <div class="WB_face">
-                                                                <img src="<s:url value="/images/WB_frame_content/userPic2.jpg"/>"/>
+                                                                <img src="<s:url value="/images/WB_frame_content/userPic.jpg"/>"/>
                                                             </div>
                                                             <div class="list_con clearfix">
                                                                 <span class="WB_username">
@@ -380,7 +384,7 @@
                             <%--上一页--%>
                             <s:if test="%{#request.page.hasPrePage}">
                             <span class="enabled">
-                                <a href="<s:url value="/loginIndex?begin=%{#request.page.currentPage-1}&total=10" />">上一页</a>
+                                <a href="${loginIndex_url}?begin=<s:url value="%{#request.page.currentPage-1}"/>&total=10">上一页</a>
                             </span>
                             </s:if>
                             <s:else>
@@ -391,7 +395,7 @@
                             <%--下一页--%>
                             <s:if test="%{#request.page.hasNextPage}">
                             <span class="enabled">
-                                <a href="<s:url value="/loginIndex?begin=%{#request.page.currentPage+1}&total=10" />">下一页</a>
+                                <a href="${loginIndex_url}?begin=<s:url value="%{#request.page.currentPage+1}"/>&total=10">下一页</a>
                             </span>
                             </s:if>
                             <s:else>
@@ -440,27 +444,6 @@
                         </div>
                     </div>
                     <!--小资料卡-->
-                    <%--<div class="WB_frameb">--%>
-                        <%--<!--第 2 个右侧浮窗-->--%>
-                        <%--<div class="b_tuijian">--%>
-                            <%--<div class="tuijian_title">--%>
-                                <%--<h4>微博推荐</h4>--%>
-                            <%--</div>--%>
-                            <%--<div class="tuijian_cont clearfix">--%>
-                                <%--<div class="tuijian_inner">--%>
-                                    <%--<ul>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                        <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
-                                    <%--</ul>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
                     <!--第 2 个右侧浮窗结束-->
                 </div>
                 <!--右侧内容结束-->
@@ -518,6 +501,9 @@
 <script src="<s:url value="/js/thumb.js" />"></script>
 <script src="<s:url value="/js/forward.js"/> "></script>
 <script type="text/javascript">
+    thumb_init('${thumbing_url}');
+    comment_init('${comment_url}');
+    forward_init('${forward_url}');
     function scrollLis() {
         var toTop = offs.top - $(window).scrollTop();
         if (toTop == 0 || toTop < 0) {

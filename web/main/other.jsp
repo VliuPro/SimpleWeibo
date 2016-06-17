@@ -7,6 +7,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<s:url action="api/thumbing" var="thumbing_url"/>
+<s:url action="api/comment" var="comment_url"/>
+<s:url action="forward" var="forward_url"/>
+<s:url action="api/follow" var="follow_url"/>
+<s:url action="api/unfollow" var="unfollow_url"/>
+<s:url action="loginIndex" var="loginIndex_url"/>
 <html>
 
 <head>
@@ -25,7 +31,7 @@
             <!--顶部导航栏-->
             <div class="top_inner clearfix">
                 <div class="top_logo">
-                    <a href="/loginIndex"><img src="../images/logo2.png" /><em><h2 class="logo_t">微博</h2></em></a>
+                    <a href="${loginIndex_url}"><img src="<s:url value="/images/logo2.png" /> "/><em><h2 class="logo_t">微博</h2></em></a>
                 </div>
                 <!--顶部logo-->
                 <div class="search">
@@ -37,7 +43,7 @@
                     <ul class="nav_list">
                         <!--顶部右侧首页和个人-->
                         <li>
-                            <a href="/loginIndex" title="首页" onMouseOver="Onp(0)" onMouseOut="Offp(0)">
+                            <a href="/loginIndex" title="首页">
                                 <img src="<s:url value="/images/home.png"/> " class="list_img" name="img0" onmousemove="color()" />
                                 <span>首页</span>
                             </a>
@@ -250,7 +256,7 @@
                                                         <!--评论内容内框架-->
                                                         <div class="list_li clearfix">
                                                             <div class="WB_face">
-                                                                <img src="<s:url value="/images/WB_frame_content/userPic2.jpg"/>"/>
+                                                                <img src="<s:url value="/images/WB_frame_content/userPic.jpg"/>"/>
                                                             </div>
                                                             <div class="list_con clearfix">
                                                                 <span class="WB_username">
@@ -286,7 +292,7 @@
                                             <!--用户信息-->
                                             <div class="userPic">
                                                 <a href="" target="_blank" title=""><img
-                                                        src="../images/WB_frame_content/userPic.jpg" title=""/></a>
+                                                        src="<s:url value="/images/WB_frame_content/userPic.jpg"/>" title=""/></a>
                                             </div>
                                             <div class="userName">
                                                 <a href="" target="_blank" title="" class="name">
@@ -399,7 +405,7 @@
                                                         <!--评论内容内框架-->
                                                         <div class="list_li clearfix">
                                                             <div class="WB_face">
-                                                                <img src="<s:url value="/images/WB_frame_content/userPic2.jpg"/>"/>
+                                                                <img src="<s:url value="/images/WB_frame_content/userPic.jpg"/>"/>
                                                             </div>
                                                             <div class="list_con clearfix">
                                                                 <span class="WB_username">
@@ -456,7 +462,9 @@
     </div>
     <div class="footer_link2">
         <span>Copyright © 2009-2016 WEIBO 常熟理工学院软件132班J2EE</span>
-        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000019"><img src="../images/gongan.jpg" />京公网安备11000002000019号</a>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000019">
+            <img src="<s:url value="/images/gongan.jpg"/>" />京公网安备11000002000019号
+        </a>
     </div>
 </div>
 <div class="box-forward" style="position: fixed">
@@ -480,6 +488,12 @@
 <script src="<s:url value="/js/thumb.js" />"></script>
 <script src="<s:url value="/js/forward.js"/> "></script>
 <script src="<s:url value="/js/follow.js"/>"></script>
+<script>
+    thumb_init('${thumbing_url}');
+    comment_init('${comment_url}');
+    forward_init('${forward_url}');
+    follow_init('${follow_url}', '${unfollow_url}');
+</script>
 
 </body>
 

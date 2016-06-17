@@ -1,6 +1,8 @@
-/**
- * Created by vliupro on 16-6-6.
- */
+var comment_url = '';
+
+function comment_init(comment_url) {
+    this.comment_url = comment_url;
+}
 
 var comment = $('.comment-a');
 
@@ -23,7 +25,7 @@ $('.p_opt_btn').on('click', function () {
     var weiboId = $(this).parent().parent().data('wid');
     var content = $(this).parent().siblings('div.p_input').find('textarea').val();
     $.post({
-        url: "/api/comment",
+        url: comment_url,
         data: {
             content: content,
             weiboId: weiboId

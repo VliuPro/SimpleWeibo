@@ -7,6 +7,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<s:url action="api/thumbing" var="thumbing_url"/>
+<s:url action="api/comment" var="comment_url"/>
+<s:url action="forward" var="forward_url"/>
+<s:url action="index" var="index_url"/>
 <html>
 
 <head>
@@ -180,7 +184,7 @@
                                                 <div class="list_li clearfix">
                                                     <div class="WB_face">
                                                         <img src="<s:url
-                                                        value="/images/WB_frame_content/userPic2.jpg"/>"/>
+                                                        value="/images/WB_frame_content/userPic.jpg"/>"/>
                                                     </div>
                                                     <div class="list_con clearfix">
                                                         <span class="WB_username">
@@ -329,7 +333,7 @@
                                                 <div class="list_li clearfix">
                                                     <div class="WB_face">
                                                         <img src="<s:url
-                                                        value="/images/WB_frame_content/userPic2.jpg"/>"/>
+                                                        value="/images/WB_frame_content/userPic.jpg"/>"/>
                                                     </div>
                                                     <div class="list_con clearfix">
                                                         <span class="WB_username">
@@ -381,51 +385,51 @@
                 </div>
                 <!-- 分页结束 -->
             </div>
-            <div class="WB_frame_b clearfix">
-                <!--微博主体右侧推荐的内容-->
-                <div class="WB_frameb">
-                    <!--第 1 个右侧浮窗-->
-                    <div class="b_tuijian">
-                        <div class="tuijian_title">
-                            <h4>微博推荐</h4>
-                        </div>
-                        <div class="tuijian_cont">
-                            <div class="tuijian_inner">
-                                <ul>
-                                    <li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>
-                                    <li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>
-                                    <li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>
-                                    <li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>
-                                    <li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>
-                                    <li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>
-                                    <li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="WB_frameb">
-                    <!--第 2 个右侧浮窗-->
-                    <div class="b_tuijian">
-                        <div class="tuijian_title">
-                            <h4>微博找人</h4>
-                        </div>
-                        <div class="tuijian_cont">
-                            <div class="tuijian_inner">
-                                <ul>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                    <li>4</li>
-                                    <li>5</li>
-                                    <li>6</li>
-                                    <li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <%--<div class="WB_frame_b clearfix">--%>
+                <%--<!--微博主体右侧推荐的内容-->--%>
+                <%--<div class="WB_frameb">--%>
+                    <%--<!--第 1 个右侧浮窗-->--%>
+                    <%--<div class="b_tuijian">--%>
+                        <%--<div class="tuijian_title">--%>
+                            <%--<h4>微博推荐</h4>--%>
+                        <%--</div>--%>
+                        <%--<div class="tuijian_cont">--%>
+                            <%--<div class="tuijian_inner">--%>
+                                <%--<ul>--%>
+                                    <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
+                                    <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
+                                    <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
+                                    <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
+                                    <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
+                                    <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
+                                    <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
+                                <%--</ul>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+                <%--<div class="WB_frameb">--%>
+                    <%--<!--第 2 个右侧浮窗-->--%>
+                    <%--<div class="b_tuijian">--%>
+                        <%--<div class="tuijian_title">--%>
+                            <%--<h4>微博找人</h4>--%>
+                        <%--</div>--%>
+                        <%--<div class="tuijian_cont">--%>
+                            <%--<div class="tuijian_inner">--%>
+                                <%--<ul>--%>
+                                    <%--<li>1</li>--%>
+                                    <%--<li>2</li>--%>
+                                    <%--<li>3</li>--%>
+                                    <%--<li>4</li>--%>
+                                    <%--<li>5</li>--%>
+                                    <%--<li>6</li>--%>
+                                    <%--<li><a href="" title="完美特工明日上映" class="txt1">完美特工明日上映</a></li>--%>
+                                <%--</ul>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
         </div>
         <!---返回顶部-->
         <div id="backtop" style="display: block;">
@@ -479,6 +483,11 @@
 <script src="<s:url value="/js/comment.js"/> "></script>
 <script src="<s:url value="/js/thumb.js" />"></script>
 <script src="<s:url value="/js/forward.js"/> "></script>
+<script>
+    thumb_init('${thumbing_url}');
+    comment_init('${comment_url}');
+    forward_init('${forward_url}');
+</script>
 </body>
 
 </html>

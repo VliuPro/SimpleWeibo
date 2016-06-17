@@ -13,28 +13,28 @@ function colorout() {
 } /*实现文字颜色变换*/
 
 
-
-var circleoff;
-var circleon;
-if (document.images) {
-    circleoff = new Image(50, 50);
-    circleoff.src = "../images/person1.png";
-    circleon = new Image(50, 50);
-    circleon.src = "../images/person.png";
-}
-
-function On(name) {
-    if (document.images) {
-        document.images['img' + name].src = circleon.src;
-    }
-}
-
-function Off(name) {
-    if (document.images) {
-        document.images['img' + name].src = circleoff.src;
-    }
-}
-/*实现图片的切换*/
+//
+// var circleoff;
+// var circleon;
+// if (document.images) {
+//     circleoff = new Image(50, 50);
+//     circleoff.src = "../images/person1.png";
+//     circleon = new Image(50, 50);
+//     circleon.src = "../images/person.png";
+// }
+//
+// function On(name) {
+//     if (document.images) {
+//         document.images['img' + name].src = circleon.src;
+//     }
+// }
+//
+// function Off(name) {
+//     if (document.images) {
+//         document.images['img' + name].src = circleoff.src;
+//     }
+// }
+// /*实现图片的切换*/
 
 
 

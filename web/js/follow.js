@@ -2,6 +2,15 @@
  * Created by vliupro on 16-6-16.
  */
 
+var follow_url = '';
+var unfollow_url = '';
+
+function follow_init(follow_url, unfollow_url) {
+    this.follow_url = follow_url;
+    this.unfollow_url = unfollow_url;
+}
+
+
 $('#foll').on('click', function () {
     var userId = $(this).data('uid');
     console.log(typeof($(this).data('isf')));
