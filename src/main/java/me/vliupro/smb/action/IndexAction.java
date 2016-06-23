@@ -24,6 +24,8 @@ public class IndexAction extends ActionSupport {
     private String begin;
     private String total;
 
+    private String key;
+
     public IndexAction() {
         ws = new WeiboServiceImpl();
         us = new UserServiceImpl();
@@ -172,6 +174,84 @@ public class IndexAction extends ActionSupport {
         ServletActionContext.getRequest().setAttribute("commentNumMap", commentNumMap);
         ServletActionContext.getRequest().setAttribute("commentMap", commentMap);
         return SUCCESS;
+    }
+
+    public String search() {
+//        System.out.println("key = " + key);
+        if (begin == null || total == null) {
+            begin = "1";
+            total = "10";
+        }
+        User user = new User();
+        //取出session中的user信息存入User对象
+        user.mapToUser((Map<String, Object>) ServletActionContext.getRequest().getSession().getAttribute("user"));
+        //取出myindex所需要的内容
+        List<Integer> weiboIds = new ArrayList<>();
+        //然后根据UserIdList取出Weibo（根据时间排序，每次取total个）
+        //以上的微博存入Page
+        Page<Weibo> weiboPage = ws.searchWeibos(key.trim(), Integer.parseInt(begin), Integer.parseInt(total));
+//        System.out.println("weiboPage.items: " + weiboPage.getItems());
+        //根据Page里面的items中每个weibo的userId获取username后，以userId为键，username为值，存入HashMap，放入request
+        Map<Integer, String> usersMap = new HashMap<>();
+        Map<Integer, Boolean> thumbMap = new HashMap<>();
+        Map<Integer, Integer> numThumbMap = new HashMap<>();
+        Map<Integer, Object> originUserMap = new HashMap<>();
+        //每个微博评论数量
+        Map<Integer, Integer> commentNumMap = new HashMap<>();
+        //每个微博下的评论
+        Map<Integer, Object> commentMap = new HashMap<>();
+        //评论对应的用户名
+        for (Weibo weibo : weiboPage.getItems()) {
+            //userId对应username放入userMap
+            usersMap.put(weibo.getUserId(), us.getUserById(weibo.getUserId()).getNickName());
+            if (!weibo.isOriginal()) {
+                Weibo originW = ws.getWeiboById(weibo.getOriginId());
+                User originU = us.getUserById(originW.getUserId());
+                originUserMap.put(weibo.getWeiboId(), originU.getNickName());
+            }
+            //微博是否能被session用户赞存入thumbMap
+            thumbMap.put(weibo.getWeiboId(), ts.isThumbed(user.getUserId(), weibo.getWeiboId()));
+            //微博的赞的数量
+            numThumbMap.put(weibo.getWeiboId(), ts.thumbNumOfWeibo(weibo.getWeiboId()));
+            //微博转发数量
+            weiboIds.add(weibo.getWeiboId());
+            //每个微博评论数量
+            commentNumMap.put(weibo.getWeiboId(), cs.commentNumOfWeibo(weibo.getWeiboId()));
+            //评论数量暂时写死
+            List<Comment> comments = cs.getCommentsByWeibo(weibo.getWeiboId(), 0, 10).getItems();
+            //每个微博下的评论
+            commentMap.put(weibo.getWeiboId(), comments);
+            for (Comment comment : comments) {
+                usersMap.put(comment.getUserId(), us.getUserById(comment.getUserId()).getNickName());
+            }
+        }
+        //取出自己的关注的人数、关注自己的人数、已发的微博数、是否能赞
+        Map<String, Integer> infoMap = new HashMap<>();
+        infoMap.put("numFollowing", fs.getFollowerTotal(user.getUserId()));
+        infoMap.put("numFollow", fs.getFollowedTotal(user.getUserId()));
+        infoMap.put("numWeibo", ws.getNumIfUserWeibo(user.getUserId()));
+        //放入转发数量
+        Map<String, Integer> numForward = ws.getNumOfForwardWeibo(weiboIds);
+        //Page放入request, 各个map放入request
+        ServletActionContext.getRequest().setAttribute("page", weiboPage);
+        ServletActionContext.getRequest().setAttribute("idMap", usersMap);
+        ServletActionContext.getRequest().setAttribute("infoMap", infoMap);
+        ServletActionContext.getRequest().setAttribute("thumbMap", thumbMap);
+        ServletActionContext.getRequest().setAttribute("numThumbMap", numThumbMap);
+        ServletActionContext.getRequest().setAttribute("numForwardMap", numForward);
+        ServletActionContext.getRequest().setAttribute("originUserMap", originUserMap);
+        ServletActionContext.getRequest().setAttribute("commentNumMap", commentNumMap);
+        ServletActionContext.getRequest().setAttribute("commentMap", commentMap);
+        return SUCCESS;
+    }
+
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getBegin() {

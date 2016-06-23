@@ -13,7 +13,6 @@ function follow_init(follow_url, unfollow_url) {
 
 $('#foll').on('click', function () {
     var userId = $(this).data('uid');
-    console.log(typeof($(this).data('isf')));
     if ($(this).data('isf') == -1) {
         $.ajax({
             url: '/api/unfollow',
@@ -25,7 +24,7 @@ $('#foll').on('click', function () {
                         $('#foll').val('添加关注');
                         $('#foll').data('isf', 1);
                     } else {
-                        alert('取消关注失败');
+                        alert(data['error']);
                     }
                 } else {
                     if (data['login_in'] === true && data['url_err'] === true) {
@@ -41,12 +40,13 @@ $('#foll').on('click', function () {
             url: '/api/follow',
             data: {userId: userId},
             success: function (data) {
+                console.log(data);
                 if (data['login_in'] === true && data['url_err'] === false) {
                     if (data['status'] == 1) {
                         $('#foll').val('取消关注');
                         $('#foll').data('isf', -1);
                     } else {
-                        alert('关注失败');
+                        alert(data['error']);
                     }
                 } else {
                     if (data['login_in'] === true && data['url_err'] === true) {

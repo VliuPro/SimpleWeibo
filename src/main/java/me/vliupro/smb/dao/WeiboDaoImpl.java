@@ -103,6 +103,17 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
     }
 
     @Override
+    public List<Weibo> searchWeibos(String content, int begin, int total) {
+        List<Weibo> weibos = new ArrayList<>();
+        String sql = "SELECT * FROM db_weibo WHERE UPPER(w_content) LIKE BINARY CONCAT('%',UPPER(?),'%')";
+        List<Map<String, Object>> weiboMaps = this.db.queryList(sql, content);
+        for (Map<String, Object> weiboMap : weiboMaps) {
+            weibos.add((Weibo) this.generate(weiboMap));
+        }
+        return weibos;
+    }
+
+    @Override
     protected Object generate(Map<String, Object> map) {
         Weibo weibo = new Weibo();
         weibo.setWeiboId(Integer.parseInt(map.get("id").toString()));
@@ -118,5 +129,11 @@ public class WeiboDaoImpl extends BaseImpl implements WeiboDao {
         }
         weibo.setOriginId(Integer.parseInt(map.get("origin_id").toString()));
         return weibo;
+    }
+
+    public static void main(String[] args) {
+        WeiboDaoImpl wd = new WeiboDaoImpl();
+        List<Weibo> weibos = wd.searchWeibos("哈", 1, 10);
+        System.out.println("weibos: " + weibos);
     }
 }

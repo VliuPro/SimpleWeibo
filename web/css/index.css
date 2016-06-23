@@ -25,6 +25,10 @@ textarea {
     resize: none;
 }
 
+ul {
+    list-style: none;
+}
+
 .ab {
     /*用于浮动框*/
     position: fixed;
@@ -488,16 +492,16 @@ hr {
 /**主体内容右边栏WB_frame_b开始*/
 
 .WB_frame_b {
-    float: right;
-    width: 300px;
+    float: left;
+    width: 200px;
     padding-top: 15px;
     display: block;
 }
 
 .WB_frameb {
     background-color: #FFF;
-    padding: 15px 15px;
-    margin-bottom: 20px;
+    /*padding: 15px 15px;*/
+    /*margin-bottom: 20px;*/
     border-radius: 3px;
 }
 
@@ -729,4 +733,42 @@ hr {
     margin: 0 20px;
     width: 50px;
     background-color: #b4daf0;
+}
+
+/*右侧tool样式*/
+.tools_right {
+    display: block;
+    width: 100%;
+    height: 40px;
+}
+
+.tools_right li.to_myindex {
+    text-align: center;
+    border: 1px solid #ccc;
+    height: 100%;
+    line-height: 40px;
+}
+
+.tools_right li.to_myindex:hover {
+    background: #ace;
+}
+
+.tools_right li.to_myindex a {
+    padding: 12px 62px;
+}
+
+.tools_right li.logout {
+    text-align: center;
+    border: 1px solid #ccc;
+    height: 100%;
+    line-height: 40px;
+    background: #fff;
+}
+
+.tools_right li.logout:hover {
+    background: #ace;
+}
+
+.tools_right li.logout a {
+    padding: 12px 62px;
 }

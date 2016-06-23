@@ -39,7 +39,13 @@
             <interceptor-ref name="defaultStack" />
         </action>
 
+        <!--loginIndex-->
         <action name="loginIndex" class="me.vliupro.smb.action.IndexAction" method="loginIndex">
+            <result name="success">/main/index.jsp</result>
+        </action>
+
+        <!--搜索-->
+        <action name="search" class="me.vliupro.smb.action.IndexAction" method="search">
             <result name="success">/main/index.jsp</result>
         </action>
 

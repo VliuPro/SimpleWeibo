@@ -59,17 +59,22 @@ public class UserAction extends ActionSupport {
      * @return
      */
     public String register(){
-        if (us.checkNickName(username) || us.checkEmail(email)) {
+        String security = (String) ServletActionContext.getRequest().getSession().getAttribute("SESSION_SECURITY_CODE");
+        if (us.checkNickName(username) || us.checkEmail(email) ) {
             return ERROR;
         } else {
-            User user = new User();
-            user.setEmail(email);
-            user.setNickName(username);
-            user.setPassword(User.encryption(password));
-            if (us.addUser(user)) {
-                return SUCCESS;
+            if(security != null && security.equals(securityCode)) {
+                User user = new User();
+                user.setEmail(email);
+                user.setNickName(username);
+                user.setPassword(User.encryption(password));
+                if (us.addUser(user)) {
+                    return SUCCESS;
+                } else {
+                    logger.error("注册失败，email: " + email + ", username: " + username + ", password: " + password);
+                    return ERROR;
+                }
             } else {
-                logger.error("注册失败，email: " + email + ", username: " + username + ", password: " + password);
                 return ERROR;
             }
         }

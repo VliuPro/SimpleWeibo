@@ -94,6 +94,23 @@ public class WeiboServiceImpl implements WeiboService {
         return numMap;
     }
 
+    @Override
+    public Page<Weibo> searchWeibos(String content, int pageNum, int total) {
+        Page<Weibo> weiboPage = new Page<>();
+        weiboPage.setCurrentPage(pageNum);
+        weiboPage.setEveryPage(total);
+
+        List<Weibo> weibos = wd.searchWeibos(content, pageNum, total);
+        weiboPage.setTotalCount(weibos.size());
+        weiboPage.setTotalPage(weiboPage.getTotalCount() % total == 0 ?
+                weiboPage.getTotalCount() / total : weiboPage.getTotalCount() / total + 1);
+        weiboPage.setHasNextPage(weiboPage.getCurrentPage() < weiboPage.getTotalPage());
+        weiboPage.setHasPrePage(weiboPage.getCurrentPage() > 1);
+        Collections.sort(weibos);
+        weiboPage.setItems(weibos);
+        return weiboPage;
+    }
+
     public static void main(String[] args) {
         WeiboServiceImpl ws = new WeiboServiceImpl();
         Page<Weibo> weiboPage = ws.getWeibosByPage(1, 10);

@@ -69,4 +69,6 @@ public interface WeiboService {
      * @return
      */
     Map<String, Integer> getNumOfForwardWeibo(List<Integer> weiboIds);
+
+    Page<Weibo> searchWeibos(String content, int pageNum, int total);
 }

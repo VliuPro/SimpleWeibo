@@ -81,7 +81,7 @@ ul li {
 }
 
 .search {
-    width: 548px;
+    width: 530px;
     margin-left: 0;
     position: relative;
     float: left;
@@ -95,7 +95,7 @@ ul li {
 /*搜索区域*/
 
 .search_input {
-    width: 470px;
+    width: 452px;
     height: 35px;
     background-color: #f2f2f5;
     border: none;

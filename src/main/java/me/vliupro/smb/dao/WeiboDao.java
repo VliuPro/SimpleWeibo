@@ -70,4 +70,6 @@ public interface WeiboDao {
      * @return
      */
     int getForwardWeiboNum(int weiboId);
+
+    List<Weibo> searchWeibos(String content, int begin, int total);
 }

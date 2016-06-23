@@ -10,7 +10,10 @@
 <s:url action="api/thumbing" var="thumbing_url"/>
 <s:url action="api/comment" var="comment_url"/>
 <s:url action="forward" var="forward_url"/>
+<s:url action="loginIndex" var="loginIndex_url"/>
 <s:url action="index" var="index_url"/>
+<s:url action="others" var="others_url"/>
+<s:url action="logout" var="logout_url"/>
 <html>
 
 <head>
@@ -91,13 +94,13 @@
                                 <div class="user_info">
                                     <!--用户信息-->
                                     <div class="userPic">
-                                        <a href="" target="_blank" title="">
+                                        <a href="${others_url}?userId=${weibo.userId}" target="_blank" title="">
                                             <img src="<s:url
                                              value="/images/WB_frame_content/userPic.jpg" />" title=""/>
                                         </a>
                                     </div>
                                     <div class="userName">
-                                        <a href="" target="_blank" title="" class="name"><s:property
+                                        <a href="${others_url}?userId=${weibo.userId}" target="_blank" title="" class="name"><s:property
                                                 value="#request.idMap[#weibo.userId]"/></a>
                                         <p><s:date name="#weibo.wCtime" format="yyyy-MM-dd HH:mm:ss"/></p>
                                     </div>
@@ -216,13 +219,13 @@
                                 <div class="user_info clearfix">
                                     <!--用户信息-->
                                     <div class="userPic">
-                                        <a href="" target="_blank" title="">
+                                        <a href="${others_url}?userId=${weibo.userId}" target="_blank" title="">
                                             <img src="<s:url
                                             value="/images/WB_frame_content/userPic.jpg"/>" title=""/>
                                         </a>
                                     </div>
                                     <div class="userName">
-                                        <a href="" target="_blank" title="" class="name">
+                                        <a href="${others_url}?userId=${weibo.userId}" target="_blank" title="" class="name">
                                             <s:property value="#request.idMap[#weibo.userId]"/>
                                         </a>
                                         <p>
@@ -385,9 +388,18 @@
                 </div>
                 <!-- 分页结束 -->
             </div>
-            <%--<div class="WB_frame_b clearfix">--%>
-                <%--<!--微博主体右侧推荐的内容-->--%>
-                <%--<div class="WB_frameb">--%>
+            <s:if test="#session.user!=null">
+            <div class="WB_frame_b clearfix">
+                <!--微博主体右侧推荐的内容-->
+                <div class="WB_frameb">
+                    <ul class="tools_right">
+                        <li class="to_myindex">
+                            <a href="${loginIndex_url}">我的首页</a>
+                        </li>
+                        <li class="logout">
+                            <a href="${logout_url}">注销</a>
+                        </li>
+                    </ul>
                     <%--<!--第 1 个右侧浮窗-->--%>
                     <%--<div class="b_tuijian">--%>
                         <%--<div class="tuijian_title">--%>
@@ -407,7 +419,7 @@
                             <%--</div>--%>
                         <%--</div>--%>
                     <%--</div>--%>
-                <%--</div>--%>
+                </div>
                 <%--<div class="WB_frameb">--%>
                     <%--<!--第 2 个右侧浮窗-->--%>
                     <%--<div class="b_tuijian">--%>
@@ -429,7 +441,8 @@
                         <%--</div>--%>
                     <%--</div>--%>
                 <%--</div>--%>
-            <%--</div>--%>
+            </div>
+            </s:if>
         </div>
         <!---返回顶部-->
         <div id="backtop" style="display: block;">

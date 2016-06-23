@@ -12,6 +12,9 @@
 <s:url action="forward" var="forward_url"/>
 <s:url action="loginIndex" var="loginIndex_url"/>
 <s:url action="index" var="index_url"/>
+<s:url action="others" var="others_url"/>
+<s:url action="logout" var="logout_url"/>
+<s:url action="search" var="search_url"/>
 <html>
 
 <head>
@@ -36,7 +39,7 @@
             <!--顶部导航栏-->
             <div class="top_inner clearfix">
                 <div class="top_logo">
-                    <a href="<s:url value="/main/index.jsp" />">
+                    <a href="${index_url}">
                         <img src="<s:url value="/images/logo2.png" />"/>
                         <em>
                             <h2 class="logo_t">微博</h2>
@@ -45,9 +48,8 @@
                 </div>
                 <!--顶部logo-->
                 <div class="search">
-                    <input type="text" node-type="searchInput" class="search_input" placeholder="你想知道的这里都有……"/>
-                    <input type="button" value="搜索" title="搜索" id="ficon_search" class="ficon_search"
-                           onmouseover="color()" onmouseout="colorout()" onclick=""/>
+                    <input type="text" node-type="searchInput" id="search_content" class="search_input" placeholder="你想知道的这里都有……"/>
+                    <input type="button" value="搜索" title="搜索" id="ficon_search" class="ficon_search" onclick=""/>
                 </div>
                 <!--搜索框-->
                 <div class="top_nav">
@@ -56,7 +58,7 @@
                         <li>
                             <a href="${loginIndex_url}?begin=1&total=10" title="首页">
                                 <img src="<s:url value="/images/home1.png" />" class="list_img"/>
-                                <span class="nav_span1">首页</span>
+                                <span class="nav_span1">我的首页</span>
                             </a>
                         </li>
                         <li>
@@ -68,7 +70,7 @@
                         </li>
                         <li>|</li>
                         <li>
-                            <a href="/logout" onclick="">退出</a>
+                            <a href="${logout_url}" onclick="">退出</a>
                         </li>
                     </ul>
                 </div>
@@ -111,12 +113,12 @@
                                         <div class="user_info">
                                             <!--用户信息-->
                                             <div class="userPic">
-                                                <a href="" target="_blank" title=""><img
+                                                <a href="${others_url}?userId=${weibo.userId}" target="_blank" title=""><img
                                                         src="<s:url value="/images/WB_frame_content/userPic.jpg" />"
                                                         title=""/></a>
                                             </div>
                                             <div class="userName">
-                                                <a href="<s:url value="" />" target="_blank" title="" class="name"><s:property
+                                                <a href="${others_url}?userId=${weibo.userId}" target="_blank" title="" class="name"><s:property
                                                         value="#request.idMap[#weibo.userId]"/></a>
                                                 <p><s:date name="#weibo.wCtime" format="yyyy-MM-dd HH:mm:ss"/></p>
                                             </div>
@@ -238,11 +240,11 @@
                                         <div class="user_info clearfix">
                                             <!--用户信息-->
                                             <div class="userPic">
-                                                <a href="" target="_blank" title=""><img
+                                                <a href="${others_url}?userId=${weibo.userId}" target="_blank" title=""><img
                                                         src="<s:url value="/images/WB_frame_content/userPic.jpg"/>" title=""/></a>
                                             </div>
                                             <div class="userName">
-                                                <a href="" target="_blank" title="" class="name">
+                                                <a href="${others_url}?userId=${weibo.userId}" target="_blank" title="" class="name">
                                                     <s:property value="#request.idMap[#weibo.userId]"/>
                                                 </a>
                                                 <p>
@@ -255,7 +257,7 @@
                                         <div class="resend">
                                             <!--转发者的评论--当没有评论内容的时候，系统添加“转发微博1”-->
                                             <div class="re_userName">
-                                                <a href="" target="_blank" title="" class="name">
+                                                <a target="_blank" title="" class="name">
                                                     <span>@</span>
                                                     <s:property value="#request.originUserMap[#weibo.weiboId]"/>
                                                 </a>
@@ -512,6 +514,11 @@
             $('#a').removeClass('ab');
         }
     }
+    $('#ficon_search').on('click', function () {
+        var content = $('#search_content').val();
+        console.log(content);
+        window.location.href = '${search_url}?begin=1&total=10&key=' + content;
+    });
 </script>
 </body>
 
